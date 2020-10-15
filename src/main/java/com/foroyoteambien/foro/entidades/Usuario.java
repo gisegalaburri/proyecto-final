@@ -9,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +27,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String nickname;
-    private String mail;
+    private String email;
     private String clave1;
     private String clave2;
     private String descripcion;
@@ -59,12 +58,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String id, String nombre, String apellido, String nickname, String mail, Pais pais, Date fechaNacimiento, String descripcion, String clave1, String clave2, Diagnostico diagnostico, Rol rol, Date fechaAlta, Date fechaModificacion, boolean activo, Foto foto) {
+    public Usuario(String id, String nombre, String apellido, String nickname, String email, Pais pais, Date fechaNacimiento, String descripcion, String clave1, String clave2, Diagnostico diagnostico, Rol rol, Date fechaAlta, Date fechaModificacion, boolean activo, Foto foto) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.nickname = nickname;
-        this.mail = mail;
+        this.email = email;
         this.pais = pais;
         this.fechaNacimiento = fechaNacimiento;
         this.descripcion = descripcion;
@@ -110,12 +109,12 @@ public class Usuario {
         this.nickname = nickname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Pais getPais() {
@@ -208,8 +207,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", nickname=" + nickname + ", mail=" + mail + ", pais=" + pais + ", fechaNacimiento=" + fechaNacimiento + ", descripcion=" + descripcion + ", clave1=" + clave1 + ", clave2=" + clave2 + ", diagnostico=" + diagnostico + ", rol=" + rol + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + ", foto=" + foto + '}';
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", nickname=" + nickname + ", email=" + email + ", pais=" + pais + ", fechaNacimiento=" + fechaNacimiento + ", descripcion=" + descripcion + ", clave1=" + clave1 + ", clave2=" + clave2 + ", diagnostico=" + diagnostico + ", rol=" + rol + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + ", foto=" + foto + '}';
     }
 
    
 }
+
