@@ -13,6 +13,8 @@ import com.foroyoteambien.foro.enumeraciones.Rol;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,7 +30,7 @@ public class UsuarioServicio {
 
     @Autowired
     UsuarioRepositorio usuarioRepositrio;
-    
+
     @Autowired
     FotoServicio fotoServicio;
 
@@ -41,9 +43,9 @@ public class UsuarioServicio {
         validar(nombre, apellido, nickname, email, clave1, clave2, pais, fechaNacimiento, diagnostico);
 
         Usuario usuario = usuarioRepositrio.buscarPorNick(nickname);
-        
+
         if (usuario == null) {
-            
+
             usuario = usuarioRepositrio.buscarPorMail(email);
 
             if (usuario == null) {
@@ -68,7 +70,7 @@ public class UsuarioServicio {
                 usuario.setRol(Rol.MODERADOR);
                 usuario.setFechaAlta(new Date());
                 usuario.setActivo(true);
-                
+
                 Foto foto = fotoServicio.guardarFoto(archivo);
                 usuario.setFoto(foto);
 
@@ -82,8 +84,101 @@ public class UsuarioServicio {
             throw new ErrorServicio("El nickname elegido ya está en uso.");
         }
     }
+
+    @Transactional
+    public void modificarUsuario(String id, String nombre, String apellido,
+            String nickname, String email, String clave1, String clave2,
+            String descripcion, Pais pais, Date fechaNacimiento,
+            Diagnostico diagnositco, MultipartFile archivo) throws ErrorServicio {
+
+        validar(nombre, apellido, nickname, email, clave1, clave2, pais, fechaNacimiento, diagnositco);
+
+        if (id.isEmpty() || id == null) {
+            throw new ErrorServicio("El id no puede ser nulo.");
+        }
+
+        Optional<Usuario> optional = usuarioRepositrio.findById(id);
+
+        if (optional.isPresent()) {
+            Usuario usuario = optional.get();
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(email);
+
+            String encypted1 = new BCryptPasswordEncoder().encode(clave1);
+            usuario.setClave1(encypted1);
+
+            String encypted2 = new BCryptPasswordEncoder().encode(clave2);
+            usuario.setClave2(encypted2);
+
+            usuario.setDescripcion(descripcion);
+            usuario.setPais(pais);
+            usuario.setFechaNacimiento(fechaNacimiento);
+            usuario.setDiagnostico(diagnositco);
+
+            String idFoto = null;
+            if (usuario.getFoto() != null) {
+                idFoto = usuario.getFoto().getId();
+            }
+
+            Foto foto = fotoServicio.actualizar(idFoto, archivo);
+            usuario.setFoto(foto);
+
+            usuario.setFechaModificacion(new Date());
+
+            usuarioRepositrio.save(usuario);
+        }
+    }
+
+    @Transactional
+    public void deshabilitar(String id) throws ErrorServicio {
+        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+
+            usuario.setFechaModificacion(new Date());
+            usuario.setActivo(false);
+
+            usuarioRepositrio.save(usuario);
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado.");
+
+        }
+    }
+
+    @Transactional
+    public void volverAHabilitar(String id) throws ErrorServicio {
+        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+
+            usuario.setFechaModificacion(new Date());
+            usuario.setActivo(true);
+
+            usuarioRepositrio.save(usuario);
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado.");
+
+        }
+    }
+
+    private Boolean validarActivo(String id) throws ErrorServicio {
+        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+            
+            return usuario.isActivo();     
+        } else {
+            throw new ErrorServicio("No se encontró el usuario solicitado.");
+        }
+    }
     
-    
+    private List<Usuario> listarActivos(){
+        return null;
+    }
 
     private void validar(String nombre, String apellido, String nickname,
             String email, String clave1, String clave2,
@@ -95,6 +190,11 @@ public class UsuarioServicio {
 
         if (apellido.trim().isEmpty() || apellido == null) {
             throw new ErrorServicio("El campo apellido no puede estar vacío.");
+        }
+
+        if (nickname.trim().isEmpty() || nickname == null) {
+            throw new ErrorServicio("El campo nickname no puede estar vacío.");
+
         }
 
         if (email.trim().isEmpty() || !email.contains("@") || email == null) {
