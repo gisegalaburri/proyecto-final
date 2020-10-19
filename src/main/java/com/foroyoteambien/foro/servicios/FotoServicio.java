@@ -69,10 +69,10 @@ public class FotoServicio {
 
     @Transactional
     public Foto actualizar(String idFoto, MultipartFile archivo) throws ErrorServicio {
-
+        Foto foto = null;
         if (archivo.getContentType().equals("image/jpeg")) {
             try {
-                Foto foto = new Foto();
+                
 
                 if (idFoto != null) {
                     Optional<Foto> opt = fotoRepositorio.findById(idFoto);
@@ -91,6 +91,7 @@ public class FotoServicio {
             }
 
         }
+        
         return null;
     }
 }

@@ -117,7 +117,7 @@ public class UsuarioServicio {
             usuario.setDiagnostico(diagnositco);
 
             String idFoto = null;
-            if (usuario.getFoto() != null) {
+            if (!usuario.getFoto().getContenido().equals("image/jpeg")) {
                 idFoto = usuario.getFoto().getId();
             }
 
