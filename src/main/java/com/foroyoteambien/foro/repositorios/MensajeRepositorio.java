@@ -1,0 +1,20 @@
+package com.foroyoteambien.foro.repositorios;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.foroyoteambien.foro.entidades.Mensaje;
+
+
+@Repository 
+public interface MensajeRepositorio extends JpaRepository<Mensaje, String> {
+
+	@Query("SELECT m FROM Mensaje m WHERE m.solucionado IS NOT TRUE")
+	public List<Mensaje> buscarNoResuelto();
+	
+
+}
