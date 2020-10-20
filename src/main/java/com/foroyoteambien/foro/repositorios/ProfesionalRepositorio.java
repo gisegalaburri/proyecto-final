@@ -7,8 +7,12 @@
 package com.foroyoteambien.foro.repositorios;
 
 import com.foroyoteambien.foro.entidades.Profesional;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 
 /**
  * 
@@ -17,4 +21,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfesionalRepositorio extends JpaRepository<Profesional, String>{
 
+    @Query("SELECT p FROM Profesional p WHERE p.email LIKE :email")
+    public Profesional buscarPorMail(@Param("email") String email);
+    
+    @Query("SELECT p FROM Profesional p WHERE p.activo IS TRUE")
+    public List<Profesional> listarActivos();
+    
+    @Query("SELECT p FROM Profesional p WHERE p.pais LIKE :pais")
+    public List<Profesional> listarPorPais(@Param("pais") String pais);
 }
