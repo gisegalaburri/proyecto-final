@@ -46,18 +46,18 @@ public class FotoServicio {
         }
         return foto;
     }
-
-    @Transactional
+    
+     @Transactional
     public Foto guardarPorDefecto(MultipartFile archivo) throws ErrorServicio {
 
         if (archivo != null) {
             try {
                 Foto foto = new Foto();
-
+                
                 foto.setMime(archivo.getContentType());
                 foto.setNombre(archivo.getOriginalFilename());
                 foto.setContenido(archivo.getBytes());
-
+                
                 return fotoRepositorio.save(foto);
 
             } catch (IOException e) {
@@ -66,21 +66,21 @@ public class FotoServicio {
         }
         return null;
     }
-
+    
     @Transactional
     public Foto actualizar(String idFoto, MultipartFile archivo) throws ErrorServicio {
-        Foto foto = null;
+        
         if (archivo.getContentType().equals("image/jpeg")) {
             try {
+                Foto foto = new Foto();
                 
-
                 if (idFoto != null) {
                     Optional<Foto> opt = fotoRepositorio.findById(idFoto);
                     if (opt.isPresent()) {
                         foto = opt.get();
                     }
                 }
-
+                
                 foto.setMime(archivo.getContentType());
                 foto.setNombre(archivo.getOriginalFilename());
                 foto.setContenido(archivo.getBytes());
@@ -91,11 +91,6 @@ public class FotoServicio {
             }
 
         }
-        
         return null;
-    }
-    
-    public Foto buscarPorId(String id) throws ErrorServicio {
-        return fotoRepositorio.getOne(id);
     }
 }

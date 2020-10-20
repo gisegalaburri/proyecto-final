@@ -24,7 +24,7 @@ public class Profesional {
 
     private String nombre;
     private String apellido;
-    private String email;
+    private String mail;
 
     @Enumerated(EnumType.STRING)
     private Pais pais;
@@ -42,17 +42,15 @@ public class Profesional {
     private Date fechaModificacion;
     
     private boolean activo;
-    
-    private Foto foto;
 
     public Profesional() {
     }
 
-    public Profesional(String id, String nombre, String apellido, String email, Pais pais, Profesion profesion, String descripcion, Integer telefono, Date fechaAlta, Date fechaModificacion, boolean activo) {
+    public Profesional(String id, String nombre, String apellido, String mail, Pais pais, Profesion profesion, String descripcion, Integer telefono, Date fechaAlta, Date fechaModificacion, boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.email = email;
+        this.mail = mail;
         this.pais = pais;
         this.profesion = profesion;
         this.descripcion = descripcion;
@@ -86,12 +84,12 @@ public class Profesional {
         this.apellido = apellido;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Pais getPais() {
@@ -150,18 +148,9 @@ public class Profesional {
         this.activo = activo;
     }
 
-    public Foto getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Foto foto) {
-        this.foto = foto;
-    }
-    
-
     @Override
     public String toString() {
-        return "Profesional{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", pais=" + pais + ", profesion=" + profesion + ", descripcion=" + descripcion + ", telefono=" + telefono + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + '}';
+        return "Profesional{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", pais=" + pais + ", profesion=" + profesion + ", descripcion=" + descripcion + ", telefono=" + telefono + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + '}';
     }
 
 }
