@@ -37,19 +37,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="/mensaje.html"> Mensajes</a>
+                            <a class="nav-link link text-black display-4" href="@{/mensajes}"> Mensajes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="/comunidad.html">Nuestra Comunidad</a>
+                            <a class="nav-link link text-black display-4" href="@{/comunidad}">Nuestra Comunidad</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="profesional.html">Profesionales</a>
+                            <a class="nav-link link text-black display-4" href="@{profesionales}">Profesionales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="/loginsuccess.html">Nuestras Salas</a>
+                            <a class="nav-link link text-black display-4" href="@/salas}">Nuestras Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="/perfil.html">Configura tu perfil</a>
+                            <a class="nav-link link text-black display-4" href="@/editarperfil}">Configura tu perfil</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link text-black display-4" href="/logout">Cerrar
                                 Sesión</a>
@@ -108,7 +108,7 @@
 
                 <div class="col-12 col-md-8" th:if="${idhilo != null}">
 
-                    <table class="table table-striped table table-sm">
+                    <table class="table table-striped table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col"> Nickname</th>
@@ -119,6 +119,16 @@
                             <tr th:each="comentario : ${listacomentario}">
                                 <td th:text="${comentario.usuario.nickname}"> usuario</td>
                                 <td th:text="${comentario.descripcion}"> comentario</td>
+                                <td th:if="${session.usuariosession == null}">
+                                    <a class="btn btn-danger" th:href="@{mensaje/editar/__${comentario.id}__}">
+                                        Editar </a>
+
+                                </td>
+                                <td th:if="${session.usuariosession == null}">
+                                    <a class="btn btn-danger" th:href="@{mensaje/eliminar/__${comentario.id}__}">
+                                        Eliminar </a>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
