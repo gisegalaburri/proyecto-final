@@ -55,7 +55,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{'/'}">Inicio</a></li>
+                            <a class="nav-link link text-black display-4" th:href="@{/}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link link text-black display-4" href="#form5-8">Formulario
                                 Registro</a></li>
                         <li class="nav-item"><a class="nav-link link text-black display-4"
@@ -90,7 +90,7 @@
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{'/registrar-usuario'}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+                    <form th:action="@{/registro-usuario}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
 
                         <div class="row">
                             <div class="col">
@@ -159,15 +159,15 @@
                             <input class="form-check-input" type="radio" name="diagnostico" id="exampleRadios1">
                             <label class="form-check-label"
                                 th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
-                                th:text="{diagnostico}" th:value="diagnostico" th:value="${diagnostico}">
+                                th:text="${diagnostico}" th:value="${diagnostico}">
                             </label>
                         </div>
                         <p></p>
                         <p>Foto de Perfil</p>
 
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="foto"
-                                th:value="${foto}">
+                            <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="archivo"
+                                th:value="${archivo}">
                             <label class="custom-file-label" for="customFileLang">Seleccionar Foto de Perfil(Opcional)</label>
                         </div>
                         <p></p>
