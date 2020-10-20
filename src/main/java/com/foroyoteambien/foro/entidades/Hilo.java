@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,9 +35,6 @@ public class Hilo {
     @OneToMany
     private List<Comentario> listaComentarios;
 
-    @ManyToOne
-    private Usuario usuario;
-    
     public Hilo() {
 
     }
@@ -109,21 +105,10 @@ public class Hilo {
         this.listaComentarios = listaComentarios;
     }
 
-    
-    public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	@Override
-	public String toString() {
-		return "Hilo [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta
-				+ ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + ", listaComentarios="
-				+ listaComentarios + ", usuario=" + usuario + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Hilo [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta
+                + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + "]";
+    }
 
 }
