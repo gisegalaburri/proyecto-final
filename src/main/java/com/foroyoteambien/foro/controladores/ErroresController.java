@@ -46,7 +46,7 @@ public class ErroresController implements ErrorController {
             case 500: {
                 errorMsg = "Ocurrió un error interno.";
                 break;
-            }
+            } 
         }
 
         errorPage.addObject("codigo", httpErrorCode);
