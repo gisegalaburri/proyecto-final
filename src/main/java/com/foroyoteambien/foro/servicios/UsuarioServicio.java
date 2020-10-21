@@ -12,13 +12,22 @@ import com.foroyoteambien.foro.enumeraciones.Pais;
 import com.foroyoteambien.foro.enumeraciones.Rol;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -26,10 +35,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Gisele Galaburri <gisele.galaburri89 at gmail.com>
  */
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
-    UsuarioRepositorio usuarioRepositrio;
+    UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
     FotoServicio fotoServicio;
@@ -42,11 +51,11 @@ public class UsuarioServicio {
 
         validar(nombre, apellido, nickname, email, clave1, clave2, pais, fechaNacimiento, diagnostico);
 
-        Usuario usuario = usuarioRepositrio.buscarPorNick(nickname);
+        Usuario usuario = usuarioRepositorio.buscarPorNick(nickname);
 
         if (usuario == null) {
 
-            usuario = usuarioRepositrio.buscarPorMail(email);
+            usuario = usuarioRepositorio.buscarPorMail(email);
 
             if (usuario == null) {
 
@@ -74,7 +83,7 @@ public class UsuarioServicio {
                 Foto foto = fotoServicio.guardarFoto(archivo);
                 usuario.setFoto(foto);
 
-                usuarioRepositrio.save(usuario);
+                usuarioRepositorio.save(usuario);
 
             } else {
                 throw new ErrorServicio("El email ingresado ya está en uso. Inicia sesión.");
@@ -97,7 +106,7 @@ public class UsuarioServicio {
             throw new ErrorServicio("El id no puede ser nulo.");
         }
 
-        Optional<Usuario> optional = usuarioRepositrio.findById(id);
+        Optional<Usuario> optional = usuarioRepositorio.findById(id);
 
         if (optional.isPresent()) {
             Usuario usuario = optional.get();
@@ -126,13 +135,13 @@ public class UsuarioServicio {
 
             usuario.setFechaModificacion(new Date());
 
-            usuarioRepositrio.save(usuario);
+            usuarioRepositorio.save(usuario);
         }
     }
 
     @Transactional
     public void deshabilitar(String id) throws ErrorServicio {
-        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+        Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
         if (opt.isPresent()) {
             Usuario usuario = opt.get();
@@ -140,7 +149,7 @@ public class UsuarioServicio {
             usuario.setFechaModificacion(new Date());
             usuario.setActivo(false);
 
-            usuarioRepositrio.save(usuario);
+            usuarioRepositorio.save(usuario);
         } else {
             throw new ErrorServicio("No se encontró el usuario solicitado.");
 
@@ -149,7 +158,7 @@ public class UsuarioServicio {
 
     @Transactional
     public void volverAHabilitar(String id) throws ErrorServicio {
-        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+        Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
         if (opt.isPresent()) {
             Usuario usuario = opt.get();
@@ -157,7 +166,7 @@ public class UsuarioServicio {
             usuario.setFechaModificacion(new Date());
             usuario.setActivo(true);
 
-            usuarioRepositrio.save(usuario);
+            usuarioRepositorio.save(usuario);
         } else {
             throw new ErrorServicio("No se encontró el usuario solicitado.");
 
@@ -165,7 +174,7 @@ public class UsuarioServicio {
     }
 
     private Boolean validarActivo(String id) throws ErrorServicio {
-        Optional<Usuario> opt = usuarioRepositrio.findById(id);
+        Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
         if (opt.isPresent()) {
             Usuario usuario = opt.get();
@@ -177,7 +186,7 @@ public class UsuarioServicio {
     }
 
     private List<Usuario> listarActivos() {
-        return usuarioRepositrio.buscarActivos();
+        return usuarioRepositorio.buscarActivos();
     }
     
     
@@ -237,4 +246,24 @@ public class UsuarioServicio {
 
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String nickname) {
+
+        Usuario usuario = usuarioRepositorio.buscarPorNick(nickname);
+        if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList<GrantedAuthority>();
+
+            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+            permisos.add(p1);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getNickname(), usuario.getClave1(), permisos);
+        } else {
+            return null;
+        }
+    }
 }

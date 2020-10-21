@@ -6,6 +6,7 @@
 
 package com.foroyoteambien.foro;
 
+import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    @Qualifier("usuarioServicio")
+    public UsuarioServicio usuarioServicio;
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(usuarioServicio).
+		passwordEncoder(new BCryptPasswordEncoder()).and().getDefaultUserDetailsService();
+	}
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/css/*", "/js/*", "/img/*", "/**","/main/**","/usuario/**","/actividad/**","/login/**", "/glosario/**").permitAll()
+                .and().formLogin()
+                    .loginPage("/login") 
+                    .loginProcessingUrl("/logincheck") 
+                    .usernameParameter("nickname") 
+                    .passwordParameter("clave1") 
+                    .defaultSuccessUrl("/index")
+                    .failureUrl("/login?error=error")
+                    .permitAll()
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll()
+                .and().csrf()
+                .disable();
+    }
   
 
 }
