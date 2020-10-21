@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"></html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+</html>
 
 <head>
     <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
@@ -7,23 +9,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
     <meta name="description" content="">
 
 
     <title>cargarsalaohilo</title>
-    <link rel="stylesheet" href="../static/assets/tether/tether.min.css">
-    <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="../static/assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="../static/assets/formstyler/jquery.formstyler.css">
-    <link rel="stylesheet" href="../static/assets/formstyler/jquery.formstyler.theme.css">
-    <link rel="stylesheet" href="../static/assets/datepicker/jquery.datetimepicker.min.css">
-    <link rel="stylesheet" href="../static/assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="../static/assets/theme/css/style.css">
-    <link rel="preload" as="style" href="../static/assets/mobirise/css/mbr-additional.css">
-    <link rel="stylesheet" href="../static/assets/mobirise/css/mbr-additional.css" type="text/css">
+    <link rel="stylesheet" href="/assets/tether/tether.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+    <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 
 </head>
 
@@ -39,21 +41,21 @@
 
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="@{/mensajes}"> Mensajes</a>
+                            <a class="nav-link link text-black display-4" th:href="@{/mensajes}"> Mensajes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="@{/comunidad}">Nuestra Comunidad</a>
+                            <a class="nav-link link text-black display-4" th:href="@{/comunidad}">Nuestra Comunidad</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="@{profesionales}">Profesionales</a>
+                            <a class="nav-link link text-black display-4" th:href="@{profesionales}">Profesionales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="@{/salas}">Nuestras Salas</a>
+                            <a class="nav-link link text-black display-4" th:href="@{/salas}">Nuestras Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="@/editarperfil}">Configura tu perfil</a>
+                            <a class="nav-link link text-black display-4" th:href="@/editarperfil}">Configura tu perfil</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="/logout">Cerrar
+                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="/logout">Cerrar
                                 Sesión</a>
                         </li>
                     </ul>
@@ -62,27 +64,47 @@
         </nav>
     </section>
 
-    <section class="header18 cid-sdrzCCdQR1" id="header18-z">
+    <section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
                     <span class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"
-                        style="font-size: xx-large"> Crear Sala o subsala (admin) </span>
+                        style="font-size: xx-large"> Menu Administrador </span>
                 </div>
             </div>
         </div>
     </section>
-    <div class="container">
-        <div class="row">
-            <div class="title col-12">
-                <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large"> Creacion de
-                    nueva Sala Principal</h5>
 
+    <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menuadmin">
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#crearsala">Crear Sala
+                                Principal</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#crearhilo">Crear
+                                Subsala o Hilo</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#vermensajes"> Revisar
+                                Mensajes </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <section class="form5 cid-sdqZqPhEBB" id="crearsala">
+        <div class="container">
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                        Creacion de nueva Sala Principal</h5>
+                </div>
             </div>
         </div>
-    </div>
 
-    <section class="form5 cid-sdqZqPhEBB" id="form5-i">
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
@@ -107,21 +129,23 @@
             </div>
         </div>
     </section>
-    <div class="container">
-        <div class="row">
-            <div class="title col-12">
-                <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
-                    Creacion de subsala</h5>
+
+    <section class="form5 cid-sdqZqPhEBB" id="crearhilo">
+        <div class="container">
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                        Creacion de subsala</h5>
+                </div>
             </div>
         </div>
-    </div>
-    <section class="form5 cid-sdqZqPhEBB" id="form5-i">
-
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
                     <form th:action="@{/hilo/crearhilo}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
+
+                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
@@ -150,6 +174,53 @@
         </div>
     </section>
 
+
+    <section class="form2 cid-sdrmQWbXCd" id="vermensajes">
+        <div class="align-center container">
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                        Revisar Mensajes de Usuarios</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+
+                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+
+                    <div class="dragArea row">
+
+                        <table class="table table-striped table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> Id </th>
+                                    <th scope="col"> Asunto</th>
+                                    <th scope="col"> Descripcion </th>
+                                    <th scope="col"> Fecha Alta </th>
+                                    <th scope="col"> Usuario </th>
+                                    <th scope="col"> Leido </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="mensaje : ${listamensajes}">
+                                    <td th:text="${mensaje.id}"> </td>
+                                    <td th:text="${mensaje.asunto}"> </td>
+                                    <td th:text="${mensaje.descripcion}"> </td>
+                                    <td th:text="${mensaje.usuario.nickname}"> </td>
+                                    <td>
+                                        <a class="btn btn-danger" th:href="@{mensaje/solucionar/__${mensaje.id}__}"
+                                            th:value="mensaje."> MensajeSolucionado </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-k">
         <div class="container">
             <div class="media-container-row align-center mbr-white">
@@ -157,9 +228,9 @@
                     <ul class="foot-menu">
                         <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li>
                         <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" href="/loginsuccess.html" target="_blank">Nuestras Salas</li>
+                            <a class="text-white" th:href="@{/salas}" target="_blank">Nuestras Salas</li>
                         <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" href="/mensaje.html" target="_blank">Contáctanos</li>
+                            <a class="text-white" th:href="@{/mensajes}" target="_blank">Contáctanos</li>
                     </ul>
                 </div>
                 <div class="row social-row">
@@ -194,19 +265,19 @@
         </div>
     </section>
 
-    <script src="assets/web/assets/jquery/jquery.min.js"></script>
-    <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/tether/tether.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/smoothscroll/smooth-scroll.js"></script>
-    <script src="assets/dropdown/js/nav-dropdown.js"></script>
-    <script src="assets/dropdown/js/navbar-dropdown.js"></script>
-    <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-    <script src="assets/formstyler/jquery.formstyler.js"></script>
-    <script src="assets/formstyler/jquery.formstyler.min.js"></script>
-    <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
-    <script src="assets/theme/js/script.js"></script>
-    <script src="assets/formoid/formoid.min.js"></script>
+    <script src="/assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/popper/popper.min.js"></script>
+    <script src="/assets/tether/tether.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/smoothscroll/smooth-scroll.js"></script>
+    <script src="/assets/dropdown/js/nav-dropdown.js"></script>
+    <script src="/assets/dropdown/js/navbar-dropdown.js"></script>
+    <script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
+    <script src="/assets/formstyler/jquery.formstyler.js"></script>
+    <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
+    <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
+    <script src="/assets/theme/js/script.js"></script>
+    <script src="/assets/formoid/formoid.min.js"></script>
 
 
 </body>
