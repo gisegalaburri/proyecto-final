@@ -37,7 +37,7 @@ public class PortalController {
         return "index.html";
     }
     
-     @GetMapping("/login")
+    @GetMapping("/login")
     public String login(@RequestParam(required = false) String error,
             @RequestParam(required = false) String logout,
             ModelMap modelMap) {
