@@ -101,51 +101,50 @@
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/modificar-perfil}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
-                        <p th:if="${error!=null}" th:text="${error}" name="error"></p>
+                    <form th:action="@{/modificar-perfil}" method="POST" th:object="${usuario}" class="mbr-form form-with-styler" data-form-title="Form Name">
+                        <p th:if="${error!=null}" th:text="${error}" name="error" class="lead"></p>
+                        <p th:if="${exito!=null}" th:text="${exito}" name="exito" class="lead"></p>
+                        
+                        <input th:field="*{id}" hidden/>
+
                         <div class="row">
                             <div class="col">
                                 <label for="exampleFormControlSelect1">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" name="nombre"
-                                    th:value="${nombre}" />
+                                <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}"/>
                             </div>
                             <div class="col">
                                 <label for="exampleFormControlSelect1">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" name="apellido"
-                                    th:value="${apellido}" />
+                                <input type="text" class="form-control" placeholder="Apellido" th:field="*{apellido}"/>
                             </div>
                         </div>
+                        
                         <p></p>
+                        
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Nickname</label>
-                            <input type="text" class="form-control" placeholder="Nickname" name="nickname"
-                                th:value="${nickname}" />
+                            <input type="text" class="form-control" placeholder="Nickname" th:field="*{nickname}" />
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email"
-                                th:value="${email}" />
+                            <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
                         </div>
 
 
                         <div class="row">
                             <div class="col">
                                 <label for="exampleFormControlSelect1">Clave</label>
-                                <input type="password" class="form-control" placeholder="Clave" name="clave1"
-                                    th:value="${clave1}" />
+                                <input type="password" class="form-control" placeholder="Clave" th:field="*{clave1}"/>
                             </div>
                             <div class="col">
                                 <label for="exampleFormControlSelect1">Repetir Clave</label>
-                                <input type="password" class="form-control" placeholder="Repetir clave" name="clave2"
-                                    th:value="${clave2}" />
+                                <input type="password" class="form-control" placeholder="Repetir clave" th:field="*{clave2}"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descripcion"
-                                th:value="${descripcion}"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descripcion}"></textarea>
                         </div>
 
 
@@ -153,15 +152,14 @@
                             <label for="exampleFormControlSelect1">País</label>
                             <select class="form-control" name="pais" />
                             <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}"
-                                th:value="${pais}" th:text="${pais}"></option>
+                                th:field="*{pais}"></option>
                             </select>
                         </div>
 
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-                            <input type="Date" class="form-control" name="fechaNacimiento"
-                                th:value="${fechaNacimiento}" />
+                            <input type="Date" class="form-control" th:field="*{fechaNacimiento}" />
                         </div>
 
                         <div class="form-check">
@@ -170,15 +168,14 @@
                             <input class="form-check-input" type="radio" name="diagnostico" id="exampleRadios1">
                             <label class="form-check-label"
                                 th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
-                                th:text="{diagnostico}" th:value="diagnostico" th:value="${diagnostico}">
+                                th:field="*{diagnostico}">
                             </label>
                         </div>
                         <p></p>
                         <p>Foto de Perfil</p>
 
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="foto"
-                                th:value="${foto}">
+                            <input type="file" class="custom-file-input" id="customFileLang" lang="es" th:field="*{foto}">
                             <label class="custom-file-label" for="customFileLang">Seleccionar Foto</label>
                         </div>
                         <p></p>
