@@ -3,65 +3,61 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.foroyoteambien.foro.controladores;
 
+import com.foroyoteambien.foro.entidades.Usuario;
 import com.foroyoteambien.foro.enumeraciones.Diagnostico;
 import com.foroyoteambien.foro.enumeraciones.Pais;
 import com.foroyoteambien.foro.errores.ErrorServicio;
+import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
+import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 
+ *
  * @author Gisele Galaburri <gisele.galaburri89 at gmail.com>
  */
-
 @Controller
+@PreAuthorize("hasRole('ROLE_MODERADOR') || hasRole('ROLE_USUARIO')")
 @RequestMapping("/")
-public class PortalController {
-    
+public class UsuarioController {
+
+    @Autowired
+    UsuarioRepositorio usuarioRepositorio;
+
     @Autowired
     UsuarioServicio usuarioServicio;
 
-    @GetMapping("/")
-    private String index() {
-        return "index.html";
-    }
-    
-     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error,
-            @RequestParam(required = false) String logout,
-            ModelMap modelMap) {
-        
-        if (error != null) {
-            modelMap.put("error", "Usuario o clave incorrectos.");
-            return "login.html";
-        } 
+    @GetMapping("/modificar-perfil/{id}")
+    public String editar(@PathVariable String id,
+            ModelMap modelMap,
+            HttpSession session) {
 
-        if (logout != null) {
-            modelMap.put("logout", "Has cerrado sesión.");
-            return "index.html";
+        Optional<Usuario> opt = usuarioRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+            modelMap.put("usuario", usuario);
         }
 
-        return "login.html";
+        return "perfil.html";
     }
-    
-    @GetMapping("/registro-usuario")
-    public String registroUsuario() {
-        return "registro.html";
-    }
-    
-    @PostMapping("/registro-usuario") 
-    public String registrarUsuario(@RequestParam String nombre, 
+
+    @PostMapping("/modificar-perfil")
+    public String editarPerfil(ModelMap modelMap,
+            @RequestParam String id,
             @RequestParam String apellido,
             @RequestParam String nickname,
             @RequestParam String email,
@@ -72,26 +68,24 @@ public class PortalController {
             @RequestParam Pais pais,
             @RequestParam Date fechaNacimiento,
             MultipartFile archivo,
-            ModelMap modelMap) {
-        
+            HttpSession session) {
+
         try {
-            
-            usuarioServicio.altaUsuario(nombre, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNacimiento, diagnostico, archivo);
-        
+
+            usuarioServicio.modificarUsuario(email, email, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNacimiento, diagnostico, archivo);
+
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
-            modelMap.put("nombre", nombre);
-            modelMap.put("apellido", apellido);
-            modelMap.put("nickname", nickname);
-            modelMap.put("email", email);
-            modelMap.put("descripcion", descripcion);
-            modelMap.put("diagnostico", diagnostico);
-            modelMap.put("pais", pais);
-            modelMap.put("fechaNacimiento", fechaNacimiento);
-            return "registro.html";
+            Optional<Usuario> opt = usuarioRepositorio.findById(id);
+
+            if (opt.isPresent()) {
+                Usuario usuario = opt.get();
+                modelMap.put("usuario", usuario);
+            }
         }
-        
-        modelMap.put("login", "Te registraste exitosamente. Ahora inicia sesión.");
-        return "login.html";
+
+        modelMap.put("exito", "Se actualizaron correctamente los datos.");
+        return "perfil.html";
     }
+
 }
