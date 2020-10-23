@@ -95,8 +95,9 @@ public class HiloServicio {
         }
     }
 
-    @Transactional
+   
     public void validar(String titulo, String descripcion) throws ErrorServicio {
+
 
         if (titulo.trim().isEmpty() || titulo == null) {
             throw new ErrorServicio("Por favor ingrese un titulo");

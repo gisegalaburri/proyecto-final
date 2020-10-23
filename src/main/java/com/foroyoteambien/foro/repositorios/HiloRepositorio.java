@@ -1,5 +1,6 @@
 package com.foroyoteambien.foro.repositorios;
 
+import com.foroyoteambien.foro.entidades.Comentario;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

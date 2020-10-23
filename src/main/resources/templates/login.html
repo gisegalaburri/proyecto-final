@@ -76,7 +76,7 @@
                 <div class="col-12 col-lg-10">
                     <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Iniciar
                             Sesión</strong></h1>
-
+                    <p th:if="${login!=null}" th:text="${login}" name="login" class="lead" style="color: white;"></p>
 
 
                 </div>
@@ -97,7 +97,7 @@
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
                     <form th:action="@{/logincheck}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
                        
-                        <p th:if="${error!=null}" th:text="${error}" name="error"></p>
+                        <p th:if="${error!=null}" th:text="${error}" name="error" class="lead"></p>
                         
                         <input type="hidden" name="email" data-form-email="true"
                             value="SVp0tPjULXoSkqQpnGI7fOnH8j0DCnaTiX4FiBVInOOrbh+AYP0FIy9VNZB6fmobQL/0pV5E0U547Ou3dLmhIF+p6M+3SvLIVJFNs64nyuxHiilXGGPeZZI0un1KSLsB">
@@ -210,7 +210,7 @@
     <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
     <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
     <script src="/assets/theme/js/script.js"></script>
-    <script src="/assets/formoid/formoid.min.js"></script>
+    <!--<script src="/assets/formoid/formoid.min.js"></script>-->
 
 
 </body>
