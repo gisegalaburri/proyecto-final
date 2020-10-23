@@ -42,7 +42,7 @@ public class FotoServicio {
                 System.out.println(e.getMessage());
             }
         } else {
-            foto = fotoRepositorio.getOne("default_foto");
+            foto = fotoRepositorio.getOne("default");
         }
         return foto;
     }
