@@ -60,7 +60,7 @@ public class FotoController {
         }
 
         modelMap.put("titulo", "Foto cargada con exito");
-        return "exito.html";
+        return "index.html";
     }
 
 }

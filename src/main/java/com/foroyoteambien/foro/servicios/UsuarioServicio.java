@@ -139,13 +139,13 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDiagnostico(diagnositco);
 
-            String idFoto = null;
-            if (!usuario.getFoto().getContenido().equals("image/jpeg")) {
+            String idFoto = "default";
+            if (archivo.getContentType().equals("image/jpeg")) {
                 idFoto = usuario.getFoto().getId();
+                
+                Foto foto = fotoServicio.actualizar(idFoto, archivo);
+                usuario.setFoto(foto);
             }
-
-            Foto foto = fotoServicio.actualizar(idFoto, archivo);
-            usuario.setFoto(foto);
 
             usuario.setFechaModificacion(new Date());
 

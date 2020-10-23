@@ -82,11 +82,8 @@ public class UsuarioController {
             usuario = usuarioServicio.buscarUno(id);
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
-           
-            modelMap.put("usuario", usuario);
-
-        }
-
+         }
+        modelMap.put("usuario", usuario);
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
         return "perfil.html";
     }
