@@ -13,6 +13,7 @@ import com.foroyoteambien.foro.entidades.Sala;
 import com.foroyoteambien.foro.entidades.Usuario;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.SalaRepositorio;
+import java.util.List;
 
 
 @Service
@@ -23,7 +24,14 @@ public class SalaServicio {
 	
 	//Listar Hilos buscar forma de relacionar los hilos con su sala correspondiente
 	
-	@Transactional
+	public List<Sala> listarSalas() throws ErrorServicio {
+        List<Sala> listaSalas = salaRepositorio.findAll();
+        return listaSalas;
+
+    }
+      
+        
+        @Transactional
 	public void crearSala(String titulo, String descripcion) throws ErrorServicio {
 	
 	validar(titulo, descripcion);
