@@ -70,8 +70,14 @@ public class SalaServicio {
             throw new ErrorServicio("No se encontró la sala solicitada.");
         }
     }
+    
+    public List<Sala> listarSalas() throws ErrorServicio {
+        List<Sala> listaSalas = salaRepositorio.findAll();
+        return listaSalas;
 
-    @Transactional
+    }
+
+
     private void validar(String titulo, String descripcion) throws ErrorServicio {
 
         if (titulo.trim().isEmpty() || titulo == null) {

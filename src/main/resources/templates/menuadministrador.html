@@ -41,9 +41,6 @@
 
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{/mensajes}"> Mensajes</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link link text-black display-4" th:href="@{/comunidad}">Nuestra Comunidad</a>
                         </li>
                         <li class="nav-item">
@@ -53,7 +50,8 @@
                             <a class="nav-link link text-black display-4" th:href="@{/salas}">Nuestras Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@/editarperfil}">Configura tu perfil</a>
+                            <a class="nav-link link text-black display-4" th:href="@/editarperfil}">Configura tu
+                                perfil</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link text-black display-4" th:href="/logout">Cerrar
                                 Sesión</a>
@@ -80,20 +78,28 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#crearsala">Crear Sala
-                                Principal</a>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="#crearsala">Crear Sala Principal</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#crearhilo">Crear
-                                Subsala o Hilo</a>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="#crearhilo">Crear Hilo</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#vermensajes"> Revisar
-                                Mensajes </a>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="#vermensajes"> Revisar Mensajes </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="#bloquearusuario"> Bloquear Usuario </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="#bloquearprofesionales"> Bloquear
+                                Profesionales </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </section>
+
 
     <section class="form5 cid-sdqZqPhEBB" id="crearsala">
         <div class="container">
@@ -111,17 +117,19 @@
                     <form th:action="@{/sala/crearsala}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
+                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+
                         <div class="dragArea row">
                             <div class="col-md col-sm-12 form-group" data-for="name">
-                                <input type="text" name="titulo" placeholder="Titulo" data-form-field="titulo"
+                                <input type="text" name="titulosala" placeholder="Titulo" data-form-field="titulo"
                                     class="form-control" value="" id="name-form5-i">
                             </div>
                             <div class="col-12 form-group" data-for="name">
-                                <input type="textarea" name="descripcion" placeholder="Descripcion de sala"
+                                <input type="textarea" name="descripcionsala" placeholder="Descripcion de sala"
                                     data-form-field="descripcion" class="form-control" id="name-form5-i">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                <button type="submit" class="btn btn-secondary display-4"> Guardar</button>
+                                <button type="submit" class="btn btn-secondary display-4"> Guardar </button>
                             </div>
                         </div>
                     </form>
@@ -158,11 +166,11 @@
                             </div>
 
                             <div class="col-md col-sm-12 form-group" data-for="apellido">
-                                <input type="text" name="apellido" placeholder="Titulo Subsala"
+                                <input type="text" name="nuevohilo" placeholder="Titulo Subsala"
                                     data-form-field="apellido" class="form-control" value="" id="name-form5-i">
                             </div>
                             <div class="col-12 form-group" data-for="email">
-                                <input type="textarea" name="comentario" placeholder="Descripcion de subsala"
+                                <input type="textarea" name="nuevadescripcion" placeholder="Descripcion de subsala"
                                     data-form-field="comentario" class="form-control" id="email-form2-p">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
@@ -206,10 +214,11 @@
                                     <td th:text="${mensaje.id}"> </td>
                                     <td th:text="${mensaje.asunto}"> </td>
                                     <td th:text="${mensaje.descripcion}"> </td>
+                                    <td th:text="${mensaje.fechaAlta}"></td>
                                     <td th:text="${mensaje.usuario.nickname}"> </td>
                                     <td>
-                                        <a class="btn btn-danger" th:href="@{mensaje/solucionar/__${mensaje.id}__}"
-                                            th:value="mensaje."> MensajeSolucionado </a>
+                                        <a class="btn btn-danger" th:href="@{mensaje/solucionar/__${mensaje.id}__}">
+                                            Marcar como Leido </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -217,6 +226,178 @@
                     </div>
 
                 </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario">
+        <div class="align-center container">
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                        Bloquear usuario</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+
+                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+
+                    <div class="dragArea row">
+
+                        <div class="col">
+                            <label for="exampleFormControlSelect1"> Ingrese Nickname del usuario</label>
+                            <input type="text" class="form-control" placeholder="NickName" name="nickname">
+                            <a class="btn btn-danger" th:href="@{usuario/buscarusuario/__${nickname}__}">
+                                Marcar como Leido </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="form2 cid-sdrmQWbXCd" id="mostrarusuario" th:if="${mostraruser != null}">
+
+        <div class="align-center container">
+            <div class="row">
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Nombre</label>
+                    <label class="form-control" name="nombre" th:value="${usuario.nombre}">
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Apellido</label>
+                    <label class="form-control" name="apellido" th:value="${usuario.apellido}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Nickname</label>
+                <label class="form-control" name="nickname" th:value="${usuario.nickname}">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Email</label>
+                <label class="form-control" name="email" th:value="${usuario.email}">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
+                <textarea class="form-control" name="descripcion" th:value="${usuario.descripcion}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">País</label>
+                <label class="form-control" name="email" th:value="${usuario.pais}"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
+                <label type="Date" class="form-control" name="fechaNacimiento" th:value="${usuario.fechaNacimiento}">
+            </div>
+
+            <div class="form-check">
+                <label for="exampleFormControlSelect1">Diagnóstico</label>
+                <label class="form-control" name="diagnostico" th:value="${usuario.diagnostico}">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Fecha de alta</label>
+                <label type="Date" class="form-control" name="fechaAlta" th:value="${usuario.fechaAlta}">
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                <a class="btn btn-danger" th:href="@{usuario/bloquear/__${usuario.id}__}">
+                    Bloquear Usuario </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional">
+        <div class="align-center container">
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                        Bloquear profesional</h5>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+
+                    <form th:action=" @{/profesional/buscarprofesional/}" method="POST"
+                        class="mbr-form form-with-styler" data-form-title="Form Name">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+
+                        <div class="dragArea row">
+                            <div class="col">
+                                <div class="form-group">
+                                <label for="exampleFormControlSelect1"> Ingrese Apellido del Profesional</label>
+                                <input type="text" class="form-control" placeholder="Apellido" name="apellido">
+                                </div>
+                                <div class="form-group">
+                                <label for="exampleFormControlSelect1"> Ingrese Nombres del Profesional</label>
+                                <input type="text" class="form-control" placeholder="Apellido" name="nombres">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" class="btn btn-secondary display-4">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="form2 cid-sdrmQWbXCd" id="mostrarprofesional" th:if="${mostrarprofe != null}">
+
+        <div class="align-center container">
+            <div class="row">
+                <div class="col">
+                    <label for="exampleFormControlSelect1"> Apellido</label>
+                    <label class="form-control" name="apellido" th:value="${profesional.apellido}">
+                </div>
+                <div class="col">
+                    <label for="exampleFormControlSelect1">Nombres</label>
+                    <label class="form-control" name="nombres" th:value="${profesional.nombre}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Email</label>
+                <label class="form-control" name="email" th:value="${profesional.mail}">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">País</label>
+                <label class="form-control" name="email" th:value="${profesional.pais}"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Profesion</label>
+                <label class="form-control" name="email" th:value="${profesional.profesion}"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
+                <textarea class="form-control" name="descripcion" th:value="${profesional.descripcion}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Profesion</label>
+                <label class="form-control" name="telefono" th:value="${profesional.telefono}"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Fecha de alta</label>
+                <label type="Date" class="form-control" name="fechaAlta" th:value="${profesional.fechaAlta}">
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                <a class="btn btn-danger" th:href="@{profesional/bloquear/__${profesional.id}__}">
+                    Bloquear Usuario </a>
             </div>
         </div>
     </section>
@@ -277,7 +458,7 @@
     <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
     <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
     <script src="/assets/theme/js/script.js"></script>
-    <script src="/assets/formoid/formoid.min.js"></script>
+    <!-- <script src="/assets/formoid/formoid.min.js"></script> -->
 
 
 </body>

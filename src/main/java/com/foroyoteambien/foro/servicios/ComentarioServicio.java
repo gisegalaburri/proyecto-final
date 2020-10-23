@@ -126,4 +126,21 @@ public class ComentarioServicio {
             throw new ErrorServicio("El id no puede ser nulo");
         }
     }
+
 }
+
+//        private List<Comentario> listarComentarios(String idHilo) throws ErrorServicio{
+//		Optional<Hilo> respuesta = hiloRepositorio.findById(idHilo); 
+//		
+//		
+//		if(respuesta.isPresent()) {
+//			
+//			Hilo hilo = respuesta.get(); 
+//			hilo.getListaComentarios(); 
+//			List<Comentario> listaComentarios; 
+//			
+//			
+//		}
+//		
+//		return listaComentarios;
+
