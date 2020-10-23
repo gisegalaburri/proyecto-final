@@ -11,6 +11,15 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div><h1>ERROR MIERDA</h1></div>
+        <div class="container-fluid">
+            <div class="text-center">
+                <!--Inicio verificacion error-->
+                <h2 class="display-4" th:if="${codigo != null}" th:text="'Error ' + ${codigo}"></h2>
+                <!--Fin verificacion error-->
+
+                <p class="lead" th:if="${codigo != null}" th:text="${mensaje == null ? 'Intenta nuevamente' : mensaje}"
+                   style="color:green"></p>
+            </div>
+        </div>
     </body>
 </html>

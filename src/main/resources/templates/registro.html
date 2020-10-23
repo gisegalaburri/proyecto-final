@@ -112,6 +112,7 @@
               <div class="col">
                 <label for="exampleFormControlSelect1">Clave</label>
                 <input type="password" class="form-control" placeholder="Clave" name="clave1" th:value="${clave1}" />
+                <small id="emailHelp" class="form-text text-muted">* Mínimo 6 caracteres</small>
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect1">Repetir Clave</label>
@@ -129,6 +130,7 @@
             <div class="form-group">
               <label for="exampleFormControlSelect1">País</label>
               <select class="form-control" name="pais">
+                  <option selected>-- Selecciona un país --</option>
                 <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
                 th:value="${pais}" th:text="${pais}"></option>
               </select>
@@ -136,7 +138,7 @@
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-              <input type="Date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" 
+              <input type="date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" 
               lang="es" />
             </div>
 
@@ -144,6 +146,7 @@
               <label for="exampleFormControlSelect1">Diagnóstico</label>
               <p></p>
               <select class="form-control" name="diagnostico">
+                  <option selected>-- Selecciona una respuesta --</option>
               <option th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
                 th:value="${diagnostico}" th:text="${diagnostico}"></option>
               </select>

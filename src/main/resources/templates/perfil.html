@@ -1,284 +1,299 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
-    <meta name="description" content="">
+    <head>
+        <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+        <meta name="description" content="">
 
 
-    <title>Editar Perfil</title>
-    <link rel="stylesheet" href="/assets/tether/tether.min.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
-    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
-    <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
-    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="/assets/theme/css/style.css">
-    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
-    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+        <title>Editar Perfil</title>
+        <link rel="stylesheet" href="/assets/tether/tether.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+        <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+        <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+        <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+        <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+        <link rel="stylesheet" href="/assets/theme/css/style.css">
+        <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+        <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
 
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menu1-v">
+        <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menu1-v">
 
 
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+            <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+                <div class="container">
+                    <div class="navbar-brand">
+
+                        <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" href="">Yo
+                                TEAmbién</a></span>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <div class="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                            <li class="nav-item"><a class="nav-link link text-black display-4"
+                                                    th:href="@{/profesionales}">Profesionales</a></li>
+                            <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/mensajes}">Mensajes</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/comunidad}">Nuestra
+                                    Comunidad</a></li>
+                            <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/salas}">Nuestras
+                                    Salas</a></li>
+                            <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/logout}">Cerrar
+                                    Sesión</a></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+            </nav>
+        </section>
+
+        <section class="header18 cid-sdrr1PozFc" id="header18-x">
+
+
+
+
+
+            <div class="align-center container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10">
+                        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Editar
+                                Perfil</strong></h1>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="form5 cid-sdrr9yCSL8" id="form5-y">
+
+
             <div class="container">
-                <div class="navbar-brand">
-
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" href="">Yo
-                            TEAmbién</a></span>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item"><a class="nav-link link text-black display-4"
-                                th:href="@{/profesionales}">Profesionales</a></li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/mensajes}">Mensajes</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/comunidad}">Nuestra
-                                Comunidad</a></li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/salas}">Nuestras
-                                Salas</a></li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/logout}">Cerrar
-                                Sesión</a></li>
-                    </ul>
-
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Editar</strong></h3>
 
                 </div>
-            </div>
-        </nav>
-    </section>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                        <form th:action="@{/modificar-perfil}" method="POST" th:object="${usuario}" class="mbr-form form-with-styler" data-form-title="Form Name"
+                               enctype="multipart/form-data">
+                            <p th:if="${error!=null}" th:text="${error}" name="error" class="lead"></p>
+                            <p th:if="${exito!=null}" th:text="${exito}" name="exito" class="lead"></p>
 
-    <section class="header18 cid-sdrr1PozFc" id="header18-x">
+                            <input type="text" th:field="*{id}" style="display: none;"/>
 
-
-
-
-
-        <div class="align-center container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-10">
-                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Editar
-                            Perfil</strong></h1>
-
-
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="form5 cid-sdrr9yCSL8" id="form5-y">
-
-
-        <div class="container">
-            <div class="mbr-section-head">
-                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Editar</strong></h3>
-
-            </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/modificar-perfil}" method="POST" th:object="${usuario}" class="mbr-form form-with-styler" data-form-title="Form Name">
-                        <p th:if="${error!=null}" th:text="${error}" name="error" class="lead"></p>
-                        <p th:if="${exito!=null}" th:text="${exito}" name="exito" class="lead"></p>
-                        
-                        <input th:field="*{id}" hidden/>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="exampleFormControlSelect1">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}"/>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="exampleFormControlSelect1">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}"/>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleFormControlSelect1">Apellido</label>
+                                    <input type="text" class="form-control" placeholder="Apellido" th:field="*{apellido}"/>
+                                </div>
                             </div>
-                            <div class="col">
-                                <label for="exampleFormControlSelect1">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" th:field="*{apellido}"/>
-                            </div>
-                        </div>
-                        
-                        <p></p>
-                        
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Nickname</label>
-                            <input type="text" class="form-control" placeholder="Nickname" th:field="*{nickname}" />
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="exampleFormControlSelect1">Clave</label>
-                                <input type="password" class="form-control" placeholder="Clave" th:field="*{clave1}"/>
-                            </div>
-                            <div class="col">
-                                <label for="exampleFormControlSelect1">Repetir Clave</label>
-                                <input type="password" class="form-control" placeholder="Repetir clave" th:field="*{clave2}"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descripcion}"></textarea>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">País</label>
-                            <select class="form-control" name="pais" />
-                            <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}"
-                                th:field="*{pais}"></option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-                            <input type="Date" class="form-control" th:field="*{fechaNacimiento}" />
-                        </div>
-
-                        <div class="form-check">
-                            <label for="exampleFormControlSelect1">Diagnóstico</label>
                             <p></p>
-                            <input class="form-check-input" type="radio" name="diagnostico" id="exampleRadios1">
-                            <label class="form-check-label"
-                                th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
-                                th:field="*{diagnostico}">
-                            </label>
-                        </div>
-                        <p></p>
-                        <p>Foto de Perfil</p>
 
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="es" th:field="*{foto}">
-                            <label class="custom-file-label" for="customFileLang">Seleccionar Foto</label>
-                        </div>
-                        <p></p>
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                            <button type="submit" class="btn btn-secondary display-4">Editar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Nickname</label>
+                                <input type="text" class="form-control" placeholder="Nickname" th:field="*{nickname}" readonly/>
+                            </div>
 
-    <section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-w">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" th:field="*{email}"/>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{descripcion}"></textarea>
+                            </div>
 
+                            <!--<div class="form-group">
+                                <label for="exampleFormControlSelect1">Tu País</label>
+                                <input type="text" class="form-control" placeholder="Nickname" th:field="*{pais}" readonly/>
+                            </div>-->
 
-
-
-        <div class="container">
-            <div class="media-container-row align-center mbr-white">
-                <div class="row row-links">
-                    <ul class="foot-menu">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Cambiar País</label>
+                                <select class="form-control" th:field="*{pais}" />
+                                <!--  <option selected>-- Selecciona un país --</option>-->
+                                <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}"
+                                        th:value="${pais}" th:text="${pais}"></option>
+                                </select>
+                            </div>
 
 
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
+                                <input type="text" class="form-control" th:field="*{fechaNacimiento}" readonly/>
+                            </div>
 
+                            <!--<div class="form-group">
+                                <label for="exampleFormControlSelect1">Tu Diagnóstico</label>
+                                <input type="text" class="form-control" th:field="*{diagnostico}" readonly/>
+                            </div>-->
 
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Cambiar Diagnóstico</label>
+                                <p></p>
+                                <select class="form-control" th:field="*{diagnostico}">
+                                    <option selected th:value="${diagnostico}" th:text="${diagnostico}"></option>
+                                    <option th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
+                                            th:value="${diagnostico}" th:text="${diagnostico}"></option>
+                                </select>
+                            </div>
+                            <p></p>
+                            <!--<div th:if="${usuario.foto.id != null}">
+                                <img th:src="@{/foto/__${usuario.foto.id}__}" th:field="*{foto}" th:alt="${usuario.foto.nombre}"
+                                     th:title="${usuario.foto.nombre}" width="100" height="100">
+                            </div>
+                            <div class="form-group">
+                                
+                                <label for="customFileLang">Cambiar foto de perfil</label>
+                                <input class="form-control-file" type="file" id="customFileLang" lang="es" name="archivo"
+                                       th:value="${archivo}" />
+                            </div>-->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="exampleFormControlSelect1">Clave</label>
+                                    <input type="password" class="form-control" placeholder="Clave" th:field="*{clave1}"/>
+                                    <small id="emailHelp" class="form-text text-muted">* Si deseas cambiar tu clave, ingresa las nuevas, sino coloca tu clave actual para confirmar tu identidad.</small>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleFormControlSelect1">Repetir Clave</label>
+                                    <input type="password" class="form-control" placeholder="Repetir clave" th:field="*{clave2}"/>
+                                </div>     
+                            </div>
 
-                        <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">Nuestras Salas</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" href="#" target="_blank">Contact</a>áctanos</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"></li>
-                    </ul>
-                </div>
-                <div class="row social-row">
-                    <div class="social-list align-right pb-2">
-
-
-
-
-
-
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
+                            <p></p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                <button type="submit" class="btn btn-secondary display-4">Editar</button>
+                        </form>
                     </div>
                 </div>
-                <div class="row row-copirayt">
-                    <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-                         © Copyright 2020 Yo TEAmbién. Todos los derechos reservados.
-                    </p>
+            </div>
+        </section>
+
+        <section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-w">
+
+
+
+
+
+            <div class="container">
+                <div class="media-container-row align-center mbr-white">
+                    <div class="row row-links">
+                        <ul class="foot-menu">
+
+
+
+
+
+                            <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li>
+                            <li class="foot-menu-item mbr-fonts-style display-7">Nuestras Salas</li>
+                            <li class="foot-menu-item mbr-fonts-style display-7">
+                                <a class="text-white" href="#" target="_blank">Contact</a>áctanos</li>
+                            <li class="foot-menu-item mbr-fonts-style display-7"></li>
+                            <li class="foot-menu-item mbr-fonts-style display-7"></li>
+                        </ul>
+                    </div>
+                    <div class="row social-row">
+                        <div class="social-list align-right pb-2">
+
+
+
+
+
+
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                            <div class="soc-item">
+                                <a href="" target="_blank">
+                                    <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-copirayt">
+                        <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
+                            © Copyright 2020 Yo TEAmbién. Todos los derechos reservados.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section
-        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
-        <a href="https://mobirise.site/g" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
-        <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Build a free site -
-            <a href="https://mobirise.site/w" style="color:#aaa;">Get more</a>
-        </p>
-    </section>
-    <script src="/assets/web/assets/jquery/jquery.min.js"></script>
-    <script src="/assets/popper/popper.min.js"></script>
-    <script src="/assets/tether/tether.min.js"></script>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/smoothscroll/smooth-scroll.js"></script>
-    <script src="/assets/dropdown/js/nav-dropdown.js"></script>
-    <script src="/assets/dropdown/js/navbar-dropdown.js"></script>
-    <script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
-    <script src="/assets/formstyler/jquery.formstyler.js"></script>
-    <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
-    <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
-    <script src="/assets/theme/js/script.js"></script>
-    <script src="/assets/formoid/formoid.min.js"></script>
+        </section>
+        <section
+            style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
+            <a href="https://mobirise.site/g" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+            <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Build a free site -
+                <a href="https://mobirise.site/w" style="color:#aaa;">Get more</a>
+            </p>
+        </section>
+        <script src="/assets/web/assets/jquery/jquery.min.js"></script>
+        <script src="/assets/popper/popper.min.js"></script>
+        <script src="/assets/tether/tether.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/smoothscroll/smooth-scroll.js"></script>
+        <script src="/assets/dropdown/js/nav-dropdown.js"></script>
+        <script src="/assets/dropdown/js/navbar-dropdown.js"></script>
+        <script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
+        <script src="/assets/formstyler/jquery.formstyler.js"></script>
+        <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
+        <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
+        <script src="/assets/theme/js/script.js"></script>
+        <!--<script src="/assets/formoid/formoid.min.js"></script>-->
 
 
-</body>
+    </body>
 

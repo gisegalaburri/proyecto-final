@@ -13,6 +13,8 @@ import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,12 +47,14 @@ public class UsuarioController {
             ModelMap modelMap,
             HttpSession session) {
 
-        Optional<Usuario> opt = usuarioRepositorio.findById(id);
-
-        if (opt.isPresent()) {
-            Usuario usuario = opt.get();
+        Usuario usuario = null;
+        try {
+            usuario = usuarioServicio.buscarUno(id);
             modelMap.put("usuario", usuario);
+        } catch (ErrorServicio ex) {
+           modelMap.put("error", ex.getMessage());
         }
+        
 
         return "perfil.html";
     }
@@ -66,22 +70,21 @@ public class UsuarioController {
             @RequestParam(required = false) String descripcion,
             @RequestParam Diagnostico diagnostico,
             @RequestParam Pais pais,
-            @RequestParam Date fechaNacimiento,
+            @RequestParam String fechaNacimiento,
             MultipartFile archivo,
             HttpSession session) {
 
+        Usuario usuario = null;
         try {
+            Date fechaNac = usuarioServicio.convertirDate(fechaNacimiento);
+            usuarioServicio.modificarUsuario(id, email, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
 
-            usuarioServicio.modificarUsuario(email, email, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNacimiento, diagnostico, archivo);
-
+            usuario = usuarioServicio.buscarUno(id);
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
-            Optional<Usuario> opt = usuarioRepositorio.findById(id);
+           
+            modelMap.put("usuario", usuario);
 
-            if (opt.isPresent()) {
-                Usuario usuario = opt.get();
-                modelMap.put("usuario", usuario);
-            }
         }
 
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
