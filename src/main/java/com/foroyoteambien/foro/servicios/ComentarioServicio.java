@@ -83,8 +83,8 @@ public class ComentarioServicio {
 
     }
 
-    private List<Comentario> listarActivos() throws ErrorServicio {
-        List<Comentario> listaActivos = comentarioRepositorio.buscarActivos();
+    public List<Comentario> listarActivos(String idhilo) throws ErrorServicio {
+        List<Comentario> listaActivos = comentarioRepositorio.comentariosActivosPorHilo(idhilo);
         return listaActivos;
 
     }
