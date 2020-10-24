@@ -72,18 +72,15 @@ public class FotoServicio {
         Foto foto = null;
         if (archivo.getContentType().equals("image/jpeg")) {
             try {
-                
 
-                if (idFoto != null) {
-                    Optional<Foto> opt = fotoRepositorio.findById(idFoto);
-                    if (opt.isPresent()) {
-                        foto = opt.get();
-                    }
+                Optional<Foto> opt = fotoRepositorio.findById(idFoto);
+                if (opt.isPresent()) {
+                    foto = opt.get();
+                    foto.setMime(archivo.getContentType());
+                    foto.setNombre(archivo.getOriginalFilename());
+                    foto.setContenido(archivo.getBytes());
                 }
 
-                foto.setMime(archivo.getContentType());
-                foto.setNombre(archivo.getOriginalFilename());
-                foto.setContenido(archivo.getBytes());
                 return fotoRepositorio.save(foto);
 
             } catch (IOException e) {
@@ -91,10 +88,10 @@ public class FotoServicio {
             }
 
         }
-        
-        return null;
+
+        return fotoRepositorio.getOne(idFoto);
     }
-    
+
     public Foto buscarPorId(String id) throws ErrorServicio {
         return fotoRepositorio.getOne(id);
     }

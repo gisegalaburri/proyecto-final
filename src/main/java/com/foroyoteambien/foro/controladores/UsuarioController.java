@@ -48,13 +48,8 @@ public class UsuarioController {
             HttpSession session) {
 
         Usuario usuario = null;
-        try {
-            usuario = usuarioServicio.buscarUno(id);
-            modelMap.put("usuario", usuario);
-        } catch (ErrorServicio ex) {
-           modelMap.put("error", ex.getMessage());
-        }
-        
+        usuario = usuarioServicio.buscarUno(id);
+        modelMap.put("usuario", usuario);
 
         return "perfil.html";
     }
@@ -62,6 +57,7 @@ public class UsuarioController {
     @PostMapping("/modificar-perfil")
     public String editarPerfil(ModelMap modelMap,
             @RequestParam String id,
+            @RequestParam String nombre,
             @RequestParam String apellido,
             @RequestParam String nickname,
             @RequestParam String email,
@@ -74,15 +70,16 @@ public class UsuarioController {
             MultipartFile archivo,
             HttpSession session) {
 
-        Usuario usuario = null;
+        System.out.println(id);
+        Usuario usuario = usuarioServicio.buscarUno(id);
         try {
             Date fechaNac = usuarioServicio.convertirDate(fechaNacimiento);
-            usuarioServicio.modificarUsuario(id, email, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
-
-            usuario = usuarioServicio.buscarUno(id);
+            usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
+            
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
-         }
+        }
+        
         modelMap.put("usuario", usuario);
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
         return "perfil.html";
