@@ -1,9 +1,12 @@
 package com.foroyoteambien.foro.controladores;
 
-import com.foroyoteambien.foro.entidades.Hilo;
+import com.foroyoteambien.foro.entidades.Mensaje;
+import com.foroyoteambien.foro.entidades.Profesional;
 import com.foroyoteambien.foro.entidades.Sala;
 import com.foroyoteambien.foro.errores.ErrorServicio;
-import com.foroyoteambien.foro.servicios.HiloServicio;
+import com.foroyoteambien.foro.repositorios.ProfesionalRepositorio;
+import com.foroyoteambien.foro.servicios.MensajeServicio;
+import com.foroyoteambien.foro.servicios.ProfesionalServicio;
 import com.foroyoteambien.foro.servicios.SalaServicio;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -22,6 +25,14 @@ public class SalaController {
     @Autowired
     SalaServicio salaServicio; 
     
+    @Autowired
+    MensajeServicio mensajeServicio;
+    
+    @Autowired
+    ProfesionalServicio profesionalServicio;
+    @Autowired
+    ProfesionalRepositorio profesionalRepositorio;
+       
     @GetMapping("/listarsalas")
     private String listarsalas(ModelMap modelo, HttpSession session) throws ErrorServicio{
         List <Sala> salas= salaServicio.listarSalas(); 
@@ -44,12 +55,16 @@ public class SalaController {
         catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
-    return "menuadministrador.html"; 
+    
+        List<Sala> salas = salaServicio.listarSalas();
+        modelo.put("salas", salas);
+        List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos(); 
+        modelo.put("listamensajes", listamensajes);
+        List<Profesional> listaprofesionales = profesionalRepositorio.findAll(); 
+        modelo.put("listaprofesionales", listaprofesionales);
+        return "menuadministrador.html"; 
     }
-    
-    
-    
-    
+         
 }
 
     

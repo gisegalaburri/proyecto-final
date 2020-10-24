@@ -151,8 +151,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="comentario : ${listacomentario}">
+                            <tr th:each="comentario : ${listacomentarios}">
                                 <td th:text="${comentario.usuario.nickname}"> usuario</td>
+
                                 <td th:text="${comentario.descripcion}">
                                     <form th:action="@{/comentario/guardarcomentario}" method="POST"
                                         class="mbr-form form-with-styler" data-form-title="Form Name">
@@ -160,9 +161,9 @@
                                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
                                         <div id="datosviajanocultos">
-                                            <input name="idsala" th:value="${sala.id}" hidden>
-                                            <input name="idhilo" th:value="${hilo.id}" hidden>
-                                            <input name="iduser" th:value="${session.usuariosession.id}" hidden>
+                                            <input name="idsala" th:value="${sala.id}" style="display: none">
+                                            <input name="idhilo" th:value="${hilo.id}" style="display: none">
+                                            <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
                                         </div>
                                                                   
                                             <div class="col-lg col-md col-12 form-group" data-for="email">
@@ -182,7 +183,7 @@
                                         th:value="comentario.id"> Editar </a>
                                 </td>
                                 <td th:if="${session.usuariosession == ${comentario.usuario.id} ">
-                                    <a class="btn btn-danger" th:href="@{comentario/eliminar/__${comentario.id}__}"
+                                    <a class="btn btn-danger" th:href="@{comentario/desactivar/__${comentario.id}__}"
                                         th:value="comentario.id"> Eliminar </a>
                                 </td>
                             </tr>
@@ -205,9 +206,9 @@
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
                         <div id="datosviajanocultos">
-                            <input name="idsala" th:value="${sala.id}" hidden>
-                            <input name="idhilo" th:value="${hilo.id}" hidden>
-                            <input name="iduser" th:value="${session.usuariosession.id}" hidden>
+                            <input name="idsala" th:value="${sala.id}" style="display: none">
+                            <input name="idhilo" th:value="${hilo.id}" style="display: none">
+                            <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
                         </div>
                         <div class="dragArea row">
                             <div class="col-lg-12 col-md-12 col-sm-12">

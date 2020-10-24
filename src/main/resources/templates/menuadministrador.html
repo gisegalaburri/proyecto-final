@@ -150,7 +150,7 @@
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/hilo/crearhilo}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action="@{/menu/crearhilo}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -217,7 +217,7 @@
                                     <td th:text="${mensaje.fechaAlta}"></td>
                                     <td th:text="${mensaje.usuario.nickname}"> </td>
                                     <td>
-                                        <a class="btn btn-danger" th:href="@{mensaje/solucionar/__${mensaje.id}__}">
+                                        <a class="btn btn-danger" th:href="@{menu/solucionarmensaje/__${mensaje.id}__}">
                                             Marcar como Leido </a>
                                     </td>
                                 </tr>

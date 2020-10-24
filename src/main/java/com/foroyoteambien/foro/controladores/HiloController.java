@@ -54,7 +54,8 @@ public class HiloController {
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         modelo.put("hilo", hilo);
         modelo.put("mostrar", "notnull");
-        List<Comentario> listaComentarios = comentarioServicio.listarActivos(idhilo);
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        modelo.put("listacomentarios", "listacomentarios");
         return "hilo.html";
     }
 
