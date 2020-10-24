@@ -100,7 +100,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(String id, String nombre, String apellido,
+    public Usuario modificarUsuario(String id, String nombre, String apellido,
             String nickname, String email, String clave1, String clave2,
             String descripcion, Pais pais, Date fechaNacimiento,
             Diagnostico diagnositco, MultipartFile archivo) throws ErrorServicio {
@@ -139,17 +139,19 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDiagnostico(diagnositco);
 
-            String idFoto = null;
-            if (!usuario.getFoto().getContenido().equals("image/jpeg")) {
+            String idFoto = "";
+            if (archivo.getContentType().equals("image/jpeg")) {
                 idFoto = usuario.getFoto().getId();
+                
+                Foto foto = fotoServicio.actualizar(idFoto, archivo);
+                usuario.setFoto(foto);
             }
-
-            Foto foto = fotoServicio.actualizar(idFoto, archivo);
-            usuario.setFoto(foto);
 
             usuario.setFechaModificacion(new Date());
 
-            usuarioRepositorio.save(usuario);
+           return usuarioRepositorio.save(usuario);
+        } else {
+            throw new ErrorServicio("Id no encontrado");
         }
     }
 
@@ -203,14 +205,14 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.buscarActivos();
     }
     
-    public Usuario buscarUno(String id) throws ErrorServicio {
+    public Usuario buscarUno(String id) {
         Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
         if (opt.isPresent()) {
             Usuario usuario = opt.get();
             return usuario;
         } else {
-            throw new ErrorServicio("Id de Usuario no encontrado");
+            return null;
         }
     }
 
