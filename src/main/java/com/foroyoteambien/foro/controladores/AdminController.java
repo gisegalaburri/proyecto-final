@@ -46,21 +46,21 @@ public class AdminController {
     @GetMapping("/menuAdmin")
     public String menuAdmin(ModelMap modelo, HttpSession session) throws ErrorServicio {
 
-        List<Sala> salas = salaServicio.listarSalas();
-        modelo.put("salas", salas);
-
-        List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos();
-        modelo.put("listamensajes", listamensajes);
-
-        List<Profesional> listaprofesionales = profesionalRepositorio.findAll();
-        modelo.put("listaprofesionales", listaprofesionales);
+//        List<Sala> salas = salaServicio.listarSalas();
+//        modelo.put("salas", salas);
+//
+//        List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos();
+//        modelo.put("listamensajes", listamensajes);
+//
+//        List<Profesional> listaprofesionales = profesionalRepositorio.findAll();
+//        modelo.put("listaprofesionales", listaprofesionales);
 
         return "menuadministrador.html";
 
     }
 
     @PostMapping("/crearhilo")
-    private String crearhilo(ModelMap modelo,
+    public String crearhilo(ModelMap modelo,
             @RequestParam String idsala,
             @RequestParam String idusuario,
             @RequestParam String nuevohilo,
@@ -86,7 +86,7 @@ public class AdminController {
 
 
 @PostMapping("/solucionarmensaje")
-    private String solucionarmensaje(ModelMap modelo,
+    public String solucionarmensaje(ModelMap modelo,
             @RequestParam String id, 
             HttpSession session) throws ErrorServicio {
 

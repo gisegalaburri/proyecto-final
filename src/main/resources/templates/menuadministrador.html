@@ -34,8 +34,8 @@
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="container">
                 <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><label class="navbar-caption text-black display-7">Yo
-                            TEAmbién</label></span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7">Yo
+                            TEAmbién</a></span>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -50,11 +50,35 @@
                             <a class="nav-link link text-black display-4" th:href="@{/salas}">Nuestras Salas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@/editarperfil}">Configura tu
-                                perfil</a>
+                            <a class="nav-link link text-black display-4"
+                                th:href="@{/modificar-perfil/__${session.usuariosession.id}__}">Configura tu perfil</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="/logout">Cerrar
+                        <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/logout}">Cerrar
                                 Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" th:href="@{/sala/crear}">Crear Sala
+                                Principal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" th:href="@{hilo/crear}">Crear Hilo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" th:href="@{mensajes/vermsj}"> Revisar Mensajes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" th:href="@{/bloquearusuario}"> Bloquear
+                                Usuario </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" th:href="@{profesional/bloquear}"> Bloquear
+                                Profesionales </a>
                         </li>
                     </ul>
                 </div>
@@ -73,35 +97,8 @@
         </div>
     </section>
 
-    <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menuadmin">
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-            <div class="container">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="#crearsala">Crear Sala Principal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="#crearhilo">Crear Hilo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="#vermensajes"> Revisar Mensajes </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="#bloquearusuario"> Bloquear Usuario </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="#bloquearprofesionales"> Bloquear
-                                Profesionales </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </section>
-
-
-    <section class="form5 cid-sdqZqPhEBB" id="crearsala">
+    
+    <section class="form5 cid-sdqZqPhEBB" id="crearsala" th:if="${crearsala != null}">
         <div class="container">
             <div class="row">
                 <div class="title col-12">
@@ -138,7 +135,7 @@
         </div>
     </section>
 
-    <section class="form5 cid-sdqZqPhEBB" id="crearhilo">
+    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${creahilo != null}">
         <div class="container">
             <div class="row">
                 <div class="title col-12">
@@ -174,7 +171,8 @@
                                     data-form-field="comentario" class="form-control" id="email-form2-p">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
-                                    type="submit" class="btn btn-secondary display-4"> Guardar</button></div>
+                                    type="submit" class="btn btn-secondary display-4"> Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -183,7 +181,7 @@
     </section>
 
 
-    <section class="form2 cid-sdrmQWbXCd" id="vermensajes">
+    <section class="form2 cid-sdrmQWbXCd" id="vermensajes" th:if="${vermensajes != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
@@ -206,11 +204,11 @@
                                     <th scope="col"> Descripcion </th>
                                     <th scope="col"> Fecha Alta </th>
                                     <th scope="col"> Usuario </th>
-                                    <th scope="col"> Leido </th>
+                                    <th scope="col"> Solucionado </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="mensaje : ${listamensajes}">
+                                <tr th:each="mensaje : ${mensajes}">
                                     <td th:text="${mensaje.id}"> </td>
                                     <td th:text="${mensaje.asunto}"> </td>
                                     <td th:text="${mensaje.descripcion}"> </td>
@@ -218,7 +216,7 @@
                                     <td th:text="${mensaje.usuario.nickname}"> </td>
                                     <td>
                                         <a class="btn btn-danger" th:href="@{menu/solucionarmensaje/__${mensaje.id}__}">
-                                            Marcar como Leido </a>
+                                            Marcar como Solucionado </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -231,7 +229,7 @@
     </section>
 
 
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario">
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario" th:if="${bloqearusuario != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
@@ -249,7 +247,7 @@
                         <div class="col">
                             <label for="exampleFormControlSelect1"> Ingrese Nickname del usuario</label>
                             <input type="text" class="form-control" placeholder="NickName" name="nickname">
-                            <a class="btn btn-danger" th:href="@{usuario/buscarusuario/__${nickname}__}">
+                            <a class="btn btn-danger" th:href="@{usuario/buscarunosuario/__${nickname}__}">
                                 Marcar como Leido </a>
                         </div>
                     </div>
@@ -315,7 +313,7 @@
 
     </section>
 
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional">
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional" th:if="${bloqearprof != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
@@ -333,12 +331,12 @@
                         <div class="dragArea row">
                             <div class="col">
                                 <div class="form-group">
-                                <label for="exampleFormControlSelect1"> Ingrese Apellido del Profesional</label>
-                                <input type="text" class="form-control" placeholder="Apellido" name="apellido">
+                                    <label for="exampleFormControlSelect1"> Ingrese Apellido del Profesional</label>
+                                    <input type="text" class="form-control" placeholder="Apellido" name="apellido">
                                 </div>
                                 <div class="form-group">
-                                <label for="exampleFormControlSelect1"> Ingrese Nombres del Profesional</label>
-                                <input type="text" class="form-control" placeholder="Apellido" name="nombres">
+                                    <label for="exampleFormControlSelect1"> Ingrese Nombres del Profesional</label>
+                                    <input type="text" class="form-control" placeholder="Apellido" name="nombres">
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                     <button type="submit" class="btn btn-secondary display-4">Buscar</button>
@@ -363,7 +361,7 @@
                     <label class="form-control" name="nombres" th:value="${profesional.nombre}">
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Email</label>
                 <label class="form-control" name="email" th:value="${profesional.mail}">
@@ -444,6 +442,13 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section
+        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
+        <a href="https://mobirise.site/g" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+        <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Build a free site -
+            <a href="https://mobirise.site/w" style="color:#aaa;">Get more</a>
+        </p>
     </section>
 
     <script src="/assets/web/assets/jquery/jquery.min.js"></script>

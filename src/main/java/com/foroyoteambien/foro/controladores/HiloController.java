@@ -39,8 +39,16 @@ public class HiloController {
     @Autowired
     HiloRepositorio hiloRepositorio;
 
+    @GetMapping("/crear")
+    public String crear (ModelMap modelo, HttpSession session) throws ErrorServicio{
+        
+        modelo.put("crearhilo", "notnull");
+        return "menuadministrador.html";
+    }
+    
+    
     @GetMapping("/listarhilos/{id}")
-    private String listarhilos(@PathVariable String id, ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String listarhilos(@PathVariable String id, ModelMap modelo, HttpSession session) throws ErrorServicio {
         List<Hilo> listaHilos = hiloServicio.listarHiloXSala(id);
         Sala sala = salaRepositorio.getOne(id);
         modelo.put("sala", sala);
@@ -49,8 +57,9 @@ public class HiloController {
         return "hilo.html";
     }
 
+        
     @GetMapping("/listarcomentarios/{idhilo}")
-    private String listarcomentarios(@PathVariable String idhilo, ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String listarcomentarios(@PathVariable String idhilo, ModelMap modelo, HttpSession session) throws ErrorServicio {
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         modelo.put("hilo", hilo);
         modelo.put("mostrar", "notnull");
@@ -60,7 +69,7 @@ public class HiloController {
     }
 
     @PostMapping("/crearhilo")
-    private String crearhilo(ModelMap modelo,
+    public String crearhilo(ModelMap modelo,
             @RequestParam String idsala,
             @RequestParam String idusuario,
             @RequestParam String nuevohilo,
