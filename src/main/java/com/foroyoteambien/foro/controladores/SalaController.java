@@ -33,16 +33,16 @@ public class SalaController {
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
        
-    @GetMapping("/listarsalas")
-    private String listarsalas(ModelMap modelo, HttpSession session) throws ErrorServicio{
+    @GetMapping("/crear-sala")
+    public String listarsalas(ModelMap modelo, HttpSession session) throws ErrorServicio{
         List <Sala> salas= salaServicio.listarSalas(); 
         modelo.put("salas", salas);
-        return "loginsuccess.html";
+        return "menuadministrador.html";
     }
     
     
-    @PostMapping("/crearsala")
-    private String crearsala(ModelMap modelo,
+    @PostMapping("/crear-sala")
+    public String crearsala(ModelMap modelo,
             @RequestParam String titulosala,
             @RequestParam String descripcionsala,
             HttpSession session) throws ErrorServicio {
