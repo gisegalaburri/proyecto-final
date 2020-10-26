@@ -6,11 +6,16 @@
 
 package com.foroyoteambien.foro.controladores;
 
+import com.foroyoteambien.foro.entidades.Sala;
 import com.foroyoteambien.foro.enumeraciones.Diagnostico;
 import com.foroyoteambien.foro.enumeraciones.Pais;
 import com.foroyoteambien.foro.errores.ErrorServicio;
+import com.foroyoteambien.foro.servicios.SalaServicio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +38,10 @@ public class PortalController {
     
     @Autowired
     UsuarioServicio usuarioServicio;
-
+    
+    @Autowired
+    SalaServicio salaServicio;
+    
     @GetMapping("/")
     private String index() {
         return "index.html";
@@ -103,7 +111,13 @@ public class PortalController {
     }
     
     @GetMapping("/loginsuccess")
-    public String loginSuccess(HttpSession session) {
+    public String loginSuccess(HttpSession session, ModelMap modelMap) {
+        try { 
+            List <Sala> salas= salaServicio.listarSalas();
+            modelMap.put("salas", salas);
+        } catch (ErrorServicio ex) {
+            modelMap.put("error", ex.getMessage());
+        }
         return "loginsuccess.html";
     }
 }

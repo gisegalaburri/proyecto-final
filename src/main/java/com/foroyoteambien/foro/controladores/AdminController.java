@@ -30,7 +30,7 @@ public class AdminController {
 
     @Autowired
     MensajeServicio mensajeServicio;
-    
+
     @Autowired
     MensajeRepositorio mensajeRepositorio;
 
@@ -44,7 +44,7 @@ public class AdminController {
     ProfesionalRepositorio profesionalRepositorio;
 
     @GetMapping("/menuAdmin")
-    public String menuAdmin(ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String menuAdmin(ModelMap modelo, HttpSession session) {
 
         List<Sala> salas = salaServicio.listarSalas();
         modelo.put("salas", salas);
@@ -60,7 +60,7 @@ public class AdminController {
     }
 
     @PostMapping("/crearhilo")
-    private String crearhilo(ModelMap modelo,
+    public String crearhilo(ModelMap modelo,
             @RequestParam String idsala,
             @RequestParam String idusuario,
             @RequestParam String nuevohilo,
@@ -72,7 +72,7 @@ public class AdminController {
 
             List<Sala> salas = salaServicio.listarSalas();
             modelo.put("salas", salas);
-            List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos(); 
+            List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos();
             modelo.put("listamensajes", listamensajes);
             List<Profesional> listaprofesionales = profesionalRepositorio.findAll();
             modelo.put("listaprofesionales", listaprofesionales);
@@ -84,18 +84,17 @@ public class AdminController {
         return "menuadministrador.html";
     }
 
-
-@PostMapping("/solucionarmensaje")
-    private String solucionarmensaje(ModelMap modelo,
-            @RequestParam String id, 
+    @PostMapping("/solucionarmensaje")
+    public String solucionarmensaje(ModelMap modelo,
+            @RequestParam String id,
             HttpSession session) throws ErrorServicio {
 
         try {
-            mensajeServicio.solucionarMensaje(id); 
-             
+            mensajeServicio.solucionarMensaje(id);
+
             List<Sala> salas = salaServicio.listarSalas();
             modelo.put("salas", salas);
-            List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos(); 
+            List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos();
             modelo.put("listamensajes", listamensajes);
             List<Profesional> listaprofesionales = profesionalRepositorio.findAll();
             modelo.put("listaprofesionales", listaprofesionales);
@@ -104,8 +103,7 @@ public class AdminController {
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
-    return "menuadministrador.html";
+        return "menuadministrador.html";
     }
-    
-}
 
+}
