@@ -27,36 +27,8 @@
 
 <body>
 
-    <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menu1-g">
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-            <div class="container">
-                <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><label class="navbar-caption text-black display-7">Yo
-                            TEAmbién</label></span>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{/comunidad}">Nuestra Comunidad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th: href="@{/profesionales}">Profesionales</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th href="@{/salas}">Nuestras Salas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th: href="@{/modificarperfil}">Configura tu
-                                perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{/logout}">Cerrar Sesión</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <section th:replace="layout::nav-menu">
+  
     </section>
 
     <section class="header18 cid-sdrzCCdQR1" id="header18-z">
@@ -115,49 +87,19 @@
         </div>
     </section>
 
-    <section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-h">
-        <div class="container">
-            <div class="media-container-row align-center mbr-white">
-                <div class="row row-links">
-                    <ul class="foot-menu">
-                        <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" th:href="@{/salas}" target="_blank">Nuestras Salas</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" th:href="@{/mensajes}" target="_blank">Contáctanos</li>
-                    </ul>
-                </div>
-                <div class="row social-row">
-                    <div class="social-list align-right pb-2">
-                        <div class="soc-item">
-                            <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                        <div class="soc-item">
-                            <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                        <div class="soc-item">
-                            <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                        <div class="soc-item">
-                            <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                        <div class="soc-item">
-                            <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                        <div class="soc-item">
-                            <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-copirayt">
-                    <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-                        @Copyright 2020 EGG - Grupo 01 -----> El Mejor Grupo
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer th:replace="layout::footer">
+    
+ 
+    </footer>
+  
 
+     <section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
+             color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
+        <a href="https://mobirise.site/n" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+        <p style="flex: 0 0 auto; margin:0; padding-right:1rem; display:none;">
+            <a href="https://mobirise.site/j" style="color:#aaa;display: none;"></a>
+        </p>
+        </section>
 
     <script src="/assets/web/assets/jquery/jquery.min.js"></script>
     <script src="/assets/popper/popper.min.js"></script>
