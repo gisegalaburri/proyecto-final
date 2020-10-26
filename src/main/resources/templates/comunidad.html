@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
   <meta charset="UTF-8">
@@ -8,9 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
   <meta name="description" content="">
-  
-  
-  <title>Nuestra Comunidad</title>
+
+  <title>Nuestra Comunidad - Foro Yo TEAmbién</title>
   <link rel="stylesheet" href="/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -20,80 +20,46 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
-  
-  
+
 </head>
+
 <body>
-  <section th:replace="layout::nav-menu">
-  
-</section>
-  
-<section class="header18 cid-sdwjRM8U1y" id="header18-15">
+  <section th:replace="layout::nav-menu"></section>
 
-    
-
-    
-
+  <section class="header18 cid-sdwjRM8U1y" id="header18-15">
     <div class="align-center container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Nuestra Comunidad</strong></h1>
-                
-                
-                
-            </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
+              Nuestra Comunidad</strong>
+          </h1>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="features7 cid-sdwoZIeIkK" id="features8-1a">
-    <!---->
-    
-    
+  <section class="features7 cid-sdwoZIeIkK" id="features8-1a">
     <div class="container">
-        <div class="row">
-            <div class="title col-12">
-                <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"><strong>Comunidad por país</strong></h5>
-                
-            </div>
-            <div class="card col-12 col-md-6" th:each="pais:${paises}">
-                <div class="card-wrapper">
-                    <div class="top-line">
-                        <h6 class="card-title mbr-fonts-style display-5" th:text="${pais}"><strong></strong></h6>
-                      <!---  <p class="mbr-text cost mbr-fonts-style display-7" th:text="${pais.cantidad}"></p>-->
-                    </div>
-                    <div class="bottom-line">
-                        
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="title col-12">
+          <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"><strong>Comunidad por país
+            </strong></h5>
         </div>
+        <div class="card col-12 col-md-6" th:each="pais:${paises}">
+          <div class="card-wrapper">
+            <div class="top-line">
+              <h6 class="card-title mbr-fonts-style display-5" th:text="${pais}"><strong></strong></h6>
+              <!---  <p class="mbr-text cost mbr-fonts-style display-7" th:text="${pais.cantidad}"></p>-->
+            </div>
+            <div class="bottom-line">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-    
-    <footer th:replace="layout::footer">
-    
- 
-    </footer>
+  </section>
   
+  <footer th:replace="layout::footer"></footer>
 
-<section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
-   <a href="https://mobirise.site/n" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
-   <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">
-   <a href="https://mobirise.site/c" style="color:#aaa;">The</a> web page was designed with Mobirise</p>
-</section><script src="assets/web/assets/jquery/jquery.min.js"></script>  
-<script src="assets/popper/popper.min.js"></script> 
-<script src="assets/tether/tether.min.js"></script> 
-<script src="assets/bootstrap/js/bootstrap.min.js"></script> 
-<script src="assets/smoothscroll/smooth-scroll.js"></script> 
-<script src="assets/dropdown/js/nav-dropdown.js"></script>  
-<script src="assets/dropdown/js/navbar-dropdown.js"></script> 
-<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script> 
-<script src="assets/theme/js/script.js"></script>  
-  
-  
 </body>
 </html>
