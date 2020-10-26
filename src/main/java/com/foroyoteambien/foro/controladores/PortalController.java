@@ -112,12 +112,8 @@ public class PortalController {
     
     @GetMapping("/loginsuccess")
     public String loginSuccess(HttpSession session, ModelMap modelMap) {
-        try { 
-            List <Sala> salas= salaServicio.listarSalas();
-            modelMap.put("salas", salas);
-        } catch (ErrorServicio ex) {
-            modelMap.put("error", ex.getMessage());
-        }
+        List <Sala> salas= salaServicio.listarSalas();
+        modelMap.put("salas", salas);
         return "loginsuccess.html";
     }
 }
