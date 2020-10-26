@@ -31,41 +31,10 @@
 </head>
 
 <body>
-
-    <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menu1-6">
-
-
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-            <div class="container">
-                <div class="navbar-brand">
-
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7"
-                            href="">Yo TEAmbién</a></span>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{/}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="#form5-8">Formulario
-                                Registro</a></li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4"
-                                href="#footer3-7">Contáctanos</a></li>
-
-                </div>
-            </div>
-        </nav>
+    <section th:replace="layout::nav-menu">
+  
     </section>
-
+    
     <section class="header18 cid-sdrD5Hxaz3" id="header18-12">
         <div class="align-center container-fluid">
             <div class="row justify-content-center">
@@ -158,77 +127,11 @@
         </div>
     </section>
 
-    <section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-7">
-
-
-
-
-
-        <div class="container">
-            <div class="media-container-row align-center mbr-white">
-                <div class="row row-links">
-                    <ul class="foot-menu">
-
-
-
-
-
-                        <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">Nuestras Salas</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7">
-                            <a class="text-white" href="#" target="_blank">Contact</a>áctanos</li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"></li>
-                    </ul>
-                </div>
-                <div class="row social-row">
-                    <div class="social-list align-right pb-2">
-
-
-
-
-
-
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="" target="_blank">
-                                <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-copirayt">
-                    <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-                         © Copyright 2020 Yo TEAmbién. Todos los derechos reservados.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+   <footer th:replace="layout::footer">
+    
+ 
+   </footer>
+    
     <section
         style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
         <a href="https://mobirise.site/u" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
