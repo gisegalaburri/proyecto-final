@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Registro Usuario</title>
+  <title>Registro Usuario - Foro Yo TEAmbién</title>
   <link rel="stylesheet" href="/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -27,10 +27,8 @@
 </head>
 
 <body>
-   
-    <section th:replace="layout::nav-menu">
-  
-    </section>
+
+  <section th:replace="layout::nav-menu"></section>
 
   <section class="header18 cid-sdrD5Hxaz3" id="header18-12">
     <div class="align-center container-fluid">
@@ -79,7 +77,6 @@
               <input type="email" class="form-control" placeholder="Email" name="email" th:value="${email}" />
             </div>
 
-
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect1">Clave</label>
@@ -102,25 +99,24 @@
             <div class="form-group">
               <label for="exampleFormControlSelect1">País</label>
               <select class="form-control" name="pais">
-                  <option selected>-- Selecciona un país --</option>
-                <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
-                th:value="${pais}" th:text="${pais}"></option>
+                <option selected>-- Selecciona un país --</option>
+                <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" th:value="${pais}"
+                  th:text="${pais}"></option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-              <input type="date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" 
-              lang="es" />
+              <input type="date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" lang="es" />
             </div>
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Diagnóstico</label>
               <p></p>
               <select class="form-control" name="diagnostico">
-                  <option selected>-- Selecciona una respuesta --</option>
-              <option th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
-                th:value="${diagnostico}" th:text="${diagnostico}"></option>
+                <option selected>-- Selecciona una respuesta --</option>
+                <option th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
+                  th:value="${diagnostico}" th:text="${diagnostico}"></option>
               </select>
               <!--<input class="form-check-input" type="radio" name="diagnostico" id="exampleRadios1">
                                 <label class="form-check-label"
@@ -137,7 +133,7 @@
             </div>
             <p></p>
             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-             <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
+              <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
             </div>
           </form>
         </div>
@@ -145,33 +141,8 @@
     </div>
   </section>
 
-  <footer th:replace="layout::footer">
-    
- 
- </footer>
-  
-    
-  <section
-    style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
-    'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; 
-    align-items: center; display: flex;">
-    <a href="https://mobirise.site/u" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
-    <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">
-      <a href="https://mobirise.site/f" style="color:#aaa;">
-      </a></p>
-  </section>
-  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="/assets/popper/popper.min.js"></script>
-  <script src="/assets/tether/tether.min.js"></script>
-  <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/assets/smoothscroll/smooth-scroll.js"></script>
-  <script src="/assets/dropdown/js/nav-dropdown.js"></script>
-  <script src="/assets/dropdown/js/navbar-dropdown.js"></script>
-  <script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
-  <script src="/assets/formstyler/jquery.formstyler.js"></script>
-  <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
-  <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
-  <script src="/assets/theme/js/script.js"></script>
-  <!--<script src="/assets/formoid/formoid.min.js"></script>-->
+  <footer th:replace="layout::footer"></footer>
+
 </body>
+
 </html>

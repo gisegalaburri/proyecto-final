@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
   <meta charset="UTF-8">
@@ -8,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
   <meta name="description" content="">
-  
-  
-  <title>Profesionales</title>
+
+
+  <title>Profesionales - Foro Yo TEAmbién</title>
   <link rel="stylesheet" href="/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -20,134 +21,100 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
-  
-  
 </head>
+
 <body>
-  
-  <section th:replace="layout::nav-menu">
-  
+
+  <section th:replace="layout::nav-menu"></section>
+
+  <section class="header18 cid-sdrmxHgMiH" id="header18-s">
+    <div class="align-center container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
+            Profesionales</strong>
+          </h1>
+          <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad 
+            para encontrar ayuda</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-<section class="header18 cid-sdrmxHgMiH" id="header18-s">
-
-    
-
-    
-
+  <section class="form2 cid-sdrmQWbXCd" id="form2-u">
     <div class="align-center container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Profesionales</strong></h1>
-                
-                <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad para encontrar ayuda</p>
-                
+      <div class="row justify-content-center">
+        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <form th:action="@{/buscar-profesional}" method="GET" class="mbr-form form-with-styler"
+            data-form-title="Form Name">
+            <div class="dragArea row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <h1 class="mbr-section-title mb-4 display-2"><strong>Búsqueda</strong></h1>
+              </div>
+
+              <div class="col-lg col-md col-12 form-group">
+                <label for="exampleFormControlSelect1">País</label>
+                <select class="form-control" name="pais">
+                  <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
+                  th:value="${pais}" th:text="${pais}"></option>
+                </select>
+              </div>
+
+              <div class="col-lg col-md col-12 form-group">
+                <label for="exampleFormControlSelect1">Profesión</label>
+                <select class="form-control" name="profesion">
+                  <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
+                    th:value="${profesion}" th:text="${profesion}"></option>
+                </select>
+              </div>
+
+              <div class="mbr-section-btn col-md-auto col">
+                <button type="submit" class="btn btn-secondary display-4">Buscar</button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="form2 cid-sdrmQWbXCd" id="form2-u">
+  <section class="features9 cid-sdrmI61p5q" id="features10-t">
 
-    
-
-    
-    <div class="align-center container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form  th:action="@{/buscar-profesional}" method="GET" class="mbr-form form-with-styler" data-form-title="Form Name">
-                    
-                  
-                    <div class="dragArea row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h1 class="mbr-section-title mb-4 display-2"><strong>Búsqueda</strong></h1>
-                        </div>
-                        
-                        <div class="col-lg col-md col-12 form-group">
-                        
-                            <label for="exampleFormControlSelect1">País</label>
-                            <select class="form-control" name="pais" />
-                            <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}"
-                                th:value="${pais}" th:text="${pais}"></option>
-                            </select>
-             
-                        </div>
-                        <div class="col-lg col-md col-12 form-group" >
-                             <label for="exampleFormControlSelect1">Profesión</label>
-                            <select class="form-control" name="profesion" />
-                            <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
-                                th:value="${profesion}" th:text="${profesion}"></option>
-                            </select>
-
-                        </div>
-                        <div class="mbr-section-btn col-md-auto col"><button type="submit" class="btn btn-secondary display-4">Buscar </button></div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="features9 cid-sdrmI61p5q" id="features10-t">
-    <!---->
-    
-    
     <div class="container">
-        <div class="mbr-section-head">
-            <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
-            
-        </div>
-        <div class="row mt-4" >
-            <div class="card col-12" th:each="profesional:${profesionales}">
-                <div class="card-wrapper">
-                    <div class="top-line row">
-                        <div class="col">
-                            <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${profesional.nombre}"></strong><br>
-                                <strong th:text="${profesional.apellido}"> </strong></h4>
-                        </div>
-                        <div class="col-auto">
-                            <p class="price mbr-fonts-style display-5" th:text="${profesional.numero}"></p><br>
-                            <p class="price mbr-fonts-style display-5" th:text="${profesional.email}"></p>
-                        </div>
-                    </div>
-                    <div class="bottom-line">
-                        <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
-                    </div>
-                    <div class="mbr-section-btn col-md-auto col"sec:authorize="hasRole('MODERADOR')">
-                    <button type="submit" class="btn btn-secondary display-4"  th:href="@{/profesional/eliminar/__${profesional.id}__}"  th:value="${profesional.id}" name="id"> Eliminar </button>
-                    </div>
-                </div>
+      <div class="mbr-section-head">
+        <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
+      </div>
+      <div class="row mt-4">
+        <div class="card col-12" th:each="profesional:${profesionales}">
+          <div class="card-wrapper">
+            <div class="top-line row">
+              <div class="col">
+                <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${profesional.nombre}">
+                </strong>
+                <br>
+                <strong th:text="${profesional.apellido}"> </strong></h4>
+              </div>
+              <div class="col-auto">
+                <p class="price mbr-fonts-style display-5" th:text="${profesional.numero}"></p><br>
+                <p class="price mbr-fonts-style display-5" th:text="${profesional.email}"></p>
+              </div>
             </div>
-  
+            <div class="bottom-line">
+              <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
+            </div>
+            <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
+              <button type="submit" class="btn btn-secondary display-4" 
+                th:href="@{/profesional/eliminar/__${profesional.id}__}">Eliminar</button>
+            </div>
+          </div>
         </div>
+
+      </div>
     </div>
-</section>
-    
-    <footer th:replace="layout::footer">
-    
- 
-    </footer>
-  
+  </section>
 
+  <footer th:replace="layout::footer"></footer>
 
-<section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
-'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
-    <a href="https://mobirise.site/l" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
-    <p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Website 
-        <a href="https://mobirise.site/f" style="color:#aaa;">was started</a> with Mobirise</p>
-</section><script src="assets/web/assets/jquery/jquery.min.js"></script>  
-<script src="assets/popper/popper.min.js"></script>  
-<script src="assets/tether/tether.min.js"></script> 
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>  
-<script src="assets/smoothscroll/smooth-scroll.js"></script>
-<script src="assets/dropdown/js/nav-dropdown.js"></script>  
-<script src="assets/dropdown/js/navbar-dropdown.js"></script> 
-<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-<script src="assets/theme/js/script.js"></script> 
-<script src="assets/formoid/formoid.min.js"></script>  
-  
-  
 </body>
+
 </html>
