@@ -28,65 +28,58 @@ public class HiloServicio {
     HiloRepositorio hiloRepositorio;
     @Autowired
     ComentarioRepositorio comentarioRepositorio;
-    
     @Autowired
     SalaRepositorio salaRepositorio;
-
+       
+    
     //Hilo : Listar comentario , que reciba el id del hilo , busque el hilo, que devuelva la lista de comentario
-    @Transactional
-    private void crearHilo(String titulo, String descripcion, String idUsuario, String idSala) throws ErrorServicio {
-        validar(titulo, descripcion);
-        if (idUsuario == null) {
-            throw new ErrorServicio("El id de usuario no puede ser nulo");
-        }
-        Optional<Usuario> respuestaUsuario = usuarioRepositorio.findById(idUsuario);
+    
+    public List<Hilo> listarHiloXSala(String idSala) throws ErrorServicio {
+        List<Hilo> listaActivos = hiloRepositorio.hilosActivosPorSala(idSala);
+        return listaActivos;}
+    
+    
 
-        Optional<Sala> respuestaSala = salaRepositorio.findById(idSala);
-        
-        if (respuestaUsuario.isPresent()) {
-            Hilo hilo = new Hilo();
-            hilo.setUsuario(respuestaUsuario.get());
-            hilo.setActivo(true);
-            hilo.setDescripcion(descripcion);
-            hilo.setFechaAlta(new Date());
-            hilo.setTitulo(titulo);
-            hiloRepositorio.save(hilo);
+        @Transactional
+        public Hilo crearHilo (String idsala, String titulo, String descripcion, String idUsuario)
+                throws ErrorServicio {
+            validar(titulo, descripcion);
+             Hilo hilo = new Hilo(); 
             
-            if(respuestaSala.isPresent()) {
-                Sala sala = respuestaSala.get();
-                sala.getListaHilos().add(hilo);
-                salaRepositorio.save(sala);
-            } else {
-                throw new ErrorServicio("No se encontró el id de la Sala.");
+            if (idUsuario == null) {
+                throw new ErrorServicio("El id de usuario no puede ser nulo");
             }
-            
-        } else {
-            throw new ErrorServicio("Usuario no registrado, no puede crear Hilo");
+            Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+
+            if (respuesta.isPresent()) {
+               ;
+                hilo.setUsuario(respuesta.get());
+                hilo.setActivo(true);
+                hilo.setDescripcion(descripcion);
+                hilo.setFechaAlta(new Date());
+                hilo.setTitulo(titulo);
+                
+                Optional<Sala> respuestaSala = salaRepositorio.findById(idsala);
+                
+                Sala sala = respuestaSala.get(); 
+                if(respuestaSala.isPresent()){
+                    List<Hilo> listaHilos= sala.getListaHilos();
+                    listaHilos.add(hilo); 
+                    sala.setListaHilos(listaHilos);
+                    salaRepositorio.save(sala); 
+                   return hilo; 
+                   
+            } else {
+                throw new ErrorServicio("Usuario no registrado, no puede crear Hilo");
+            }
+        
+           } return hilo; 
         }
-    }
-
-    private List<Hilo> listarActivos(String titulo, String descripcion) throws ErrorServicio {
-        List<Hilo> listaActivos = hiloRepositorio.buscarActivos();
-        return listaActivos;
-
-    }
-
-    private List<Comentario> listarComentarios(String idHilo) throws ErrorServicio {
-        Optional<Hilo> respuesta = hiloRepositorio.findById(idHilo);
-
-        if (respuesta.isPresent()) {
-
-            Hilo hilo = respuesta.get();
-
-            List<Comentario> listaComentarios = comentarioRepositorio.comentariosActivosPorHilo(idHilo);
-            return listaComentarios;
-        } else {
-            throw new ErrorServicio("No se encontró el hilo solicitado.");
-        }
-    }
-
+                     
+	
+ 
     @Transactional
-    private void desactivarHilo(String idHilo) throws ErrorServicio {
+    public void desactivarHilo(String idHilo) throws ErrorServicio {
 
         if (idHilo == null) {
             throw new ErrorServicio("El id de Hilo no puede ser nulo");
@@ -102,8 +95,9 @@ public class HiloServicio {
         }
     }
 
-    @Transactional
-    private void validar(String titulo, String descripcion) throws ErrorServicio {
+   
+    public void validar(String titulo, String descripcion) throws ErrorServicio {
+
 
         if (titulo.trim().isEmpty() || titulo == null) {
             throw new ErrorServicio("Por favor ingrese un titulo");

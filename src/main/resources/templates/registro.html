@@ -89,34 +89,35 @@
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect1">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" name="nombre" th:value="${nombre}">
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" th:value="${nombre}" />
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect1">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" name="apellido" th:value="${apellido}">
+                <input type="text" class="form-control" placeholder="Apellido" name="apellido" th:value="${apellido}" />
               </div>
             </div>
             <p></p>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Nickname</label>
-              <input type="text" class="form-control" placeholder="Nickname" name="nickname" th:value="${nickname}">
+              <input type="text" class="form-control" placeholder="Nickname" name="nickname" th:value="${nickname}" />
             </div>
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Email</label>
-              <input type="email" class="form-control" placeholder="Email" name="email" th:value="${email}">
+              <input type="email" class="form-control" placeholder="Email" name="email" th:value="${email}" />
             </div>
 
 
             <div class="row">
               <div class="col">
                 <label for="exampleFormControlSelect1">Clave</label>
-                <input type="password" class="form-control" placeholder="Clave" name="clave1" th:value="${clave1}">
+                <input type="password" class="form-control" placeholder="Clave" name="clave1" th:value="${clave1}" />
+                <small id="emailHelp" class="form-text text-muted">* Mínimo 6 caracteres</small>
               </div>
               <div class="col">
                 <label for="exampleFormControlSelect1">Repetir Clave</label>
                 <input type="password" class="form-control" placeholder="Repetir clave" name="clave2"
-                  th:value="${clave2}">
+                  th:value="${clave2}" />
               </div>
             </div>
 
@@ -129,6 +130,7 @@
             <div class="form-group">
               <label for="exampleFormControlSelect1">País</label>
               <select class="form-control" name="pais">
+                  <option selected>-- Selecciona un país --</option>
                 <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
                 th:value="${pais}" th:text="${pais}"></option>
               </select>
@@ -136,14 +138,15 @@
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-              <input type="Date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" 
-              lang="es">
+              <input type="date" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" 
+              lang="es" />
             </div>
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Diagnóstico</label>
               <p></p>
               <select class="form-control" name="diagnostico">
+                  <option selected>-- Selecciona una respuesta --</option>
               <option th:each="diagnostico : ${T(com.foroyoteambien.foro.enumeraciones.Diagnostico).values()}"
                 th:value="${diagnostico}" th:text="${diagnostico}"></option>
               </select>
@@ -158,12 +161,11 @@
             <div class="form-group">
               <label for="customFileLang">Seleccionar Foto de Perfil(Opcional)</label>
               <input class="form-control-file" type="file" id="customFileLang" lang="es" name="archivo"
-                th:value="${archivo}">
+                th:value="${archivo}" />
             </div>
             <p></p>
             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-              </br>
-              <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
+             <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
             </div>
           </form>
         </div>
@@ -249,5 +251,6 @@
   <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
   <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
   <script src="/assets/theme/js/script.js"></script>
-  <script src="/assets/formoid/formoid.min.js"></script>
+  <!--<script src="/assets/formoid/formoid.min.js"></script>-->
 </body>
+</html>

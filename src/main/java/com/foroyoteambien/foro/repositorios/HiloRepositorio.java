@@ -18,5 +18,6 @@ public interface HiloRepositorio extends JpaRepository<Hilo, String> {
     public List<Hilo> buscarActivos();
 
     @Query("SELECT h FROM Hilo h, Sala s WHERE s.id like :id AND h.activo IS TRUE")
-    public List<Hilo> hilosActivosPorSala(@Param("id") String id);
+    public List<Hilo> hilosActivosPorSala(@Param("id") String idSala);
+
 }

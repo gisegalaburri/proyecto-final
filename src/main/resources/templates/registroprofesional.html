@@ -90,7 +90,7 @@
             </div>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/registrar-profesional}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
+                    <form th:action="@{/registro-profesional}" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name">
                         <p th:if="${error!=null}" th:text="${error}" name="error" class="lead"></p>
                         <div class="row">
                             <div class="col">
@@ -151,8 +151,9 @@
                         <p></p>
                         <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                             <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
+                        </div>
                     </form>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -246,7 +247,7 @@
     <script src="/assets/formstyler/jquery.formstyler.min.js"></script>
     <script src="/assets/datepicker/jquery.datetimepicker.full.js"></script>
     <script src="/assets/theme/js/script.js"></script>
-    <script src="/assets/formoid/formoid.min.js"></script>
+   <!-- <script src="/assets/formoid/formoid.min.js"></script>-->
 
 
 </body>

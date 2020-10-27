@@ -12,10 +12,15 @@ import com.foroyoteambien.foro.enumeraciones.Pais;
 import com.foroyoteambien.foro.enumeraciones.Rol;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +100,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarUsuario(String id, String nombre, String apellido,
+    public Usuario modificarUsuario(String id, String nombre, String apellido,
             String nickname, String email, String clave1, String clave2,
             String descripcion, Pais pais, Date fechaNacimiento,
             Diagnostico diagnositco, MultipartFile archivo) throws ErrorServicio {
@@ -109,6 +114,15 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> optional = usuarioRepositorio.findById(id);
 
         if (optional.isPresent()) {
+            
+            if(!optional.get().getEmail().equals(email)) {
+                Usuario usuarioEncontrado = usuarioRepositorio.buscarPorMail(email);
+            
+                if (usuarioEncontrado != null) {
+                    throw new ErrorServicio("Ese e-mail ya está en uso. Ingrese otro.");
+                }
+            }
+            
             Usuario usuario = optional.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
@@ -125,17 +139,19 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDiagnostico(diagnositco);
 
-            String idFoto = null;
-            if (!usuario.getFoto().getContenido().equals("image/jpeg")) {
+            String idFoto = "";
+            if (archivo.getContentType().equals("image/jpeg")) {
                 idFoto = usuario.getFoto().getId();
+                
+                Foto foto = fotoServicio.actualizar(idFoto, archivo);
+                usuario.setFoto(foto);
             }
-
-            Foto foto = fotoServicio.actualizar(idFoto, archivo);
-            usuario.setFoto(foto);
 
             usuario.setFechaModificacion(new Date());
 
-            usuarioRepositorio.save(usuario);
+           return usuarioRepositorio.save(usuario);
+        } else {
+            throw new ErrorServicio("Id no encontrado");
         }
     }
 
@@ -173,7 +189,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    private Boolean validarActivo(String id) throws ErrorServicio {
+    public Boolean validarActivo(String id) throws ErrorServicio {
         Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
         if (opt.isPresent()) {
@@ -185,11 +201,20 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    private List<Usuario> listarActivos() {
+    public List<Usuario> listarActivos() {
         return usuarioRepositorio.buscarActivos();
     }
     
-    
+    public Usuario buscarUno(String id) {
+        Optional<Usuario> opt = usuarioRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+            Usuario usuario = opt.get();
+            return usuario;
+        } else {
+            return null;
+        }
+    }
 
     private void validar(String nombre, String apellido, String nickname,
             String email, String clave1, String clave2,
@@ -215,15 +240,15 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorServicio("Debe ingresar una contraseña");
         }
 
-        if (clave1.length() < 8) {
-            throw new ErrorServicio("La contraseña debe tener al menos 8 caracteres");
+        if (clave1.length() < 6) {
+            throw new ErrorServicio("La contraseña debe tener al menos 6 caracteres.");
         }
 
         if (clave2.isEmpty() || clave2 == null) {
             throw new ErrorServicio("Debe repetir su contraseña.");
         }
 
-        if (clave1 != clave2) {
+        if (!clave1.equals(clave2)) {
             throw new ErrorServicio("Las contraseñas no coinciden.");
         }
 
@@ -245,6 +270,21 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+    
+    public Date convertirDate(String fecha) {
+        
+        try {
+            DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd");
+            Date convertido = fechaHora.parse(fecha);
+            
+            return convertido;
+        } catch (ParseException ex) {
+            Logger.getLogger(UsuarioServicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String nickname) {

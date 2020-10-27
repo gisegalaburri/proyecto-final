@@ -13,6 +13,8 @@ import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,12 +47,9 @@ public class UsuarioController {
             ModelMap modelMap,
             HttpSession session) {
 
-        Optional<Usuario> opt = usuarioRepositorio.findById(id);
-
-        if (opt.isPresent()) {
-            Usuario usuario = opt.get();
-            modelMap.put("usuario", usuario);
-        }
+        Usuario usuario = null;
+        usuario = usuarioServicio.buscarUno(id);
+        modelMap.put("usuario", usuario);
 
         return "perfil.html";
     }
@@ -58,6 +57,7 @@ public class UsuarioController {
     @PostMapping("/modificar-perfil")
     public String editarPerfil(ModelMap modelMap,
             @RequestParam String id,
+            @RequestParam String nombre,
             @RequestParam String apellido,
             @RequestParam String nickname,
             @RequestParam String email,
@@ -66,24 +66,21 @@ public class UsuarioController {
             @RequestParam(required = false) String descripcion,
             @RequestParam Diagnostico diagnostico,
             @RequestParam Pais pais,
-            @RequestParam Date fechaNacimiento,
+            @RequestParam String fechaNacimiento,
             MultipartFile archivo,
             HttpSession session) {
 
+        System.out.println(id);
+        Usuario usuario = usuarioServicio.buscarUno(id);
         try {
-
-            usuarioServicio.modificarUsuario(email, email, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNacimiento, diagnostico, archivo);
-
+            Date fechaNac = usuarioServicio.convertirDate(fechaNacimiento);
+            usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
+            
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
-            Optional<Usuario> opt = usuarioRepositorio.findById(id);
-
-            if (opt.isPresent()) {
-                Usuario usuario = opt.get();
-                modelMap.put("usuario", usuario);
-            }
         }
-
+        
+        modelMap.put("usuario", usuario);
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
         return "perfil.html";
     }

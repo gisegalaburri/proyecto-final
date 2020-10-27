@@ -83,15 +83,15 @@ public class ComentarioServicio {
 
     }
 
-    private List<Comentario> listarActivos() throws ErrorServicio {
-        List<Comentario> listaActivos = comentarioRepositorio.buscarActivos();
+    public List<Comentario> listarActivos(String idhilo) throws ErrorServicio {
+        List<Comentario> listaActivos = comentarioRepositorio.comentariosActivosPorHilo(idhilo);
         return listaActivos;
 
     }
 
     @Transactional
-    public void desactivarComentario(String descripcion, String idUsuario, String idComentario) throws ErrorServicio {
-        validar(descripcion, idUsuario);
+    public void desactivarComentario(String idUsuario, String idComentario) throws ErrorServicio {
+        validarusuario(idUsuario);
         Optional<Comentario> respuesta = comentarioRepositorio.findById(idComentario);
 
         if (respuesta.isPresent()) {
@@ -99,6 +99,7 @@ public class ComentarioServicio {
             if (comentario.getUsuario().getId().equals(idUsuario)) {
                 comentario.setFechaModificacion(new Date());
                 comentario.setActivo(false);
+                comentarioRepositorio.save(comentario); 
             } else {
                 throw new ErrorServicio("Id comentario no coincide con usuario");
             }
@@ -107,7 +108,7 @@ public class ComentarioServicio {
         }
     }
 
-    @Transactional
+    
     public void validar(String descripcion, String idUsuario) throws ErrorServicio {
         if (descripcion.trim().isEmpty() || descripcion == null) {
             throw new ErrorServicio("Debe agregar cuerpo al comentario");
@@ -126,4 +127,44 @@ public class ComentarioServicio {
             throw new ErrorServicio("El id no puede ser nulo");
         }
     }
+
+    
+      
+    public void validarusuario(String idUsuario) throws ErrorServicio {
+         if (idUsuario == null || idUsuario.isEmpty()) {
+            throw new ErrorServicio("El id no puede ser nulo");
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+//        private List<Comentario> listarComentarios(String idHilo) throws ErrorServicio{
+//		Optional<Hilo> respuesta = hiloRepositorio.findById(idHilo); 
+//		
+//		
+//		if(respuesta.isPresent()) {
+//			
+//			Hilo hilo = respuesta.get(); 
+//			hilo.getListaComentarios(); 
+//			List<Comentario> listaComentarios; 
+//			
+//			
+//		}
+//		
+//		return listaComentarios;
+
