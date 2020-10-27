@@ -46,10 +46,13 @@ public class ProfesionalServicio {
 
             profesional.setNombre(nombre);
             profesional.setApellido(apellido);
+            profesional.setEmail(email);
             profesional.setPais(pais);
+            profesional.setProfesion(profesion);
+            profesional.setTelefono(telefono);
             profesional.setDescripcion(descripcion);
             profesional.setFechaAlta(new Date());
-            profesional.setActivo(true);
+//            profesional.setActivo(true);
 
             Foto foto = fotoServicio.guardarFoto(archivo);
             profesional.setFoto(foto);

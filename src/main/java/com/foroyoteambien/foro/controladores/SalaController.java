@@ -38,11 +38,12 @@ public class SalaController {
     @GetMapping("/crearsala")
     public String crearsala (ModelMap modelo, HttpSession session) throws ErrorServicio{
         modelo.put("crearsala", "notnull");
+        return null;
 
    
  
     
-    
+    }
 
 //  guarda datos de nueva sala
     @PostMapping("/crearsalaAdmin")
