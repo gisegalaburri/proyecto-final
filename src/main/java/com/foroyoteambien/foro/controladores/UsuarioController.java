@@ -37,8 +37,6 @@ public class UsuarioController {
 
     @Autowired
     UsuarioServicio usuarioServicio;
-    
-    
 
     @GetMapping("/modificar-perfil/{id}")
     public String editar(@PathVariable String id,
@@ -73,21 +71,29 @@ public class UsuarioController {
         try {
             Date fechaNac = usuarioServicio.convertirDate(fechaNacimiento);
             usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
-            
+
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
         }
-        
+
         modelMap.put("usuario", usuario);
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
         return "perfil.html";
     }
-    
+
     @GetMapping("/comunidad")
-    public String comunidad(ModelMap modelo, HttpSession session){
-      List<String> ranking= usuarioRepositorio.rankingPaises();
-      modelo.put("paises", ranking);
-      return "comunidad.html";
+    public String comunidad(ModelMap modelo, HttpSession session) {
+        List<String> ranking = usuarioRepositorio.rankingPaises();
+        modelo.put("paises", ranking);
+        return "comunidad.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
+    @GetMapping("/menuAdmin")
+    public String menuAdmin(ModelMap modelo, HttpSession session) {
+        modelo.put("ingreso", "notnull");
+        return "menuadministrador.html";
+
     }
 
 }
