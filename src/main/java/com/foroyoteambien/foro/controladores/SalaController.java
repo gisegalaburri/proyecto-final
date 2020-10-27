@@ -40,9 +40,7 @@ public class SalaController {
         modelo.put("crearsala", "notnull");
         return "menuadministrador.html";
     }
- 
-    
-    
+
 
 //  guarda datos de nueva sala
     @PostMapping("/crearsalaAdmin")
