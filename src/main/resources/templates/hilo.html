@@ -31,8 +31,8 @@
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="container">
                 <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><label class="navbar-caption text-black display-7">Yo
-                            TEAmbién</label></span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" 
+                        th:href="@{/salas}">Yo TEAmbién</a></span>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
@@ -79,7 +79,7 @@
             Puedes sugerir nuevo tema para esta Sala </a>
         <div class="align-center container">
             <div class="row justify-content-center">
-                <form th:action="@{/hilo/crearhilo}" method="POST" class="mbr-form form-with-styler"
+                <form th:action="@{/crearhiloUser}" method="POST" class="mbr-form form-with-styler"
                     data-form-title="Form Name">
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
@@ -118,7 +118,7 @@
                         <p class="mbr-text card-text mbr-fonts-style display-7" style="font-size: x-large"
                             th:text="${hilo.descripcion}"> Hilo.descripc </p>
                         <div class="mbr-section-btn col-md-auto col">
-                            <a class="btn btn-primary btn-lg" th:href="@{/hilo/listarcomentarios/__${hilo.id}__}">
+                            <a class="btn btn-primary btn-lg" th:href="@{/listarcomentarios/__${hilo.id}__}">
                                 Ingresar</a>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                                 <td th:text="${comentario.usuario.nickname}"> usuario</td>
 
                                 <td th:text="${comentario.descripcion}">
-                                    <form th:action="@{/comentario/guardarcomentario}" method="POST"
+                                    <form th:action="@{/guardarcomentario}" method="POST"
                                         class="mbr-form form-with-styler" data-form-title="Form Name">
 
                                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -179,11 +179,11 @@
                                     </form>
                                 </td>
                                 <td th:if="${session.usuariosession == comentario.usuario.id}">
-                                    <a class="btn btn-danger" th:href="@{comentario/editar/__${comentario.id}__}"
+                                    <a class="btn btn-danger" th:href="@{editarcomentario/__${comentario.id}__}"
                                         th:value="comentario.id"> Editar </a>
                                 </td>
                                 <td th:if="${session.usuariosession == ${comentario.usuario.id} ">
-                                    <a class="btn btn-danger" th:href="@{comentario/desactivar/__${comentario.id}__}"
+                                    <a class="btn btn-danger" th:href="@{desactivarcomentario/__${comentario.id}__}"
                                         th:value="comentario.id"> Eliminar </a>
                                 </td>
                             </tr>
@@ -200,7 +200,7 @@
             <!-- solo aparece cuando presiona boton editar -->
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/comentario/modificar}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action="@{/guardarcomentariomodif}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -230,14 +230,14 @@
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/comentario/guardarcomentario}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action="@{/guardarcomentario}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
                         <div id="datosviajanocultos">
-                            <input name="idsala" th:value="${sala.id}" hidden>
-                            <input name="idhilo" th:value="${hilo.id}" hidden>
+                            <input name="idsala" th:value="${sala.id}" style="display: none">
+                            <input name="idhilo" th:value="${hilo.id}" style="display: none">
                             <input name="iduser" th:value="${session.usuariosession.id}" hidden>
                         </div>
                         <div class="dragArea row">

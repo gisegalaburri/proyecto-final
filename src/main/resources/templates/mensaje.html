@@ -31,8 +31,9 @@
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="container">
                 <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><label class="navbar-caption text-black display-7">Yo
-                            TEAmbién</label></span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" 
+                        th:href="@{/salas}">Yo TEAmbién</a></span>
+                        
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
@@ -78,7 +79,7 @@
 
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid"
                     th:if="${session.usuariosession == null}">
-                    <form th:action=" @{/mensaje/guardarmensaje/}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action=" @{/guardarmensaje/}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>

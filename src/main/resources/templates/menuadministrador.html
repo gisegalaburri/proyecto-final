@@ -34,8 +34,9 @@
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="container">
                 <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7">Yo
-                            TEAmbién</a></span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" 
+                        th:href="@{/salas}">Yo TEAmbién</a></span>
+                    
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -56,20 +57,18 @@
                         <li class="nav-item"><a class="nav-link link text-black display-4" th:href="@{/logout}">Cerrar
                                 Sesión</a>
                         </li>
-                    </ul>
-                </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+
+
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{/sala/crear}">Crear Sala
+                            <a class="nav-link link text-black display-4" th:href="@{/crearsala}">Crear Sala
                                 Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{hilo/crear}">Crear Hilo</a>
+                            <a class="nav-link link text-black display-4" th:href="@{/crearhilo}">Crear Hilo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link text-black display-4" th:href="@{mensajes/vermsj}"> Revisar Mensajes
+                            <a class="nav-link link text-black display-4" th:href="@{mensaje/vermensajes}"> Revisar Mensajes
                             </a>
                         </li>
                         <li class="nav-item">
@@ -84,6 +83,7 @@
                 </div>
             </div>
         </nav>
+
     </section>
 
     <section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
@@ -97,7 +97,12 @@
         </div>
     </section>
 
-    
+    <section class="form5 cid-sdqZqPhEBB" id="enblanco" th:if="${ingreso != null}">
+        <div class="container" >
+
+        </div>
+    </section>
+        
     <section class="form5 cid-sdqZqPhEBB" id="crearsala" th:if="${crearsala != null}">
         <div class="container">
             <div class="row">
@@ -111,7 +116,7 @@
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/sala/crearsala}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action="@{/crearsalaAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -147,7 +152,7 @@
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/menu/crearhilo}" method="POST" class="mbr-form form-with-styler"
+                    <form th:action="@{/crearhiloAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -215,7 +220,7 @@
                                     <td th:text="${mensaje.fechaAlta}"></td>
                                     <td th:text="${mensaje.usuario.nickname}"> </td>
                                     <td>
-                                        <a class="btn btn-danger" th:href="@{menu/solucionarmensaje/__${mensaje.id}__}">
+                                        <a class="btn btn-danger" th:href="@{mensaje/solucionarmensaje/__${mensaje.id}__}">
                                             Marcar como Solucionado </a>
                                     </td>
                                 </tr>
