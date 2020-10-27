@@ -33,14 +33,17 @@ public class SalaController {
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
+
 //  carga formulario para crear sala
     @GetMapping("/crearsala")
     public String crearsala (ModelMap modelo, HttpSession session) throws ErrorServicio{
         modelo.put("crearsala", "notnull");
-        return "menuadministrador.html";
-    }
+
+   
+ 
     
     
+
 //  guarda datos de nueva sala
     @PostMapping("/crearsalaAdmin")
     public String crearsalaAdmin(ModelMap modelo,

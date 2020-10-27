@@ -71,7 +71,7 @@ public class SalaServicio {
         }
     }
     
-    public List<Sala> listarSalas() throws ErrorServicio {
+    public List<Sala> listarSalas() {
         List<Sala> listaSalas = salaRepositorio.findAll();
         return listaSalas;
 

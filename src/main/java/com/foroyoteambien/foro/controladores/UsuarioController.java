@@ -7,6 +7,7 @@ import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +81,13 @@ public class UsuarioController {
         modelMap.put("usuario", usuario);
         modelMap.put("exito", "Se actualizaron correctamente los datos.");
         return "perfil.html";
+    }
+    
+    @GetMapping("/comunidad")
+    public String comunidad(ModelMap modelo, HttpSession session){
+      List<String> ranking= usuarioRepositorio.rankingPaises();
+      modelo.put("paises", ranking);
+      return "comunidad.html";
     }
 
 }

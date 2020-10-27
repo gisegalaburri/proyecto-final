@@ -6,6 +6,7 @@
 package com.foroyoteambien.foro.controladores;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErroresController implements ErrorController {
 
     @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+    public ModelAndView renderErrorPage(HttpServletRequest httpRequest, HttpSession session) {
 
         ModelAndView errorPage = new ModelAndView("error");
         String errorMsg = "";
