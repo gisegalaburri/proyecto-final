@@ -14,11 +14,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/comentario")
+@RequestMapping("/")
 public class ComentarioController {
 
     @Autowired
@@ -30,6 +32,19 @@ public class ComentarioController {
     @Autowired
     ComentarioServicio comentarioServicio;
 
+//  lista los comentarios al elegir el hilo
+    @GetMapping("/listarcomentarios/{idhilo}")
+    public String listarcomentarios(@PathVariable String idhilo, ModelMap modelo, HttpSession session) throws ErrorServicio {
+        Hilo hilo = hiloRepositorio.getOne(idhilo);
+        modelo.put("hilo", hilo);
+        modelo.put("mostrar", "notnull");
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        modelo.put("listacomentarios", "listacomentarios");
+        return "hilo.html";
+    }
+
+    
+//  guarda comentario nuevo
     @PostMapping("/guardarcomentario")
     public String guardarcomentario(ModelMap modelo,
             HttpSession session,
@@ -60,16 +75,15 @@ public class ComentarioController {
         return "hilo.html";
     }
 
-    @PostMapping("/editar")
-    public String editarcomentario(ModelMap modelo,
+    
+    @PostMapping("/desactivarcomentario")
+    public String desactivarcomentario(ModelMap modelo,
             HttpSession session,
             String idhilo,
             String iduser,
-            String idcomentario) {
+            String idcomentario) throws ErrorServicio {
 
-//        comentarioServicio.modificarComentario(String comentario
-//        , String iduser, String idcomentario
-//        );
+        comentarioServicio.desactivarComentario(iduser, idcomentario);
 
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         List<Comentario> listaComentario = hilo.getListaComentarios();
@@ -79,15 +93,21 @@ public class ComentarioController {
         return "hilo.html";
 
     }
-
-    @PostMapping("/desactivar")
-    public String desactivarcomentario(ModelMap modelo,
+    
+   
+    
+//  FALTA terminar editar y guardar comentario modificado
+//  hilo.HTML ver desde linea 198
+    @PostMapping("/editarcomentario")
+    public String editarcomentario(ModelMap modelo,
             HttpSession session,
             String idhilo,
             String iduser,
-            String idcomentario) throws ErrorServicio {
+            String idcomentario) {
 
-        comentarioServicio.desactivarComentario(iduser, idcomentario);
+//        comentarioServicio.modificarComentario(String comentario
+//        , String iduser, String idcomentario
+//        );
 
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         List<Comentario> listaComentario = hilo.getListaComentarios();

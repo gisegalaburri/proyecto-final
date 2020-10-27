@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.foroyoteambien.foro.controladores;
 
 import com.foroyoteambien.foro.entidades.Usuario;
@@ -42,6 +37,8 @@ public class UsuarioController {
 
     @Autowired
     UsuarioServicio usuarioServicio;
+    
+    
 
     @GetMapping("/modificar-perfil/{id}")
     public String editar(@PathVariable String id,
