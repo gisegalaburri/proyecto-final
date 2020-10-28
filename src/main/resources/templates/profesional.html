@@ -32,10 +32,11 @@
       <div class="row justify-content-center">
         <div class="col-12 col-lg-10">
           <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
-            Profesionales</strong>
+              Profesionales</strong>
           </h1>
-          <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad 
+          <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad
             para encontrar ayuda</p>
+          <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
         </div>
       </div>
     </div>
@@ -55,8 +56,8 @@
               <div class="col-lg col-md col-12 form-group">
                 <label for="exampleFormControlSelect1">País</label>
                 <select class="form-control" name="pais">
-                  <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
-                  th:value="${pais}" th:text="${pais}"></option>
+                  <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" th:value="${pais}"
+                    th:text="${pais}"></option>
                 </select>
               </div>
 
@@ -83,34 +84,43 @@
     <div class="container">
       <div class="mbr-section-head">
         <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
+        <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+        <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
       </div>
-      <div class="row mt-4">
-        <div class="card col-12" th:each="profesional:${profesionales}">
+      <div class="row mt-4" th:each="profesional:${profesionales}">
+        <div class="card col-12">
           <div class="card-wrapper">
             <div class="top-line row">
               <div class="col">
                 <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${profesional.nombre}">
-                </strong>
-                <br>
-                <strong th:text="${profesional.apellido}"> </strong></h4>
+                  </strong>
+                  <br>
+                  <strong th:text="${profesional.apellido}"></strong></h4>
+                  <div class="bottom-line">
+                    <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
+                     
+                  </div>
               </div>
               <div class="col-auto">
-                <p class="price mbr-fonts-style display-5" th:text="${profesional.numero}"></p><br>
-                <p class="price mbr-fonts-style display-5" th:text="${profesional.email}"></p>
+                <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.telefono}"></p><br>
+                <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.email}"></p>
+                <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.pais}"><br></p>
               </div>
             </div>
-            <div class="bottom-line">
-              <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
-            </div>
+            
+            <!--Editar-->
             <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
-              <button type="submit" class="btn btn-secondary display-4" 
-                th:href="@{/profesional/eliminar/__${profesional.id}__}">Eliminar</button>
+              <a class="btn btn-secondary display-4" th:href="@{/profesional/eliminar/__${profesional.id}__}"><i
+                  class="fas fa-edit"></i>
+              </a>
+              <!--Eliminar-->
+              <a class="btn btn-secondary display-4" th:href="@{/profesional/modificar/__${profesional.id}__}">
+                <i class="fas fa-trash-alt"></i>
+              </a>
             </div>
           </div>
         </div>
-
       </div>
-    </div>
   </section>
 
   <footer th:replace="layout::footer"></footer>

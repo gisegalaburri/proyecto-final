@@ -52,7 +52,7 @@ public class ProfesionalServicio {
             profesional.setTelefono(telefono);
             profesional.setDescripcion(descripcion);
             profesional.setFechaAlta(new Date());
-//            profesional.setActivo(true);
+            profesional.setActivo(true);
 
             Foto foto = fotoServicio.guardarFoto(archivo);
             profesional.setFoto(foto);
@@ -146,14 +146,23 @@ public class ProfesionalServicio {
         }
     }
 
-    public List<Profesional> listarActivos() {
-        return profesionalRepositorio.listarActivos();
+    public List<Profesional> listarActivos()  {
+      
+            List<Profesional> profesionales = profesionalRepositorio.listarActivos();
+
+            for (Profesional profesional : profesionales) {
+                System.out.println(profesional.toString());
+            }
+
+            System.out.println(profesionales.size());
+            return profesionales;
+     
     }
-    
-    public List<Profesional> listarPorPais(Pais pais) {
-        return profesionalRepositorio.listarPorPais(pais.toString());
+
+    public List<Profesional> listarPorPais(Pais pais, Profesion profesion) {
+        return profesionalRepositorio.listarPorPais(pais.toString(), profesion.toString());
     }
-    
+
     private void validar(String nombre, String apellido, String email,
             Pais pais, Profesion profesion, Integer telefono) throws ErrorServicio {
 
