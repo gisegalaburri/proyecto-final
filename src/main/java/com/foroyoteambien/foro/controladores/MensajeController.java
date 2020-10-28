@@ -1,9 +1,9 @@
-
 package com.foroyoteambien.foro.controladores;
 
 import com.foroyoteambien.foro.entidades.Mensaje;
 import com.foroyoteambien.foro.entidades.Profesional;
 import com.foroyoteambien.foro.entidades.Sala;
+import com.foroyoteambien.foro.enumeraciones.Asunto;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.ProfesionalRepositorio;
 import com.foroyoteambien.foro.servicios.HiloServicio;
@@ -23,33 +23,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class MensajeController {
-   
+
     @Autowired
     MensajeServicio mensajeServicio;
 
     @Autowired
     HiloServicio hiloServicio;
-    
+
     @Autowired
     SalaServicio salaServicio;
-    
+
     @Autowired
     ProfesionalServicio profesionalServicio;
-    
+
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
-    
-    
+
 //  muestra los mensajes al administrador
     @GetMapping("/vermensajes")
-    public String crear (ModelMap modelo, HttpSession session) throws ErrorServicio{
+    public String crear(ModelMap modelo, HttpSession session) throws ErrorServicio {
         modelo.put("vermensajes", "notnull");
         List<Mensaje> mensajes = mensajeServicio.listaNoResueltos();
         modelo.put("mensajes", mensajes);
-       return "menuadministrador.html";
+        return "menuadministrador.html";
     }
-    
-      
+
     @PostMapping("/solucionarmensaje")
     public String solucionarmensaje(ModelMap modelo,
             @RequestParam String id,
@@ -69,10 +67,22 @@ public class MensajeController {
         }
         return "menuadministrador.html";
     }
-    
-    
-    
-//    FALTA metodo guardar mensaje nuevo
-//    form th:action=" @{/guardarmensaje/} mensaje.html Linea 82
-    
+
+    @PostMapping("/guardarmensaje")
+    public String guardarmensaje(ModelMap modelo,
+            @RequestParam Asunto asunto,
+            @RequestParam String descripcion,
+            @RequestParam String idUsuario,
+            HttpSession session) {
+        try {
+            mensajeServicio.crearMensaje(asunto, descripcion, idUsuario);
+
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+        }
+        modelo.put("exito", "Mensaje enviado correctamente");
+
+        return "mensaje.html";
+    }
+
 }

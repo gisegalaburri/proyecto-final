@@ -30,7 +30,8 @@
 </head>
 
 <body>
-  <section th:replace="layout::nav-menu"></section>
+<section th:replace="layout::nav-menu"></section>
+
 <section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
         <div class="align-center container">
             <div class="row justify-content-center">
@@ -64,7 +65,9 @@
                     <form th:action="@{/crearsalaAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: red" class="lead"></p>
+
 
                         <div class="dragArea row">
                             <div class="col-md col-sm-12 form-group" data-for="name">
@@ -85,7 +88,7 @@
         </div>
     </section>
 
-    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${creahilo != null}">
+    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${crearhilo != null}">
         <div class="container">
             <div class="row">
                 <div class="title col-12">
@@ -102,11 +105,15 @@
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: red" class="lead"></p>
+                        
+                        <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
+
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
                                 <h4> Seleccione sala principal </h4>
                                 <select class="form-control" name="idsala">
-                                    <option th:each="sala : ${listasalas}" th:value="${sala.id}"
+                                    <option th:each="sala : ${salas}" th:value="${sala.id}"
                                         th:text="${sala.titulo}">
                                     </option>
                                 </select>
@@ -165,7 +172,7 @@
                                     <td th:text="${mensaje.fechaAlta}"></td>
                                     <td th:text="${mensaje.usuario.nickname}"> </td>
                                     <td>
-                                        <a class="btn btn-danger" th:href="@{mensaje/solucionarmensaje/_${mensaje.id}_}">
+                                        <a class="btn btn-danger" th:href="@{solucionarmensaje/_${mensaje.id}_}">
                                             Marcar como Solucionado </a>
                                     </td>
                                 </tr>
@@ -179,7 +186,7 @@
     </section>
 
 
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario" th:if="${bloqearusuario != null}">
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario" th:if="${bloquearUser != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
@@ -197,8 +204,8 @@
                         <div class="col">
                             <label for="exampleFormControlSelect1"> Ingrese Nickname del usuario</label>
                             <input type="text" class="form-control" placeholder="NickName" name="nickname">
-                            <a class="btn btn-danger" th:href="@{usuario/buscarunosuario/_${nickname}_}">
-                                Marcar como Leido </a>
+                            <a class="btn btn-secondary" th:href="@{/buscarUnUsuario/__${nickname}__}">
+                                Buscar Usuario </a>
                         </div>
                     </div>
                 </div>
@@ -208,50 +215,50 @@
 
     <section class="form2 cid-sdrmQWbXCd" id="mostrarusuario" th:if="${mostraruser != null}">
 
-        <div class="align-center container">
+        <div class="align-center container" th:object="${usuario}">
             <div class="row">
                 <div class="col">
                     <label for="exampleFormControlSelect1">Nombre</label>
-                    <label class="form-control" name="nombre" th:value="${usuario.nombre}">
+                    <label class="form-control" name="nombre" th:field="*{usuario.nombre}">
                 </div>
                 <div class="col">
                     <label for="exampleFormControlSelect1">Apellido</label>
-                    <label class="form-control" name="apellido" th:value="${usuario.apellido}">
+                    <label class="form-control" name="apellido" th:field="*{usuario.apellido}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nickname</label>
-                <label class="form-control" name="nickname" th:value="${usuario.nickname}">
+                <label class="form-control" th:field="*{usuario.nickname}">
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Email</label>
-                <label class="form-control" name="email" th:value="${usuario.email}">
+                <label class="form-control"  th:field="*{usuario.email}">
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
-                <textarea class="form-control" name="descripcion" th:value="${usuario.descripcion}"></textarea>
+                <textarea class="form-control" th:field="*{usuario.descripcion}"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1">País</label>
-                <label class="form-control" name="email" th:value="${usuario.pais}"></label>
+                <label class="form-control" th:field="*{usuario.pais}"></label>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-                <label type="Date" class="form-control" name="fechaNacimiento" th:value="${usuario.fechaNacimiento}">
+                <label type="Date" class="form-control" th:field="*{usuario.fechaNacimiento}">
             </div>
 
             <div class="form-check">
                 <label for="exampleFormControlSelect1">Diagnóstico</label>
-                <label class="form-control" name="diagnostico" th:value="${usuario.diagnostico}">
+                <label class="form-control" th:field="*{usuario.diagnostico}">
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Fecha de alta</label>
-                <label type="Date" class="form-control" name="fechaAlta" th:value="${usuario.fechaAlta}">
+                <label type="Date" class="form-control" th:field="*{usuario.fechaAlta}">
             </div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">

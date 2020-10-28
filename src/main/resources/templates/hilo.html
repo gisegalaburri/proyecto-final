@@ -51,8 +51,8 @@
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
                     <div id="datosviajanocultos">
-                        <input name="idsala" th:value="${sala.id}" hidden>
-                        <input name="idusuario" th:value="${session.usuariosession.id}" hidden>
+                        <input name="idsala" th:value="${sala.id}" style="display: none">
+                        <input name="idusuario" th:value="${session.usuariosession.id}" style="display: none">
                     </div>
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12">

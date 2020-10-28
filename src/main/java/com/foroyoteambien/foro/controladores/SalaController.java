@@ -21,25 +21,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class SalaController {
+
     @Autowired
-    SalaServicio salaServicio; 
-    
+    SalaServicio salaServicio;
+
     @Autowired
     MensajeServicio mensajeServicio;
-    
+
     @Autowired
     ProfesionalServicio profesionalServicio;
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
-
 //  carga formulario para crear sala
     @GetMapping("/crearsala")
-    public String crearsala (ModelMap modelo, HttpSession session) throws ErrorServicio{
+    public String crearsala(ModelMap modelo, HttpSession session) throws ErrorServicio {
         modelo.put("crearsala", "notnull");
         return "menuadministrador.html";
     }
-
 
 //  guarda datos de nueva sala
     @PostMapping("/crearsalaAdmin")
@@ -48,19 +47,15 @@ public class SalaController {
             @RequestParam String descripcionsala,
             HttpSession session) throws ErrorServicio {
         try {
-            salaServicio.crearSala(titulosala, descripcionsala); 
-       } 
-        catch (ErrorServicio ex) {
+            salaServicio.crearSala(titulosala, descripcionsala);
+        } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
         List<Sala> salas = salaServicio.listarSalas();
         modelo.put("salas", salas);
-        return "menuadministrador.html"; 
+        modelo.put("crearsala", "notnull");
+        modelo.put("exito", "Sala creada correctamenete");
+        return "menuadministrador.html";
     }
-         
+
 }
-
-    
-
-            
-    

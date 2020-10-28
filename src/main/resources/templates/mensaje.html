@@ -51,7 +51,9 @@
                     <form th:action=" @{/guardarmensaje/}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: black" class="lead">
+
 
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
@@ -70,11 +72,12 @@
                             </div>
 
                             <div class="col-md col-sm-12 form-group" data-for="name">
-                                <input type="text" name="name" placeholder="@{usuario.usuariosession.nombre}"
+                                <input type="text" name="idUsuario" 
                                     data-form-field="name" class="form-control"
-                                    th:text="@{usuario.usuariosession.nombre}" id="name-form5-i"
-                                    th:value="@{usuario.usuariosession.id}">
+                                    th:text="@{usuario.usuariosession.nombre}" idUsuario="name-form5-i"
+                                    th:value="@{usuario.usuariosession.id}" readonly>
                             </div>
+
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-secondary display-4">Enviar</button>
                             </div>

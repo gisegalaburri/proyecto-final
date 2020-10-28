@@ -96,4 +96,37 @@ public class UsuarioController {
 
     }
 
+    @GetMapping("/bloquearUsuario")
+    public String bloquearUsuario(ModelMap modelo, HttpSession session) {
+        modelo.put("bloquearUser", "notnull");
+        return "menuadministrador.html";
+    }
+
+    @GetMapping("/buscarUnUsuario/{nickname}")
+    public String buscarUnUsuario(ModelMap modelo,
+            @PathVariable String nickname,
+            HttpSession session) {
+       
+        try {
+            Usuario usuario = usuarioServicio.buscarPorNickname(nickname);
+            modelo.put("usuario", usuario);
+            ;
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+             modelo.put("error", ex.getMessage());
+        }
+        
+        modelo.put("mostraruser", "notnull");
+        return "menuadministrador.html"; 
+    }
+
+    
+//        @PostMapping("/bloquearUsuario")
+//        public String bloquearUsuario
+//        (ModelMap modelo,
+//                HttpSession session
+//        ,
+//            FALTA **************
+//
+//        }
 }
