@@ -160,8 +160,14 @@ public class ProfesionalServicio {
 
     }
 
+
     public List<Profesional> listarPorPais(Pais pais, Profesion profesion) {
         return profesionalRepositorio.listarPorPais(pais, profesion);
+    }
+    
+    
+    public List<Profesional> listarNoActivos() {
+        return profesionalRepositorio.listarNoActivos();
     }
 
     private void validar(String nombre, String apellido, String email,

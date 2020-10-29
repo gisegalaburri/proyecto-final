@@ -4,34 +4,35 @@
 </html>
 
 <head>
-  <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
-  <meta name="description" content="">
+    <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
 
 
-  <title>Portal Administrador - Foro Yo TEAmbién</title>
-  <link rel="stylesheet" href="/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
-  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
-  <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
-  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="/assets/theme/css/style.css">
-  <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
-  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+    <title>Portal Administrador - Foro Yo TEAmbién</title>
+    <link rel="stylesheet" href="/assets/tether/tether.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+    <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 
 </head>
 
 <body>
-  <section th:replace="layout::nav-menu"></section>
-<section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
+    <section th:replace="layout::nav-menu"></section>
+
+    <section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
@@ -42,12 +43,7 @@
         </div>
     </section>
 
-    <section class="form5 cid-sdqZqPhEBB" id="enblanco" th:if="${ingreso != null}">
-        <div class="container" >
 
-        </div>
-    </section>
-        
     <section class="form5 cid-sdqZqPhEBB" id="crearsala" th:if="${crearsala != null}">
         <div class="container">
             <div class="row">
@@ -64,7 +60,9 @@
                     <form th:action="@{/crearsalaAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: red" class="lead"></p>
+
 
                         <div class="dragArea row">
                             <div class="col-md col-sm-12 form-group" data-for="name">
@@ -85,7 +83,7 @@
         </div>
     </section>
 
-    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${creahilo != null}">
+    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${crearhilo != null}">
         <div class="container">
             <div class="row">
                 <div class="title col-12">
@@ -102,12 +100,15 @@
 
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
 
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: red" class="lead"></p>
+
+                        <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
+
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
                                 <h4> Seleccione sala principal </h4>
                                 <select class="form-control" name="idsala">
-                                    <option th:each="sala : ${listasalas}" th:value="${sala.id}"
-                                        th:text="${sala.titulo}">
+                                    <option th:each="sala : ${salas}" th:value="${sala.id}" th:text="${sala.titulo}">
                                     </option>
                                 </select>
                             </div>
@@ -143,7 +144,7 @@
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-
+                    <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
                     <div class="dragArea row">
 
                         <table class="table table-striped table table-bordered">
@@ -163,9 +164,9 @@
                                     <td th:text="${mensaje.asunto}"> </td>
                                     <td th:text="${mensaje.descripcion}"> </td>
                                     <td th:text="${mensaje.fechaAlta}"></td>
-                                    <td th:text="${mensaje.usuario.nickname}"> </td>
+                                    <td th:text="${mensaje.remitente.nickname}"> </td>
                                     <td>
-                                        <a class="btn btn-danger" th:href="@{mensaje/solucionarmensaje/_${mensaje.id}_}">
+                                        <a class="btn btn-danger" th:href="@{solucionarmensaje/__${mensaje.id}__}">
                                             Marcar como Solucionado </a>
                                     </td>
                                 </tr>
@@ -179,7 +180,7 @@
     </section>
 
 
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario" th:if="${bloqearusuario != null}">
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearusuario" th:if="${bloquearUser != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
@@ -191,14 +192,21 @@
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                    <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
 
                     <div class="dragArea row">
 
                         <div class="col">
-                            <label for="exampleFormControlSelect1"> Ingrese Nickname del usuario</label>
-                            <input type="text" class="form-control" placeholder="NickName" name="nickname">
-                            <a class="btn btn-danger" th:href="@{usuario/buscarunosuario/_${nickname}_}">
-                                Marcar como Leido </a>
+                            <form th:action=" @{/buscarUnUsuario}" method="POST" class="mbr-form form-with-styler">
+                                <label for="exampleFormControlSelect1"> Ingrese Nickname del usuario</label>
+                                <input type="text" class="form-control" placeholder="NickName" name="nickname">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" class="btn btn-secondary display-4"> Buscar Usuario</button>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -208,75 +216,72 @@
 
     <section class="form2 cid-sdrmQWbXCd" id="mostrarusuario" th:if="${mostraruser != null}">
 
-        <div class="align-center container">
-            <div class="row">
-                <div class="col">
-                    <label for="exampleFormControlSelect1">Nombre</label>
-                    <label class="form-control" name="nombre" th:value="${usuario.nombre}">
+        <section class="features9 cid-sdrmI61p5q" id="features10-t">
+
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2">
+                        <strong> Datos de usuario a bloquear </strong></h3>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
                 </div>
-                <div class="col">
-                    <label for="exampleFormControlSelect1">Apellido</label>
-                    <label class="form-control" name="apellido" th:value="${usuario.apellido}">
+
+                <div class="row mt-4" th:object="${usuario}">
+                    <div class="card col-12">
+                        <div class="card-wrapper">
+                            <div class="top-line row">
+                                <div class="col">
+                                    <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/__${usuario.foto.id}__}"
+                                        id="img" style="width: 100px;" />
+                                </div>
+
+                                <div class="col">
+                                    <h4 class="card-title mbr-fonts-style display-5">
+                                        <strong th:field="*{nombre}" th:text="${usuario.nombre}"> </strong>
+                                        <br>
+                                        <strong th:field="*{apellido}" th:text="${usuario.apellido}"></strong></h4>
+
+                                    <div class="bottom-line">
+                                        <p class="mbr-text mbr-fonts-style display-7"><br></p>
+
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:field="*{nickname}" th:text="${usuario.nickname}"></p>
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:field="*{pais}" th:text="${usuario.pais}"></p><br>
+                                    <!--Editar-->
+                                    <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
+                                        <a class="btn btn-secondary display-4" th:href="@{/bloquearusuario/__${id}__}">
+                                            <i class="fas fa-ban"></i>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Nickname</label>
-                <label class="form-control" name="nickname" th:value="${usuario.nickname}">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Email</label>
-                <label class="form-control" name="email" th:value="${usuario.email}">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
-                <textarea class="form-control" name="descripcion" th:value="${usuario.descripcion}"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">País</label>
-                <label class="form-control" name="email" th:value="${usuario.pais}"></label>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Fecha de nacimiento</label>
-                <label type="Date" class="form-control" name="fechaNacimiento" th:value="${usuario.fechaNacimiento}">
-            </div>
-
-            <div class="form-check">
-                <label for="exampleFormControlSelect1">Diagnóstico</label>
-                <label class="form-control" name="diagnostico" th:value="${usuario.diagnostico}">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Fecha de alta</label>
-                <label type="Date" class="form-control" name="fechaAlta" th:value="${usuario.fechaAlta}">
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                <a class="btn btn-danger" th:href="@{usuario/bloquear/_${usuario.id}_}">
-                    Bloquear Usuario </a>
-            </div>
-
-        </div>
-
+        </section>
     </section>
 
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional" th:if="${bloqearprof != null}">
+    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional" th:if="${habilitarprof != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
                     <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
-                        Bloquear profesional</h5>
+                        Habilitar profesional</h5>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
-                    <form th:action=" @{/profesional/buscarprofesional/}" method="POST"
-                        class="mbr-form form-with-styler" data-form-title="Form Name">
+                    <form th:action=" @{/buscarprofesionalNoActivos}" method="POST" class="mbr-form form-with-styler"
+                        data-form-title="Form Name">
                         <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
 
                         <div class="dragArea row">
                             <div class="col">
@@ -284,12 +289,10 @@
                                     <label for="exampleFormControlSelect1"> Ingrese Apellido del Profesional</label>
                                     <input type="text" class="form-control" placeholder="Apellido" name="apellido">
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1"> Ingrese Nombres del Profesional</label>
-                                    <input type="text" class="form-control" placeholder="Apellido" name="nombres">
-                                </div>
+
                                 <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                    <button type="submit" class="btn btn-secondary display-4">Buscar</button>
+                                    <button type="submit" class="btn btn-secondary display-4">Buscar
+                                        Profesional</button>
                                 </div>
                             </div>
                         </div>
@@ -299,58 +302,54 @@
     </section>
 
     <section class="form2 cid-sdrmQWbXCd" id="mostrarprofesional" th:if="${mostrarprofe != null}">
+        <section class="features9 cid-sdrmI61p5q" id="features10-t">
 
-        <div class="align-center container">
-            <div class="row">
-                <div class="col">
-                    <label for="exampleFormControlSelect1"> Apellido</label>
-                    <label class="form-control" name="apellido" th:value="${profesional.apellido}">
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
                 </div>
-                <div class="col">
-                    <label for="exampleFormControlSelect1">Nombres</label>
-                    <label class="form-control" name="nombres" th:value="${profesional.nombre}">
+                <div class="row mt-4" th:each="profesional:${profesionales}">
+                    <div class="card col-12">
+                        <div class="card-wrapper">
+                            <div class="top-line row">
+                                <div class="col">
+                                    <h4 class="card-title mbr-fonts-style display-5"><strong
+                                            th:text="${profesional.nombre}">
+                                        </strong>
+                                        <br>
+                                        <strong th:text="${profesional.apellido}"></strong></h4>
+                                    <div class="bottom-line">
+                                        <p class="mbr-text mbr-fonts-style display-7"
+                                            th:text="${profesional.profesion}"><br></p>
+
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:text="${profesional.telefono}"></p><br>
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:text="${profesional.email}"></p>
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:text="${profesional.pais}"><br></p>
+                                </div>
+                            </div>
+
+                            <!--habilitar-->
+                            <a class="btn btn-secondary display-4"
+                                th:href="@{/habilitar-profesional/__${profesional.id}__}">
+                                <i class="fas fa-trash-alt"></i>
+                            </a> -->
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Email</label>
-                <label class="form-control" name="email" th:value="${profesional.mail}">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">País</label>
-                <label class="form-control" name="email" th:value="${profesional.pais}"></label>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Profesion</label>
-                <label class="form-control" name="email" th:value="${profesional.profesion}"></label>
-            </div>
-
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
-                <textarea class="form-control" name="descripcion" th:value="${profesional.descripcion}"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Profesion</label>
-                <label class="form-control" name="telefono" th:value="${profesional.telefono}"></label>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Fecha de alta</label>
-                <label type="Date" class="form-control" name="fechaAlta" th:value="${profesional.fechaAlta}">
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                <a class="btn btn-danger" th:href="@{profesional/bloquear/_${profesional.id}_}">
-                    Bloquear Usuario </a>
-            </div>
-        </div>
     </section>
 
-  <footer th:replace="layout::footer"></footer>
+    <footer th:replace="layout::footer"></footer>
 
 </body>
 

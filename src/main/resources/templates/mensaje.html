@@ -3,32 +3,33 @@
 
 
 <head>
-  <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
-  <meta name="description" content="">
+    <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
 
-  <title>Mensajes - Foro Yo TEAmbién</title>
-  <link rel="stylesheet" href="/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
-  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
-  <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
-  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="/assets/theme/css/style.css">
-  <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
-  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+    <title>Mensajes - Foro Yo TEAmbién</title>
+    <link rel="stylesheet" href="/assets/tether/tether.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+    <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 </head>
 
 <body>
 
- <section th:replace="layout::nav-menu">
+    <section th:replace="layout::nav-menu"> </section>
+
     <section class="header18 cid-sdrzCCdQR1" id="header18-z">
         <div class="align-center container">
             <div class="row justify-content-center">
@@ -44,14 +45,16 @@
         <div class="container">
             <div class="row justify-content-center mt-4">
 
-                <p th:if="${session.usuariosession == null}" th:text="Debe ser usuario registrado"> </p>
+                <!-- <p th:if="${session.usuariosession == null}" th:text="Debe ser usuario registrado"> </p> -->
 
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid"
-                    th:if="${session.usuariosession == null}">
-                    <form th:action=" @{/guardarmensaje/}" method="POST" class="mbr-form form-with-styler"
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <!-- th:if="${session.usuariosession != null}"> -->
+                    <form th:action=" @{/guardarmensaje}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="color: black" class="lead"></p>
+
 
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
@@ -65,16 +68,20 @@
                             </div>
 
                             <div class="col-12 form-group" data-for="textarea">
+                                <h4> Escribe tu mensaje </h4>
                                 <textarea name="descripcion" placeholder="Escriba su mensaje" data-form-field="textarea"
                                     class="form-control" id="textarea-form5-i"></textarea>
                             </div>
 
-                            <div class="col-md col-sm-12 form-group" data-for="name">
-                                <input type="text" name="name" placeholder="@{usuario.usuariosession.nombre}"
-                                    data-form-field="name" class="form-control"
-                                    th:text="@{usuario.usuariosession.nombre}" id="name-form5-i"
-                                    th:value="@{usuario.usuariosession.id}">
+                            <div class="col-12 form-group" data-for="name">
+                                <h4> Nickname </h4>
+                                <input type="text" name="nickUsuario" class="form-control"
+                                    th:value="${session.usuariosession.nickname}" readonly>
+
                             </div>
+                            <input type="text" name="idUsuario" class="form-control"
+                                th:value="${session.usuariosession.id}" style="display: none;">
+
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-secondary display-4">Enviar</button>
                             </div>
@@ -82,10 +89,10 @@
                     </form>
                 </div>
             </div>
-      </div>
-  </section>
-  
-  <footer th:replace="layout::footer"></footer>
+        </div>
+    </section>
+
+    <footer th:replace="layout::footer"></footer>
 
 </body>
 

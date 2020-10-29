@@ -140,6 +140,7 @@ public class ProfesionalController {
             ModelMap modelMap,
             HttpSession session) {
         try {
+
             profesionalServicio.dehabilitar(id);
         } catch (ErrorServicio ex) {
             modelMap.put("error", ex.getMessage());
@@ -153,18 +154,31 @@ public class ProfesionalController {
         return "profesional.html";
     }
 
-    @PreAuthorize("hasRole('ROLE_MODERADOR')")
-    @GetMapping("/habilitar-profesional/{id}")
-    public String habilitarPro(@PathVariable String id,
-            ModelMap modelMap,
-            HttpSession session) {
-        try {
-            profesionalServicio.volverAHabilitar(id);
-        } catch (ErrorServicio ex) {
-            modelMap.put("error", ex.getMessage());
 
-            return "";
+    @GetMapping("/habilitar-profesional")
+    public String buscarProfesionalNoActivo(ModelMap modelo,
+            HttpSession session) {
+        
+        List<Profesional> profesionales= profesionalServicio.listarNoActivos();
+        modelo.put("profesionales", profesionales); 
+        modelo.put("mostrarprofe", "notnull");
+        return "menuadministrador.html"; 
+    }
+    
+    
+    @GetMapping("/habilitar-profesional/{id}")
+    public String habilitarPro(@PathVariable String id, ModelMap modelo,
+            HttpSession session){
+        try {
+          profesionalServicio.volverAHabilitar(id);
+          modelo.put("exito", "Se activo correctamente el Profesional seleccionado"); 
+        } catch (ErrorServicio e ) {
+          modelo.put("error", e.getMessage());
+
         }
-        return "";
+        List<Profesional> profesionales= profesionalServicio.listarNoActivos();
+        modelo.put("profesionales", profesionales); 
+        modelo.put("mostrarprofe", "notnull");
+                return "menuadministrador.html";
     }
 }

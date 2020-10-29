@@ -25,103 +25,95 @@ import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 
 @Service
 public class MensajeServicio {
-	@Autowired
-	MensajeRepositorio mensajeRepositorio;
-	@Autowired
-	UsuarioServicio usuarioServicio;
-	@Autowired
-	UsuarioRepositorio usuarioRepositorio;
 
-	public void crearMensaje(Asunto asunto, String descripcion, String idUsuario, Usuario remitente)
-			throws ErrorServicio {
-		validar(asunto, descripcion, idUsuario);
-		Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
-		if (respuesta.isPresent()) {
+    @Autowired
+    MensajeRepositorio mensajeRepositorio;
+    @Autowired
+    UsuarioServicio usuarioServicio;
+    @Autowired
+    UsuarioRepositorio usuarioRepositorio;
 
-			Mensaje mensaje = new Mensaje();
+    public void crearMensaje(Asunto asunto, String descripcion, String idUsuario)
+            throws ErrorServicio {
+        validar(asunto, descripcion, idUsuario);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        if (respuesta.isPresent()) {
 
-			remitente = respuesta.get();
-			mensaje.setAsunto(asunto);
-			mensaje.setDescripcion(descripcion);
-			mensaje.setFechaAlta(new Date());
-			mensaje.setSolucionado(false);
+            Mensaje mensaje = new Mensaje();
 
-			mensajeRepositorio.save(mensaje);
-		} else {
-			throw new ErrorServicio("Usuario no encontrado, no puede enviar mensaje");
-		}
+            mensaje.setRemitente(respuesta.get());
+            mensaje.setAsunto(asunto);
+            mensaje.setDescripcion(descripcion);
+            mensaje.setFechaAlta(new Date());
+            mensaje.setSolucionado(false);
 
-	}
-
-	
-
-	// Dejar por defecto el solucionado como false y crear metodo para solucionarlo
-	public void cambiarEstado(Asunto asunto, String descripcion, String idUsuario, String idMensaje,
-			boolean solucionado) throws ErrorServicio {
-		validar(asunto, descripcion, idUsuario);
-
-		Optional<Mensaje> respuesta = mensajeRepositorio.findById(idMensaje);
-
-		if (respuesta.isPresent()) {
-			Mensaje mensaje = respuesta.get();
-			mensaje.setSolucionado(true);
-		} else {
-			throw new ErrorServicio("Mensaje no se encuentra en la base de datos, no se puede cambiar estado");
-		}
-	}
-
-	// Lista y ordena todos los Mensajes de DB
-	public List<Mensaje> listaMensajes() {
-		List<Mensaje> mensajes = mensajeRepositorio.findAll();
-		Collections.sort(mensajes, (Mensaje a1, Mensaje a2) -> a1.getId().compareTo(a2.getId()));
-
-		return mensajes;
-	}
-
-	// Lista todos los mensajes no resueltos
-	public List<Mensaje> listaNoResueltos() {
-		List<Mensaje> listaNoResueltos = mensajeRepositorio.buscarNoResuelto();
-
-		return listaNoResueltos;
-	}
-	 
-        
-        public void solucionarMensaje(String idMensaje)
-			throws ErrorServicio {
-		Optional<Mensaje> respuesta = mensajeRepositorio.findById(idMensaje);
-
-		if (respuesta.isPresent()) {
-			Mensaje mensaje = respuesta.get();
-                        mensaje.setSolucionado(true);
-			
-		} else {
-			throw new ErrorServicio("El mensaje no ha sido encontrado, no se puede modificar");
-		}
+            mensajeRepositorio.save(mensaje);
+        } else {
+            throw new ErrorServicio("Usuario no encontrado, no puede enviar mensaje");
         }
-        
-                
-                
-        
-        
 
-	public void validar(Asunto asunto, String descripcion, String idUsuario) throws ErrorServicio {
+    }
 
-		if (asunto == null) {
-			throw new ErrorServicio("Debe elegir uno de los asuntos de la lista");
-		}
-		if (descripcion.trim().isEmpty() || descripcion == null) {
-			throw new ErrorServicio("El mensaje esta vacio, este debe tener un cuerpo");
-		}
-		if (descripcion.length() < 10) {
-			throw new ErrorServicio("El cuerpo del mensaje debe superar los 10 caracteres");
-		}
-		if (idUsuario == null || idUsuario.isEmpty()) {
-			throw new ErrorServicio("El id no puede ser nulo");
-		}
-	}
+    // Dejar por defecto el solucionado como false y crear metodo para solucionarlo
+    public void cambiarEstado(Asunto asunto, String descripcion, String idUsuario, String idMensaje,
+            boolean solucionado) throws ErrorServicio {
+        validar(asunto, descripcion, idUsuario);
 
-        
-       
+        Optional<Mensaje> respuesta = mensajeRepositorio.findById(idMensaje);
+
+        if (respuesta.isPresent()) {
+            Mensaje mensaje = respuesta.get();
+            mensaje.setSolucionado(true);
+        } else {
+            throw new ErrorServicio("Mensaje no se encuentra en la base de datos, no se puede cambiar estado");
+        }
+    }
+
+    // Lista y ordena todos los Mensajes de DB
+    public List<Mensaje> listaMensajes() {
+        List<Mensaje> mensajes = mensajeRepositorio.findAll();
+        Collections.sort(mensajes, (Mensaje a1, Mensaje a2) -> a1.getId().compareTo(a2.getId()));
+
+        return mensajes;
+    }
+
+    // Lista todos los mensajes no resueltos
+    public List<Mensaje> listaNoResueltos() {
+        List<Mensaje> listaNoResueltos = mensajeRepositorio.buscarNoResuelto();
+
+        return listaNoResueltos;
+    }
+
+    public void solucionarMensaje(String idMensaje)
+            throws ErrorServicio {
+        Optional<Mensaje> respuesta = mensajeRepositorio.findById(idMensaje);
+
+        if (respuesta.isPresent()) {
+            Mensaje mensaje = respuesta.get();
+            mensaje.setSolucionado(true);
+            mensajeRepositorio.save(mensaje);
+
+        } else {
+            throw new ErrorServicio("El mensaje no ha sido encontrado, no se puede modificar");
+        }
+    }
+
+    public void validar(Asunto asunto, String descripcion, String idUsuario) throws ErrorServicio {
+
+        if (asunto == null) {
+            throw new ErrorServicio("Debe elegir uno de los asuntos de la lista");
+        }
+        if (descripcion.trim().isEmpty() || descripcion == null) {
+            throw new ErrorServicio("El mensaje esta vacio, este debe tener un cuerpo");
+        }
+        if (descripcion.length() < 10) {
+            throw new ErrorServicio("El cuerpo del mensaje debe superar los 10 caracteres");
+        }
+        if (idUsuario == null || idUsuario.isEmpty()) {
+            throw new ErrorServicio("El id no puede ser nulo");
+        }
+    }
+
 //        public void modificarMensaje(Asunto asunto, String descripcion, String idUsuario, String idMensaje)
 //			throws ErrorServicio {
 //		validar(asunto, descripcion, idUsuario);
@@ -141,4 +133,5 @@ public class MensajeServicio {
 //			throw new ErrorServicio("El mensaje no ha sido encontrado, no se puede modificar");
 //		}
 //	}
+    
 }
