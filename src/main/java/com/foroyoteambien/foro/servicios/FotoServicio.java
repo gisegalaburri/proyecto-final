@@ -29,7 +29,7 @@ public class FotoServicio {
     public Foto guardarFoto(MultipartFile archivo) throws ErrorServicio {
 
         Foto foto = null;
-        if (archivo.getContentType().equals("image/jpeg")) {
+        if (archivo.getContentType().equals("image/png") || archivo.getContentType().equals("image/jpeg")) {
             try {
                 foto = new Foto();
                 foto.setMime(archivo.getContentType());
@@ -70,7 +70,8 @@ public class FotoServicio {
     @Transactional
     public Foto actualizar(String idFoto, MultipartFile archivo) throws ErrorServicio {
         Foto foto = null;
-        if (archivo.getContentType().equals("image/jpeg")) {
+        
+        if (archivo.getContentType().equals("image/png") || archivo.getContentType().equals("image/jpeg")) {
             try {
 
                 Optional<Foto> opt = fotoRepositorio.findById(idFoto);

@@ -26,6 +26,7 @@ public class ProfesionalController {
 
     @Autowired
     ProfesionalServicio profesionalServicio;
+
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
@@ -34,18 +35,21 @@ public class ProfesionalController {
 
         List<Profesional> profesionales = profesionalServicio.listarActivos();
         modelMap.put("profesionales", profesionales);
-            
+        modelMap.put("mostrar", "notNull");
+
         return "profesional.html";
     }
 
     @GetMapping("/buscar-profesional")
-    public String buscarProfesional(@RequestParam(required = false) Pais pais,
-            @RequestParam(required = false) Profesion profesion,
-            ModelMap modelMap) {
+    public String buscarProfesional(Pais pais,
+            Profesion profesion,
+            ModelMap modelMap,
+            HttpSession session) {
 
         List<Profesional> profesionales = profesionalServicio.listarPorPais(pais, profesion);
         modelMap.put("profesionales", profesionales);
-        
+        modelMap.put("mostrar", "notNull");
+
         return "profesional.html";
     }
 
@@ -87,8 +91,22 @@ public class ProfesionalController {
     }
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
-    @PostMapping("/profesional/modificar/{id}")
-    public String modificarProfesional(@RequestParam String id,
+    @GetMapping("/profesional/modificar/{id}")
+    public String modificarProfesional(@PathVariable String id,
+            ModelMap modelMap,
+            HttpSession session) {
+
+        modelMap.put("modificarProfesional", "notNull");
+        Profesional profesional = profesionalRepositorio.getOne(id);
+        modelMap.put("profesional", profesional);
+
+        return "profesional.html";
+
+    }
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
+    @PostMapping("/profesional/modificar")
+    public String actualizrProfesional(@RequestParam String id,
             @RequestParam String nombre,
             @RequestParam String apellido,
             @RequestParam String email,
@@ -97,39 +115,49 @@ public class ProfesionalController {
             @RequestParam(required = false) String descripcion,
             @RequestParam Integer telefono,
             MultipartFile archivo,
-            ModelMap modelMap) {
+            ModelMap modelMap,
+            HttpSession session) {
         try {
             profesionalServicio.modificarProfesional(id, nombre, apellido, email, pais, profesion, descripcion, telefono, archivo);
+            List<Profesional> profesionales = profesionalServicio.listarActivos();
+            modelMap.put("profesionales", profesionales);
+            modelMap.put("mostrar", "notNull");
+            modelMap.put("exito", "Se actualizaron correctamente los datos del profesional.");
         } catch (ErrorServicio ex) {
             modelMap.put("error", ex.getMessage());
+            Profesional profesional = profesionalRepositorio.getOne(id);
+            modelMap.put("profesional", profesional);
+            modelMap.put("modificarProfesional", "notNull");
 
-            return "registroprofesional.html";
         }
-        return "index.html";
+
+        return "profesional.html";
     }
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
-    @PostMapping("/profesional/eliminar/{id}")
+    @GetMapping("/profesional/eliminar/{id}")
     public String eliminarProfesional(@PathVariable String id,
-            ModelMap modelMap) {
+            ModelMap modelMap,
+            HttpSession session) {
         try {
             profesionalServicio.dehabilitar(id);
         } catch (ErrorServicio ex) {
             modelMap.put("error", ex.getMessage());
 
-            return "profesional.html";
         }
-        
+
         List<Profesional> profesionales = profesionalServicio.listarActivos();
         modelMap.put("profesionales", profesionales);
         modelMap.put("exito", "Se ha borrado exitosamente el profesional seleccionado.");
+        modelMap.put("mostrar", "notNull");
         return "profesional.html";
     }
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
-    @PostMapping("/habilitar-profesional")
-    public String habilitarPro(@RequestParam String id,
-            ModelMap modelMap) {
+    @GetMapping("/habilitar-profesional/{id}")
+    public String habilitarPro(@PathVariable String id,
+            ModelMap modelMap,
+            HttpSession session) {
         try {
             profesionalServicio.volverAHabilitar(id);
         } catch (ErrorServicio ex) {

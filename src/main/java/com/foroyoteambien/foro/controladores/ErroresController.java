@@ -33,7 +33,7 @@ public class ErroresController implements ErrorController {
                 break;
             }
             case 403: {
-                errorMsg = "No tiene permisos para acceder al recurso.";
+                errorMsg = "No tiene permisos suficientes.";
                 break;
             }
             case 401: {
