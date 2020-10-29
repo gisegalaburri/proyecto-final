@@ -29,4 +29,9 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Strin
     
     @Query("SELECT p FROM Profesional p WHERE p.pais LIKE :pais")
     public List<Profesional> listarPorPais(@Param("pais") String pais);
+    
+    @Query("SELECT p FROM Profesional p WHERE p.activo IS FALSE")
+    public List<Profesional> listarNoActivos();
+
+    
 }

@@ -91,6 +91,7 @@ public class MensajeServicio {
         if (respuesta.isPresent()) {
             Mensaje mensaje = respuesta.get();
             mensaje.setSolucionado(true);
+            mensajeRepositorio.save(mensaje);
 
         } else {
             throw new ErrorServicio("El mensaje no ha sido encontrado, no se puede modificar");

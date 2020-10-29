@@ -90,8 +90,7 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/menuAdmin")
-    public String menuAdmin(ModelMap modelo, HttpSession session) {
-        modelo.put("ingreso", "notnull");
+    public String menuAdmin(HttpSession session) {
         return "menuadministrador.html";
 
     }
@@ -102,31 +101,36 @@ public class UsuarioController {
         return "menuadministrador.html";
     }
 
-    @GetMapping("/buscarUnUsuario/{nickname}")
+    @PostMapping("/buscarUnUsuario")
     public String buscarUnUsuario(ModelMap modelo,
-            @PathVariable String nickname,
+            @RequestParam String nickname,
             HttpSession session) {
        
         try {
             Usuario usuario = usuarioServicio.buscarPorNickname(nickname);
             modelo.put("usuario", usuario);
-            ;
+            
         } catch (ErrorServicio ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
              modelo.put("error", ex.getMessage());
         }
-        
         modelo.put("mostraruser", "notnull");
         return "menuadministrador.html"; 
     }
 
+      
     
-//        @PostMapping("/bloquearUsuario")
-//        public String bloquearUsuario
-//        (ModelMap modelo,
-//                HttpSession session
-//        ,
-//            FALTA **************
-//
-//        }
+    @PostMapping("/bloquerusuario/{id]")
+    public String bloquearusuario(@PathVariable String id,
+            HttpSession session){
+        try {
+          usuarioServicio.deshabilitar(id);
+        } catch (Exception e) {
+          
+        }
+        return "menuadministrador.html";
+    }
 }
+
+    
+    

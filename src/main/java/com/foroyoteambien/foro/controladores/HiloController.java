@@ -84,7 +84,6 @@ public class HiloController {
         Sala sala = salaRepositorio.getOne(id);
         modelo.put("sala", sala);
         modelo.put("hilos", hilos);
-        modelo.put("mostrar", "null");
         return "hilo.html";
     }
 

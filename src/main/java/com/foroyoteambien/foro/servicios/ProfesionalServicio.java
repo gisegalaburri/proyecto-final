@@ -150,6 +150,11 @@ public class ProfesionalServicio {
         return profesionalRepositorio.listarActivos();
     }
     
+    
+    public List<Profesional> listarNoActivos() {
+        return profesionalRepositorio.listarNoActivos();
+    }
+    
     public List<Profesional> listarPorPais(Pais pais) {
         return profesionalRepositorio.listarPorPais(pais.toString());
     }

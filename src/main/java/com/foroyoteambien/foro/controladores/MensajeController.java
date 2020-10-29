@@ -1,7 +1,6 @@
 package com.foroyoteambien.foro.controladores;
 
 import com.foroyoteambien.foro.entidades.Mensaje;
-import com.foroyoteambien.foro.entidades.Profesional;
 import com.foroyoteambien.foro.entidades.Sala;
 import com.foroyoteambien.foro.enumeraciones.Asunto;
 import com.foroyoteambien.foro.errores.ErrorServicio;
@@ -10,12 +9,14 @@ import com.foroyoteambien.foro.servicios.HiloServicio;
 import com.foroyoteambien.foro.servicios.MensajeServicio;
 import com.foroyoteambien.foro.servicios.ProfesionalServicio;
 import com.foroyoteambien.foro.servicios.SalaServicio;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,33 +40,32 @@ public class MensajeController {
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
-//  muestra los mensajes al administrador
+    // pagina para mensaje nuevo de usuario
+    @GetMapping("/mensajes")
+    public String crearmensaje(HttpSession session) {
+        return "mensaje.html";
+    }
+
+    //  muestra los mensajes al administrador
     @GetMapping("/vermensajes")
-    public String crear(ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String vermensajes(ModelMap modelo, HttpSession session) throws ErrorServicio {
         modelo.put("vermensajes", "notnull");
         List<Mensaje> mensajes = mensajeServicio.listaNoResueltos();
         modelo.put("mensajes", mensajes);
         return "menuadministrador.html";
     }
 
-    @PostMapping("/solucionarmensaje")
+    @GetMapping("/solucionarmensaje/{id}")
     public String solucionarmensaje(ModelMap modelo,
-            @RequestParam String id,
-            HttpSession session) throws ErrorServicio {
-
+            @PathVariable String id,
+            HttpSession session) {
         try {
             mensajeServicio.solucionarMensaje(id);
-
-            List<Sala> salas = salaServicio.listarSalas();
-            modelo.put("salas", salas);
-            List<Mensaje> listamensajes = mensajeServicio.listaNoResueltos();
-            modelo.put("listamensajes", listamensajes);
-            return "menuadministrador.html";
-
+            modelo.put("exito", "Mensaje marcado como solucionado");
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
-        return "menuadministrador.html";
+        return "redirect:/vermensajes";
     }
 
     @PostMapping("/guardarmensaje")
@@ -76,11 +76,11 @@ public class MensajeController {
             HttpSession session) {
         try {
             mensajeServicio.crearMensaje(asunto, descripcion, idUsuario);
+            modelo.put("exito", "Mensaje enviado correctamente");
 
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
-        modelo.put("exito", "Mensaje enviado correctamente");
 
         return "mensaje.html";
     }
