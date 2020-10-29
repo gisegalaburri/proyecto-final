@@ -4,6 +4,7 @@ import com.foroyoteambien.foro.entidades.Comentario;
 import com.foroyoteambien.foro.entidades.Hilo;
 import com.foroyoteambien.foro.entidades.Usuario;
 import com.foroyoteambien.foro.errores.ErrorServicio;
+import com.foroyoteambien.foro.repositorios.ComentarioRepositorio;
 import com.foroyoteambien.foro.repositorios.HiloRepositorio;
 import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.ComentarioServicio;
@@ -33,6 +34,9 @@ public class ComentarioController {
 
     @Autowired
     ComentarioServicio comentarioServicio;
+    
+    @Autowired
+    ComentarioRepositorio comentarioRepositorio;
 
 //  lista los comentarios al elegir el hilo
     @GetMapping("/listarcomentarios/{idhilo}")
@@ -45,7 +49,12 @@ public class ComentarioController {
        
         try {
             List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
-             modelo.put("listacomentarios", listacomentarios);
+            if(listacomentarios.isEmpty()){
+                modelo.put("tablavacia", "notnull");
+            }else {
+              modelo.put("tablallena", "notnull");  
+              modelo.put("listacomentarios", listacomentarios);   
+            }
         } catch (ErrorServicio ex) {
            modelo.put("error", ex.getMessage());
         }
@@ -73,7 +82,7 @@ public class ComentarioController {
             Usuario usuarioUno = respuesta.get();
             comentarioUno.setUsuario(usuarioUno);
         }
-
+        comentarioRepositorio.save(comentarioUno);
         List<Comentario> listaComentario = hilo.getListaComentarios();
         listaComentario.add(comentarioUno);
         hilo.setListaComentarios(listaComentario);
@@ -82,7 +91,7 @@ public class ComentarioController {
         modelo.put("hilo", hilo);
         modelo.put("mostrar", "notnull");
         modelo.put("listacomentarios", "listaComentario");
-        return "hilo.html";
+        return "redirect:/listarcmentarios/{"+idhilo+"}";
     }
 
     
@@ -91,17 +100,21 @@ public class ComentarioController {
             HttpSession session,
             String idhilo,
             String iduser,
-            String idcomentario) throws ErrorServicio {
+            String idcomentario) {
 
-        comentarioServicio.desactivarComentario(iduser, idcomentario);
-
-        Hilo hilo = hiloRepositorio.getOne(idhilo);
-        List<Comentario> listaComentario = hilo.getListaComentarios();
-        modelo.put("hilo", hilo);
-        modelo.put("mostrar", "notnull");
-        modelo.put("listacomentarios", "listaComentario");
+        try {
+            comentarioServicio.desactivarComentario(iduser, idcomentario);
+            
+            Hilo hilo = hiloRepositorio.getOne(idhilo);
+            List<Comentario> listaComentario = hilo.getListaComentarios();
+            modelo.put("hilo", hilo);
+            modelo.put("mostrar", "notnull");
+            modelo.put("listacomentarios", listaComentario);
+            
+        } catch (ErrorServicio ex) {
+           modelo.put("error", ex.getMessage());
+        }
         return "hilo.html";
-
     }
     
    
@@ -111,20 +124,43 @@ public class ComentarioController {
     @PostMapping("/editarcomentario")
     public String editarcomentario(ModelMap modelo,
             HttpSession session,
-            String idhilo,
             String iduser,
+            String idcomentario,
+            String idhilo,
+            String descripcion) {
+        
+        try {
+            comentarioServicio.modificarComentario(descripcion, iduser, idcomentario);
+            
+            modelo.put("mostrar", "notnull");
+
+        } catch (ErrorServicio ex) {
+            modelo.put("editar", "notnull");
+            modelo.put("error", ex.getMessage());
+            modelo.put("iduser", iduser);
+            modelo.put("idcomentario", idcomentario);
+            modelo.put("idhilo", idhilo);
+            modelo.put("descripcion", descripcion);
+            return "hilo.html";
+        }
+      
+        return "redirect:/listarcomentario/{"+idhilo+"}";
+    }
+    
+    @GetMapping("/editarcomentario")
+    public String editarcomentarioget(ModelMap modelo,
+            HttpSession session,
+            String idhilo,
             String idcomentario) {
-
-//        comentarioServicio.modificarComentario(String comentario
-//        , String iduser, String idcomentario
-//        );
-
-        Hilo hilo = hiloRepositorio.getOne(idhilo);
-        List<Comentario> listaComentario = hilo.getListaComentarios();
-        modelo.put("hilo", hilo);
-        modelo.put("mostrar", "notnull");
-        modelo.put("listacomentarios", "listaComentario");
+      
+        Comentario comentario= comentarioRepositorio.getOne(idcomentario);
+        modelo.put("idhilo", idhilo);
+        modelo.put("descripcion", comentario.getDescripcion());
+        modelo.put("idcomentario", comentario.getId());
+        
+        modelo.put("editar", "notnull");
         return "hilo.html";
 
     }
+    
 }

@@ -46,7 +46,7 @@ public class HiloController {
 
 // carga el formulario para crear hilo
     @GetMapping("/crearhilo")
-    public String crear(ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String crear(ModelMap modelo, HttpSession session) {
         modelo.put("crearhilo", "notnull");
         List<Sala> salas = salaServicio.listarSalas();
         modelo.put("salas", salas);
@@ -95,17 +95,18 @@ public class HiloController {
             @RequestParam String nuevohilo,
             @RequestParam String nuevadescripcion,
             HttpSession session) {
+        Sala sala = salaRepositorio.getOne(idsala);
+        List<Hilo> hilos = null;
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, idusuario);
-            modelo.put("hilo", hilo);
-            modelo.put("mostrar", "notnull");
-            String idhilo = hilo.getId();
-            List<Comentario> listaComentarios = comentarioServicio.listarActivos(idhilo);
-            return "hilo.html";
+            hilos = hiloServicio.listarHiloXSala(idsala);
+            modelo.put("hilos", hilos);
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
+            modelo.put("nuevohilo", nuevohilo);
+            modelo.put("nuevadescripcion", nuevadescripcion);
+            modelo.put("hilos", hilos);
         }
-        Sala sala = salaRepositorio.getOne(idsala);
         modelo.put("sala", sala);
         modelo.put("mostrarSala", "notNull");
         
