@@ -52,12 +52,12 @@ public class HiloServicio {
             Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
 
             if (respuesta.isPresent()) {
-               ;
                 hilo.setUsuario(respuesta.get());
                 hilo.setActivo(true);
                 hilo.setDescripcion(descripcion);
                 hilo.setFechaAlta(new Date());
                 hilo.setTitulo(titulo);
+                hiloRepositorio.save(hilo); 
                 
                 Optional<Sala> respuestaSala = salaRepositorio.findById(idsala);
                 

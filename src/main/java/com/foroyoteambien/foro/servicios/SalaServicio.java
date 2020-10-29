@@ -15,6 +15,7 @@ import com.foroyoteambien.foro.entidades.Usuario;
 import com.foroyoteambien.foro.errores.ErrorServicio;
 import com.foroyoteambien.foro.repositorios.HiloRepositorio;
 import com.foroyoteambien.foro.repositorios.SalaRepositorio;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,7 +38,8 @@ public class SalaServicio {
         sala.setDescripcion(descripcion);
         sala.setFechaAlta(new Date());
         sala.setTitulo(titulo);
-        //sala.setListaHilos(listaHilos); 
+        List <Hilo> listaHilos = new ArrayList(); 
+        sala.setListaHilos(listaHilos); 
         salaRepositorio.save(sala);
     }
 

@@ -48,7 +48,6 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     FotoServicio fotoServicio;
 
-  
     public void altaUsuario(String nombre, String apellido, String nickname,
             String email, String clave1, String clave2, String descripcion,
             Pais pais, Date fechaNacimiento, Diagnostico diagnostico,
@@ -114,15 +113,15 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> optional = usuarioRepositorio.findById(id);
 
         if (optional.isPresent()) {
-            
-            if(!optional.get().getEmail().equals(email)) {
+
+            if (!optional.get().getEmail().equals(email)) {
                 Usuario usuarioEncontrado = usuarioRepositorio.buscarPorMail(email);
-            
+
                 if (usuarioEncontrado != null) {
                     throw new ErrorServicio("Ese e-mail ya está en uso. Ingrese otro.");
                 }
             }
-            
+
             Usuario usuario = optional.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
@@ -142,14 +141,14 @@ public class UsuarioServicio implements UserDetailsService {
             String idFoto = "";
             if (archivo.getContentType().equals("image/jpeg")) {
                 idFoto = usuario.getFoto().getId();
-                
+
                 Foto foto = fotoServicio.actualizar(idFoto, archivo);
                 usuario.setFoto(foto);
             }
 
             usuario.setFechaModificacion(new Date());
 
-           return usuarioRepositorio.save(usuario);
+            return usuarioRepositorio.save(usuario);
         } else {
             throw new ErrorServicio("Id no encontrado");
         }
@@ -204,7 +203,7 @@ public class UsuarioServicio implements UserDetailsService {
     public List<Usuario> listarActivos() {
         return usuarioRepositorio.buscarActivos();
     }
-    
+
     public Usuario buscarUno(String id) {
         Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
@@ -214,6 +213,15 @@ public class UsuarioServicio implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    public Usuario buscarPorNickname(String nickname) throws ErrorServicio {
+
+        Usuario usuario = usuarioRepositorio.buscarPorNick(nickname);
+        if (usuario == null) {
+        throw new ErrorServicio ("Usuario Nulo"); 
+        }
+        return usuario;
     }
 
     private void validar(String nombre, String apellido, String nickname,
@@ -270,21 +278,21 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
-    
+
     public Date convertirDate(String fecha) {
-        
+
         try {
             DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd");
             Date convertido = fechaHora.parse(fecha);
-            
+
             return convertido;
+
         } catch (ParseException ex) {
-            Logger.getLogger(UsuarioServicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioServicio.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
-
 
     @Override
     public UserDetails loadUserByUsername(String nickname) {

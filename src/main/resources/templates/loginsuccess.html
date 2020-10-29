@@ -42,7 +42,6 @@
 
   <section class="gallery3 cid-sdqSuUuYX4" id="gallery3-4">
     <div class="container-fluid">
-<<<<<<< HEAD
         <div class="mbr-section-head">
             <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Nuestras Salas</strong></h4>
             <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5">Tu espacio de comunicación</h5>
@@ -58,7 +57,7 @@
                             Card Text. You don't have to code to create a site with Mobirise Builder.&nbsp;<br><br><br></p>
                     </div>
                     <div class="mbr-section-btn item-footer mt-2">
-                        <a th:href="@{/salas/listarhilos__${sala.id}__}" class="btn item-btn btn-secondary display-7" target="_blank">Ir a Sala</a></div>
+                        <a th:href="@{/listarhilos/__${sala.id}__}" class="btn item-btn btn-secondary display-7" target="_top">Ir a Sala</a></div>
                 </div>
             </div>
            <!-- <div class="item features-image сol-12 col-md-6 col-lg-3">
@@ -86,27 +85,8 @@
                             **;<br><br><br></p>
                     </div>
                     <div class="mbr-section-btn item-footer mt-2">
-                        <a th:href="@{'/hilo'}" class="btn item-btn btn-secondary display-7" target="_blank">Ir a Sala</a></div>
+                        <a th:href="@{"/hilo"}" class="btn item-btn btn-secondary display-7" target="_blank">Ir a Sala</a></div>
                 </div>
-=======
-      <div class="mbr-section-head">
-        <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Nuestras
-            Salas</strong></h4>
-        <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-5">Tu espacio de
-          comunicación</h5>
-      </div>
-      <div class="row mt-4">
-        <div class="item features-image сol-12 col-md-6 col-lg-3" th:each="sala:${salas}">
-          <div class="item-wrapper">
-
-            <div class="item-content">
-              <h5 class="item-title mbr-fonts-style display-7" th:text="${sala.titulo}"><strong></strong>
-              </h5>
-
-              <p class="mbr-text mbr-fonts-style mt-3 display-7" th:text="${sala.descripcion}">
-                Card Text. You don't have to code to create a site with Mobirise
-                Builder.&nbsp;<br><br><br></p>
->>>>>>> 670714bf2f90289dee094daa7858d19257ea2412
             </div>
             <div class="mbr-section-btn item-footer mt-2">
               <a th:href="@{/hilo/listarhilos__${sala.id}__}" class="btn item-btn btn-secondary display-7"
