@@ -52,7 +52,7 @@ public class ProfesionalServicio {
             profesional.setTelefono(telefono);
             profesional.setDescripcion(descripcion);
             profesional.setFechaAlta(new Date());
-//            profesional.setActivo(true);
+            profesional.setActivo(true);
 
             Foto foto = fotoServicio.guardarFoto(archivo);
             profesional.setFoto(foto);
@@ -78,34 +78,41 @@ public class ProfesionalServicio {
 
         if (optional.isPresent()) {
 
-            if (!optional.get().getEmail().equals(email)) {
+            Profesional profesional = optional.get();
+
+            if (!profesional.getEmail().equals(email)) {
                 Profesional profesionalEncontrado = profesionalRepositorio.buscarPorMail(email);
 
                 if (profesionalEncontrado != null) {
                     throw new ErrorServicio("E-mail en uso por otro profesional. Ingrese otro "
                             + "e-mail o póngase en contacto con el administrador");
-                } else {
-                    Profesional profesional = optional.get();
-                    profesional.setNombre(nombre);
-                    profesional.setApellido(apellido);
-                    profesional.setEmail(email);
-                    profesional.setPais(pais);
-                    profesional.setProfesion(profesion);
-                    profesional.setDescripcion(descripcion);
-                    profesional.setTelefono(telefono);
-                    profesional.setFechaModificacion(new Date());
+                }
+            }
 
-                    String idFoto = null;
-                    if (!profesional.getFoto().getContenido().equals("image/jpeg")) {
-                        idFoto = profesional.getFoto().getId();
-                    }
+            profesional.setNombre(nombre);
+            profesional.setApellido(apellido);
+            profesional.setEmail(email);
+            profesional.setPais(pais);
+            profesional.setProfesion(profesion);
+            profesional.setDescripcion(descripcion);
+            profesional.setTelefono(telefono);
+            profesional.setFechaModificacion(new Date());
+
+            String idFoto = "";
+            if (archivo.getContentType().equals("image/png") || archivo.getContentType().equals("image/jpeg")) {
+                idFoto = profesional.getFoto().getId();
+                
+                if (idFoto.equals("default")) {
+                    Foto foto = fotoServicio.guardarFoto(archivo);
+                    profesional.setFoto(foto);
+                } else {
 
                     Foto foto = fotoServicio.actualizar(idFoto, archivo);
                     profesional.setFoto(foto);
-
-                    profesionalRepositorio.save(profesional);
                 }
             }
+
+            profesionalRepositorio.save(profesional);
 
         } else {
             throw new ErrorServicio("Profesional no encontrado");
@@ -147,18 +154,22 @@ public class ProfesionalServicio {
     }
 
     public List<Profesional> listarActivos() {
-        return profesionalRepositorio.listarActivos();
+
+        List<Profesional> profesionales = profesionalRepositorio.listarActivos();
+        return profesionales;
+
+    }
+
+
+    public List<Profesional> listarPorPais(Pais pais, Profesion profesion) {
+        return profesionalRepositorio.listarPorPais(pais, profesion);
     }
     
     
     public List<Profesional> listarNoActivos() {
         return profesionalRepositorio.listarNoActivos();
     }
-    
-    public List<Profesional> listarPorPais(Pais pais) {
-        return profesionalRepositorio.listarPorPais(pais.toString());
-    }
-    
+
     private void validar(String nombre, String apellido, String email,
             Pais pais, Profesion profesion, Integer telefono) throws ErrorServicio {
 

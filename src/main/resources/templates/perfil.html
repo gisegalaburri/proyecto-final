@@ -52,7 +52,7 @@
         <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
           <form th:action="@{/modificar-perfil}" method="POST" th:object="${usuario}" 
           class="mbr-form form-with-styler" data-form-title="Form Name" enctype="multipart/form-data">
-            <p th:if="${error!=null}" th:text="${error}" class="lead"></p>
+            <p th:if="${error!=null}" th:text="${error}" style="color:red;" class="lead"></p>
             <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
 
             <input type="text" th:field="*{id}" style="display: none;" />

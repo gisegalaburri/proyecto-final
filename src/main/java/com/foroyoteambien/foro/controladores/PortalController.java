@@ -110,6 +110,7 @@ public class PortalController {
         return "login.html";
     }
     
+    @PreAuthorize("hasRole('ROLE_MODERADOR') || hasRole('ROLE_USUARIO')")
     @GetMapping("/loginsuccess")
     public String loginSuccess(HttpSession session, ModelMap modelMap) {
         List <Sala> salas= salaServicio.listarSalas();

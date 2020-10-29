@@ -7,6 +7,8 @@
 package com.foroyoteambien.foro.repositorios;
 
 import com.foroyoteambien.foro.entidades.Profesional;
+import com.foroyoteambien.foro.enumeraciones.Pais;
+import com.foroyoteambien.foro.enumeraciones.Profesion;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,11 +29,10 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Strin
     @Query("SELECT p FROM Profesional p WHERE p.activo IS TRUE")
     public List<Profesional> listarActivos();
     
-    @Query("SELECT p FROM Profesional p WHERE p.pais LIKE :pais")
-    public List<Profesional> listarPorPais(@Param("pais") String pais);
+    @Query("SELECT p FROM Profesional p WHERE p.pais LIKE :pais AND p.profesion LIKE :profesion")
+    public List<Profesional> listarPorPais(@Param("pais") Pais pais, @Param("profesion") Profesion profesion);
     
     @Query("SELECT p FROM Profesional p WHERE p.activo IS FALSE")
     public List<Profesional> listarNoActivos();
 
-    
 }

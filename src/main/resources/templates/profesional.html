@@ -1,120 +1,235 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-  <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
-  <meta name="description" content="">
+    <head>
+        <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+        <meta name="description" content="">
 
 
-  <title>Profesionales - Foro Yo TEAmbién</title>
-  <link rel="stylesheet" href="/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="/assets/theme/css/style.css">
-  <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
-  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
-</head>
+        <title>Profesionales - Foro Yo TEAmbién</title>
+        <link rel="stylesheet" href="/assets/tether/tether.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+        <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+        <link rel="stylesheet" href="/assets/theme/css/style.css">
+        <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+        <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+    </head>
 
-<body>
+    <body>
 
-  <section th:replace="layout::nav-menu"></section>
+        <section th:replace="layout::nav-menu"></section>
 
-  <section class="header18 cid-sdrmxHgMiH" id="header18-s">
-    <div class="align-center container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
-            Profesionales</strong>
-          </h1>
-          <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad 
-            para encontrar ayuda</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <section th:if="${mostrar != null}">
+            <section class="header18 cid-sdrmxHgMiH" id="header18-s">
+                <div class="align-center container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+                            <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
+                                    Profesionales</strong>
+                            </h1>
+                            <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad
+                                para encontrar ayuda</p>
+                            <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <section class="form2 cid-sdrmQWbXCd" id="form2-u">
-    <div class="align-center container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-          <form th:action="@{/buscar-profesional}" method="GET" class="mbr-form form-with-styler"
-            data-form-title="Form Name">
-            <div class="dragArea row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
-                <h1 class="mbr-section-title mb-4 display-2"><strong>Búsqueda</strong></h1>
-              </div>
+            <section class="form2 cid-sdrmQWbXCd" id="form2-u">
+                <div class="align-center container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                            <form th:action="@{/buscar-profesional}" method="GET" class="mbr-form form-with-styler"
+                                  data-form-title="Form Name">
+                                <div class="dragArea row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <h1 class="mbr-section-title mb-4 display-2"><strong>Búsqueda</strong></h1>
+                                    </div>
 
-              <div class="col-lg col-md col-12 form-group">
-                <label for="exampleFormControlSelect1">País</label>
-                <select class="form-control" name="pais">
-                  <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
-                  th:value="${pais}" th:text="${pais}"></option>
-                </select>
-              </div>
+                                    <div class="col-lg col-md col-12 form-group">
+                                        <label for="exampleFormControlSelect1">País</label>
+                                        <select class="form-control" name="pais">
+                                            <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}"
+                                                    th:value="${pais}" th:text="${pais}"></option>
+                                        </select>
+                                    </div>
 
-              <div class="col-lg col-md col-12 form-group">
-                <label for="exampleFormControlSelect1">Profesión</label>
-                <select class="form-control" name="profesion">
-                  <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
-                    th:value="${profesion}" th:text="${profesion}"></option>
-                </select>
-              </div>
+                                    <div class="col-lg col-md col-12 form-group">
+                                        <label for="exampleFormControlSelect1">Profesión</label>
+                                        <select class="form-control" name="profesion">
+                                            <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
+                                                    th:value="${profesion}" th:text="${profesion}"></option>
+                                        </select>
+                                    </div>
 
-              <div class="mbr-section-btn col-md-auto col">
-                <button type="submit" class="btn btn-secondary display-4">Buscar</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+                                    <div class="mbr-section-btn col-md-auto col">
+                                        <button type="submit" class="btn btn-secondary display-4">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <section class="features9 cid-sdrmI61p5q" id="features10-t">
+            <section class="features9 cid-sdrmI61p5q" id="features10-t">
 
-    <div class="container">
-      <div class="mbr-section-head">
-        <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
-      </div>
-      <div class="row mt-4">
-        <div class="card col-12" th:each="profesional:${profesionales}">
-          <div class="card-wrapper">
-            <div class="top-line row">
-              <div class="col">
-                <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${profesional.nombre}">
-                </strong>
-                <br>
-                <strong th:text="${profesional.apellido}"> </strong></h4>
-              </div>
-              <div class="col-auto">
-                <p class="price mbr-fonts-style display-5" th:text="${profesional.numero}"></p><br>
-                <p class="price mbr-fonts-style display-5" th:text="${profesional.email}"></p>
-              </div>
-            </div>
-            <div class="bottom-line">
-              <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
-            </div>
-            <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
-              <button type="submit" class="btn btn-secondary display-4" 
-                th:href="@{/profesional/eliminar/__${profesional.id}__}">Eliminar</button>
-            </div>
-          </div>
-        </div>
+                <div class="container">
+                    <div class="mbr-section-head">
+                        <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
+                        <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                        <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                    </div>
+                    <div class="row mt-4" th:each="profesional:${profesionales}">
+                        <div class="card col-12">
+                            <div class="card-wrapper">
+                                <div class="top-line row">
+                                    <div class="col">
+                                        <img alt="" class="rounded mx-auto d-block"
+                                             th:src="@{/foto/__${profesional.foto.id}__}" id="img" style="width: 200px;" />
+                                    </div>
 
-      </div>
-    </div>
-  </section>
+                                    <div class="col">
+                                        <h4 class="card-title mbr-fonts-style display-5"><strong th:text="${profesional.nombre}">
+                                            </strong>
+                                            <br>
+                                            <strong th:text="${profesional.apellido}"></strong></h4>
+                                        <div class="bottom-line">
+                                            <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.profesion}"><br></p>
+                                            <p class="mbr-text mbr-fonts-style display-7" th:text="${profesional.descripcion}"><br></p>
+                                        </div>
+                                        <!--Editar-->
+                                        <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
+                                            <a class="btn btn-secondary display-4" th:href="@{/profesional/modificar/__${profesional.id}__}"><i
+                                                    class="fas fa-edit"></i>
+                                            </a>
+                                            <!--Eliminar-->
+                                            <a class="btn btn-secondary display-4" th:href="@{/profesional/eliminar/__${profesional.id}__}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
 
-  <footer th:replace="layout::footer"></footer>
+                                    <div class="col-auto">
+                                        <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.telefono}"></p><br>
+                                        <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.email}"></p>
+                                        <p class="price mbr-fonts-style display-4" style="text-align: end;" th:text="${profesional.pais}"><br></p>
+                                    </div>
+                                </div>
 
-</body>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </section>
+
+        <section th:if="${modificarProfesional != null}">
+            <section class="header18 cid-sdrD5Hxaz3" id="header18-12">
+                <div class="align-center container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+                            <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Modificar Profesional</strong>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="form5 cid-sdqP2xvh8w" id="form5-8">
+                <div class="container">
+                    <div class="mbr-section-head">
+                        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                            <strong>Actualiza los datos</strong></h3>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                            <form th:action="@{/profesional/modificar}" method="POST" class="mbr-form form-with-styler"
+                                  data-form-title="Form Name" enctype="multipart/form-data" th:object="${profesional}">
+                                <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                                <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                                <div class="row">
+
+                                    <input type="text" th:field="*{id}" style="display: none;" />
+
+                                    <div class="col">
+                                        <label for="exampleFormControlSelect1">Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre" 
+                                               th:field="*{nombre}" />
+                                    </div>
+                                    <div class="col">
+                                        <label for="exampleFormControlSelect1">Apellido</label>
+                                        <input type="text" class="form-control" placeholder="Apellido" 
+                                               th:field="*{apellido}" />
+                                    </div>
+                                </div>
+                                <p></p>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Email</label>
+                                    <input type="email" class="form-control" placeholder="Email" 
+                                           th:field="*{email}" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">País</label>
+                                    <select class="form-control" th:field="*{pais}">
+                                        <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
+                                                th:value="${pais}" th:text="${pais}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Profesión</label>
+                                    <select class="form-control" th:field="*{profesion}">
+                                        <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
+                                                th:value="${profesion}" th:text="${profesion}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" 
+                                              th:field="*{descripcion}"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Teléfono</label>
+                                    <input type="number" placeholder="Teléfono" min="0000000" 
+                                           th:field="*{telefono}" />
+                                </div>
+
+                                <div>
+                                    <img alt="" class="rounded mx-auto d-block" th:if="${profesional.foto != null}"
+                                         th:src="@{/foto/__${profesional.foto.id}__}" id="img" style="width: 200px;" />
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="customFileLang">Seleccionar Foto de Perfil(Opcional)</label>
+                                    <input class="form-control-file" type="file" id="customFileLang" lang="es" 
+                                           name="archivo" th:value="${archivo}" />
+                                </div>
+                                <p></p>
+                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+                                    <button type="submit" class="btn btn-secondary display-4">Actualizar Datos</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+        <footer th:replace="layout::footer"></footer>
+
+    </body>
 
 </html>
