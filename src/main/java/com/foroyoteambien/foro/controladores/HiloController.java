@@ -41,13 +41,12 @@ public class HiloController {
     @Autowired
     HiloRepositorio hiloRepositorio;
 
-   
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
 // carga el formulario para crear hilo
     @GetMapping("/crearhilo")
-    public String crear(ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String crear(ModelMap modelo, HttpSession session) {
         modelo.put("crearhilo", "notnull");
         List<Sala> salas = salaServicio.listarSalas();
         modelo.put("salas", salas);
@@ -61,13 +60,13 @@ public class HiloController {
             @RequestParam String iduser,
             @RequestParam String nuevohilo,
             @RequestParam String nuevadescripcion,
-            HttpSession session) throws ErrorServicio {
+            HttpSession session) {
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, iduser);
             List<Sala> salas = salaServicio.listarSalas();
             modelo.put("salas", salas);
             modelo.put("crearhilo", "notnull");
-            modelo.put("exito", "Hilo creado correctamenete"); 
+            modelo.put("exito", "Hilo creado correctamenete");
             return "menuadministrador.html";
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
@@ -77,13 +76,14 @@ public class HiloController {
 
 //  pasa de loginsucces a hilo.Html
     @GetMapping("/listarhilos/{id}")
-    public String listarhilos(@PathVariable String id, 
-            ModelMap modelo, 
+    public String listarhilos(@PathVariable String id,
+            ModelMap modelo,
             HttpSession session) throws ErrorServicio {
         List<Hilo> hilos = hiloServicio.listarHiloXSala(id);
         Sala sala = salaRepositorio.getOne(id);
         modelo.put("sala", sala);
         modelo.put("hilos", hilos);
+        modelo.put("mostrarSala", "notNull");
         return "hilo.html";
     }
 
@@ -94,17 +94,22 @@ public class HiloController {
             @RequestParam String idusuario,
             @RequestParam String nuevohilo,
             @RequestParam String nuevadescripcion,
-            HttpSession session) throws ErrorServicio {
+            HttpSession session) {
+        Sala sala = salaRepositorio.getOne(idsala);
+        List<Hilo> hilos = null;
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, idusuario);
-            modelo.put("hilo", hilo);
-            modelo.put("mostrar", "notnull");
-            String idhilo = hilo.getId();
-            List<Comentario> listaComentarios = comentarioServicio.listarActivos(idhilo);
-            return "hilo.html";
+            hilos = hiloServicio.listarHiloXSala(idsala);
+            modelo.put("hilos", hilos);
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
+            modelo.put("nuevohilo", nuevohilo);
+            modelo.put("nuevadescripcion", nuevadescripcion);
+            modelo.put("hilos", hilos);
         }
+        modelo.put("sala", sala);
+        modelo.put("mostrarSala", "notNull");
+        
         return "hilo.html";
     }
 

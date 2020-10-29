@@ -120,9 +120,6 @@ public class ComentarioServicio {
         if (descripcion.length() > 250) {
             throw new ErrorServicio("El comentario excede el máximo permitido de caracteres");
         }
-        if (descripcion.trim().isEmpty() || descripcion == null) {
-            throw new ErrorServicio("El comentario no puede ir vacio");
-        }
         if (idUsuario == null || idUsuario.isEmpty()) {
             throw new ErrorServicio("El id no puede ser nulo");
         }
