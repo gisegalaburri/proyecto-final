@@ -27,25 +27,26 @@
 
 <body>
   <section th:replace="layout::nav-menu"></section>
-
-    <section class="header18 cid-sdrifIIMqV" id="header18-l">
+  <section th:if="${mostrarSala != null}">
+    <section class="header18 cid-sdrifIIMqV" id="header18-l" th:if="${mostrarSala != null}">
         <div class="align-center container" th:object="${sala}">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-10">
+                <div class="col-12 col-lg-12">
                     <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1" 
                     th:field="*{titulo}" th:text="${sala.titulo}"></h1>
                     <p class="mbr-text mbr-fonts-style mbr-white display-7" th:field="*{descripcion}"
-                        th:text="${descripcion}"></p>
+                        th:text="${sala.descripcion}"></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="header18 cid-sdrifIIMqV" id="crearhiloUser">
-        <a class="nav-link link text-black display-4">
-            Puedes sugerir nuevo tema para esta Sala </a>
+    <section class="form2 cid-sdrmQWbXCd" id="crearhiloUser">
+        
         <div class="align-center container">
             <div class="row justify-content-center">
+                <h3 class="mbr-section-title mb-4 display-2">
+                    Puedes sugerir nuevo tema para esta Sala </h3>
                 <form th:action="@{/crearhiloUser}" method="POST" class="mbr-form form-with-styler"
                     data-form-title="Form Name">
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
@@ -57,14 +58,14 @@
                     </div>
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h1 class="mbr-section-title mb-4 display-2">Agrega tema de la sala</h1>
+                            <p class="mbr-text mbr-fonts-style text-black display-5">Agrega tema de la sala</hp>
                         </div>
                         <div class="col-lg col-md col-12 form-group" data-for="email">
-                            <input type="text" name="nuevohilo" placeholder="Ingresa titulo para la sala"
+                            <input type="text" name="nuevohilo" placeholder="Ingresa titulo para el hilo"
                                 data-form-field="nuevohilo" class="form-control" id="email-form2-p">
                         </div>
                         <div class="col-lg col-md col-12 form-group" data-for="email">
-                            <input type="text" name="nuevadescripcion" placeholder="Ingresa descripcion"
+                            <input type="text" name="nuevadescripcion" placeholder="Ingresa la descripcion"
                                 data-form-field="nuevadescripcion" class="form-control" id="email-form2-p">
                         </div>
                         <div class="mbr-section-btn col-md-auto col">
@@ -96,6 +97,7 @@
             </div>
         </div>
     </section>
+</section>
 
     <section class="features19 cid-sdrjqf27yk" id="features20-n" th:if="${mostrar != null}">
         <div class="container">
@@ -103,7 +105,7 @@
                 <div class="col-md-12 col-lg-9">
                     <div class="card-wrapper pb-4">
                         <div class="card-box align-center">
-                            <h4 class="card-title mbr-fonts-style mb-4 display-2" th:field="*{hilo.titulo}"> </h4>
+                            <h4 class="card-title mbr-fonts-style mb-4 display-2" th:field="*{titulo}" th:text="${hilo.titulo}"> </h4>
                         </div>
                     </div>
                 </div>
@@ -146,13 +148,14 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td th:if="${session.usuariosession == comentario.usuario.id}">
-                                    <a class="btn btn-danger" th:href="@{editarcomentario/__${comentario.id}__}"
-                                        th:value="${comentario.id}"> Editar </a>
+                                <!--th:if="${session.usuariosession.id == comentario.usuario.id}"-->
+                                <td>
+                                    <a class="btn btn-danger" th:href="@{/editarcomentario/__${comentario.id}__}"
+                                        > Editar </a>
                                 </td>
-                                <td th:if="${session.usuariosession == ${comentario.usuario.id} ">
-                                    <a class="btn btn-danger" th:href="@{desactivarcomentario/__${comentario.id}__}"
-                                        th:value="${comentario.id}"> Eliminar </a>
+                                <td th:if="${session.usuariosession.id == ${comentario.usuario.id}">
+                                    <a class="btn btn-danger" th:href="@{/desactivarcomentario/__${comentario.id}__}"
+                                        > Eliminar </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -163,8 +166,8 @@
         </div>
     </section>
 
-    <section class="form2 cid-sdrlgE5nDg" id="form2-p">
-        <div class="align-center container" th:if="${editar != null}">
+    <section class="form2 cid-sdrlgE5nDg" id="form2-p" th:if="${editar != null}">
+        <div class="align-center container">
             <!-- solo aparece cuando presiona boton editar -->
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">

@@ -41,7 +41,6 @@ public class HiloController {
     @Autowired
     HiloRepositorio hiloRepositorio;
 
-   
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
@@ -61,13 +60,13 @@ public class HiloController {
             @RequestParam String iduser,
             @RequestParam String nuevohilo,
             @RequestParam String nuevadescripcion,
-            HttpSession session) throws ErrorServicio {
+            HttpSession session) {
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, iduser);
             List<Sala> salas = salaServicio.listarSalas();
             modelo.put("salas", salas);
             modelo.put("crearhilo", "notnull");
-            modelo.put("exito", "Hilo creado correctamenete"); 
+            modelo.put("exito", "Hilo creado correctamenete");
             return "menuadministrador.html";
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
@@ -77,13 +76,14 @@ public class HiloController {
 
 //  pasa de loginsucces a hilo.Html
     @GetMapping("/listarhilos/{id}")
-    public String listarhilos(@PathVariable String id, 
-            ModelMap modelo, 
+    public String listarhilos(@PathVariable String id,
+            ModelMap modelo,
             HttpSession session) throws ErrorServicio {
         List<Hilo> hilos = hiloServicio.listarHiloXSala(id);
         Sala sala = salaRepositorio.getOne(id);
         modelo.put("sala", sala);
         modelo.put("hilos", hilos);
+        modelo.put("mostrarSala", "notNull");
         return "hilo.html";
     }
 
@@ -94,7 +94,7 @@ public class HiloController {
             @RequestParam String idusuario,
             @RequestParam String nuevohilo,
             @RequestParam String nuevadescripcion,
-            HttpSession session) throws ErrorServicio {
+            HttpSession session) {
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, idusuario);
             modelo.put("hilo", hilo);
@@ -105,6 +105,10 @@ public class HiloController {
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
+        Sala sala = salaRepositorio.getOne(idsala);
+        modelo.put("sala", sala);
+        modelo.put("mostrarSala", "notNull");
+        
         return "hilo.html";
     }
 

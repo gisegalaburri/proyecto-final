@@ -10,6 +10,8 @@ import com.foroyoteambien.foro.servicios.ComentarioServicio;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,12 +36,20 @@ public class ComentarioController {
 
 //  lista los comentarios al elegir el hilo
     @GetMapping("/listarcomentarios/{idhilo}")
-    public String listarcomentarios(@PathVariable String idhilo, ModelMap modelo, HttpSession session) throws ErrorServicio {
+    public String listarcomentarios(@PathVariable String idhilo, 
+            ModelMap modelo, 
+            HttpSession session) {
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         modelo.put("hilo", hilo);
         modelo.put("mostrar", "notnull");
-        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
-        modelo.put("listacomentarios", "listacomentarios");
+       
+        try {
+            List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+             modelo.put("listacomentarios", listacomentarios);
+        } catch (ErrorServicio ex) {
+           modelo.put("error", ex.getMessage());
+        }
+        
         return "hilo.html";
     }
 
