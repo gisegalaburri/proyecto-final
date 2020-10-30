@@ -53,7 +53,7 @@
                             <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
 
                             <div id="datosviajanocultos">
-                                <input name="idsala" th:value="${sala.id}" style="display: none">
+                                <input name="idsala" th:value="${idsala}" style="display: none">
                                 <input name="idusuario" th:value="${session.usuariosession.id}" style="display: none">
                             </div>
                             <div class="dragArea row">
@@ -137,7 +137,7 @@
                                     
                                    <td>
                                        <form method="GET" th:action="@{/editarcomentario}">
-                                        <input name="idhilo" th:value="${hilo.id}" style="display: none">
+                                        <input name="idhilo" th:value="${idhilo}" style="display: none">
                                         <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
                                         <input name="idcomentario" th:value="${comentario.id}" style="display: none">
                                         <button class="btn btn-danger" type="submit"> Editar </button>
@@ -200,7 +200,7 @@
                         </div>
 
                         <div class="col-lg col-md col-12 form-group" data-for="email">
-                            <input type="textarea" name="comentario"
+                            <input type="textarea" name="comentario" th:value="${comentario}"
                                    placeholder="Ingresa tu comentario" data-form-field="descripcion"
                                    class="form-control" id="email-form2-p">
                         </div>
@@ -221,7 +221,8 @@
                           data-form-title="Form Name">
 
                         <div id="datosviajanocultos">
-                            <input name="idusuer" th:value="${session.usuariosession.id}" style="display: none">
+                            <input name="nickname" th:value="${session.usuariosession.nickname}" >
+                            <input name="idusuer" th:value="${session.usuariosession.id}" >
                             <input name="idcomentario" th:value="${idcomentario}" style="display: none">
                             <input name="idhilo" th:value="${idhilo}" style="display: none">
                         </div>
