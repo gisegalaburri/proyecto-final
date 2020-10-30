@@ -83,7 +83,7 @@ public class ComentarioServicio {
 
     }
 
-    public List<Comentario> listarActivos(String idhilo) throws ErrorServicio {
+    public List<Comentario> listarActivos(String idhilo) {
         List<Comentario> listaActivos = comentarioRepositorio.comentariosActivosPorHilo(idhilo);
         return listaActivos;
 
@@ -121,7 +121,7 @@ public class ComentarioServicio {
             throw new ErrorServicio("El comentario excede el máximo permitido de caracteres");
         }
         if (idUsuario == null || idUsuario.isEmpty()) {
-            throw new ErrorServicio("El id no puede ser nulo");
+            throw new ErrorServicio("El id de usuario no puede ser nulo");
         }
     }
 
