@@ -45,7 +45,8 @@ public class ComentarioController {
             ModelMap modelo,
             HttpSession session) {
         Hilo hilo = hiloRepositorio.getOne(idhilo);
-        modelo.put("hilo", hilo);
+        modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
 
         List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
@@ -67,39 +68,28 @@ public class ComentarioController {
             @RequestParam String iduser,
             @RequestParam String comentario) {
 
+        Hilo hilo = hiloRepositorio.getOne(idhilo);
         try {
             comentarioServicio.crearComentario(comentario, iduser, idhilo);
-
-            Hilo hilo = hiloRepositorio.getOne(idhilo);
-
-            List<Comentario> listaComentario = comentarioServicio.listarActivos(idhilo); 
-
-            modelo.put("hilo", hilo);
-            modelo.put("mostrar", "notnull");
             modelo.put("tablallena", "notnull");
-            modelo.put("listacomentarios", listaComentario);
-
         } catch (ErrorServicio ex) {
-            Logger.getLogger(ComentarioController.class.getName()).log(Level.SEVERE, null, ex);
-            Hilo hilo = hiloRepositorio.getOne(idhilo);
-
-            List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
-            if (listacomentarios.isEmpty()) {
-                modelo.put("tablavacia", "notnull");
-            } else {
-                modelo.put("tablallena", "notnull");
-                modelo.put("listacomentarios", listacomentarios);
-            }
-            modelo.put("mostrar", "notnull");
-            modelo.put("hilo", hilo);
+            modelo.put("error", ex.getMessage());
             modelo.put("comentario", comentario);
-              
-        
         }
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        if (listacomentarios.isEmpty()) {
+            modelo.put("tablavacia", "notnull");
+        } else {
+            modelo.put("tablallena", "notnull");
+            modelo.put("listacomentarios", listacomentarios);
+        }
+        modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("idhilo", hilo.getId());
+        modelo.put("mostrar", "notnull");
         return "hilo.html";
     }
 
-    @PostMapping("/desactivarcomentario")
+    @GetMapping("/desactivarcomentario")
     public String desactivarcomentario(ModelMap modelo,
             HttpSession session,
             @RequestParam String idhilo,
@@ -109,21 +99,24 @@ public class ComentarioController {
         try {
             comentarioServicio.desactivarComentario(iduser, idcomentario);
 
-            Hilo hilo = hiloRepositorio.getOne(idhilo);
-            List<Comentario> listaComentario = comentarioServicio.listarActivos(idhilo);
-            
-            modelo.put("hilo", hilo);
-            modelo.put("mostrar", "notnull");
-            modelo.put("listacomentarios", listaComentario);
-
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
         }
+        Hilo hilo = hiloRepositorio.getOne(idhilo);
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        if (listacomentarios.isEmpty()) {
+            modelo.put("tablavacia", "notnull");
+        } else {
+            modelo.put("tablallena", "notnull");
+            modelo.put("listacomentarios", listacomentarios);
+        }
+        modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("idhilo", hilo.getId());
+        modelo.put("mostrar", "notnull");
         return "hilo.html";
-    }
+        }
 
-//  FALTA terminar editar y guardar comentario modificado
-//  hilo.HTML ver desde linea 198
+  
     @PostMapping("/editarcomentario")
     public String editarcomentario(ModelMap modelo,
             HttpSession session,
@@ -132,7 +125,6 @@ public class ComentarioController {
             @RequestParam String idhilo,
             @RequestParam String descripcion) {
 
-        System.out.println("usuario***************" + iduser);        
         try {
             comentarioServicio.modificarComentario(descripcion, iduser, idcomentario);
 
@@ -143,12 +135,21 @@ public class ComentarioController {
             modelo.put("error", ex.getMessage());
             modelo.put("iduser", iduser);
             modelo.put("idcomentario", idcomentario);
-            modelo.put("idhilo", idhilo);
             modelo.put("descripcion", descripcion);
             return "hilo.html";
         }
-
-        return "redirect:/listarcomentario/{" + idhilo + "}";
+        Hilo hilo = hiloRepositorio.getOne(idhilo);
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        if (listacomentarios.isEmpty()) {
+            modelo.put("tablavacia", "notnull");
+        } else {
+            modelo.put("tablallena", "notnull");
+            modelo.put("listacomentarios", listacomentarios);
+        }
+        modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("idhilo", hilo.getId());
+        modelo.put("mostrar", "notnull");
+        return "hilo.html";
     }
 
     @GetMapping("/editarcomentario")
@@ -161,8 +162,16 @@ public class ComentarioController {
         modelo.put("idhilo", idhilo);
         modelo.put("descripcion", comentario.getDescripcion());
         modelo.put("idcomentario", comentario.getId());
-
         modelo.put("editar", "notnull");
+        
+        Hilo hilo = hiloRepositorio.getOne(idhilo);
+        List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
+        modelo.put("tablallena", "notnull");
+        modelo.put("listacomentarios", listacomentarios);
+        modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("idhilo", hilo.getId());
+        modelo.put("mostrar", "notnull");
+            
         return "hilo.html";
 
     }

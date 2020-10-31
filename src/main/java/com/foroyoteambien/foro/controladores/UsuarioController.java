@@ -119,16 +119,45 @@ public class UsuarioController {
     }
 
       
-    
-    @PostMapping("/bloquerusuario/{id]")
-    public String bloquearusuario(@PathVariable String id,
+    @GetMapping("/bloquear/{id}")
+    public String bloquear(@PathVariable String id,
+            ModelMap modelo,  
             HttpSession session){
         try {
           usuarioServicio.deshabilitar(id);
-        } catch (Exception e) {
-          
+          modelo.put("exito", "Usuario bloqueado correctamente"); 
+        } catch (ErrorServicio e) {
+            modelo.put("error", "No andaaaaaaaaaaaaaaaaaaaa"); 
+         }
+        modelo.put("bloquearUser", "notnull");
+        return "menuadministrador.html"; 
+        
+    }
+    
+    
+    @GetMapping("/habilitar-usuario")
+    public String buscarUsuarioNoActivo(ModelMap modelo,
+            HttpSession session) {
+        List<Usuario> usuarios= usuarioServicio.listarNoActivos(); 
+        modelo.put("usuarios", usuarios); 
+        modelo.put("mostrarUsuariosDeshabilitados", "notnull");
+        return "menuadministrador.html"; 
+    }
+    
+    @GetMapping("/habilitar-usuario/{id}")
+    public String habilitarUsuario(@PathVariable String id, ModelMap modelo,
+            HttpSession session){
+        try {
+          usuarioServicio.volverAHabilitar(id);
+          modelo.put("exito", "Se activo correctamente el Usuario seleccionado"); 
+        } catch (ErrorServicio e ) {
+          modelo.put("error", e.getMessage());
+
         }
-        return "menuadministrador.html";
+        List<Usuario> usuarios =usuarioServicio.listarNoActivos(); 
+        modelo.put("usuarios", usuarios); 
+        modelo.put("mostrarUsuariosDeshabilitados", "notnull");
+                return "menuadministrador.html";
     }
 }
 

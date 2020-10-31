@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_MODERADOR') || hasRole('ROLE_USUARIO')")
 @RequestMapping("/")
 public class ProfesionalController {
 
@@ -32,7 +31,6 @@ public class ProfesionalController {
 
     @GetMapping("/profesionales")
     public String profesional(ModelMap modelMap, HttpSession session) {
-
         List<Profesional> profesionales = profesionalServicio.listarActivos();
         modelMap.put("profesionales", profesionales);
         modelMap.put("mostrar", "notNull");
@@ -130,7 +128,6 @@ public class ProfesionalController {
             modelMap.put("modificarProfesional", "notNull");
 
         }
-
         return "profesional.html";
     }
 
@@ -146,7 +143,6 @@ public class ProfesionalController {
             modelMap.put("error", ex.getMessage());
 
         }
-
         List<Profesional> profesionales = profesionalServicio.listarActivos();
         modelMap.put("profesionales", profesionales);
         modelMap.put("exito", "Se ha borrado exitosamente el profesional seleccionado.");
@@ -158,13 +154,11 @@ public class ProfesionalController {
     @GetMapping("/habilitar-profesional")
     public String buscarProfesionalNoActivo(ModelMap modelo,
             HttpSession session) {
-        
         List<Profesional> profesionales= profesionalServicio.listarNoActivos();
         modelo.put("profesionales", profesionales); 
         modelo.put("mostrarprofe", "notnull");
         return "menuadministrador.html"; 
     }
-    
     
     @GetMapping("/habilitar-profesional/{id}")
     public String habilitarPro(@PathVariable String id, ModelMap modelo,

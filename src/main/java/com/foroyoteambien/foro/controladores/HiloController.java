@@ -12,6 +12,8 @@ import com.foroyoteambien.foro.servicios.HiloServicio;
 import com.foroyoteambien.foro.servicios.MensajeServicio;
 import com.foroyoteambien.foro.servicios.SalaServicio;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,11 +52,11 @@ public class HiloController {
         modelo.put("crearhilo", "notnull");
         List<Sala> salas = salaServicio.listarSalas();
         modelo.put("salas", salas);
-        return "menuadministrador.html";
+        return "hilo.html";
     }
 
 //  guarda datos de nuevo hilo
-    @PostMapping("/crearhiloAdmin")
+    @PostMapping("/crearhilo")
     public String crearhiloAdmin(ModelMap modelo,
             @RequestParam String idsala,
             @RequestParam String iduser,
@@ -63,22 +65,25 @@ public class HiloController {
             HttpSession session) {
         try {
             Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, iduser);
-            List<Sala> salas = salaServicio.listarSalas();
-            modelo.put("salas", salas);
-            modelo.put("crearhilo", "notnull");
-            modelo.put("exito", "Hilo creado correctamenete");
-            return "menuadministrador.html";
+            modelo.put("exito", "Hilo creado correctamente");
+               
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
+            modelo.put("nuevohilo", nuevohilo);
+            modelo.put("nuevadescripcion", nuevadescripcion); 
+
         }
-        return "menuadministrador.html";
+        List<Sala> salas = salaServicio.listarSalas();
+        modelo.put("salas", salas);
+        modelo.put("crearhilo", "notnull");
+        return "hilo.html";
     }
 
 //  pasa de loginsucces a hilo.Html
     @GetMapping("/listarhilos/{id}")
     public String listarhilos(@PathVariable String id,
             ModelMap modelo,
-            HttpSession session) throws ErrorServicio {
+            HttpSession session) {
         List<Hilo> hilos = hiloServicio.listarHiloXSala(id);
         Sala sala = salaRepositorio.getOne(id);
         modelo.put("sala", sala);
@@ -87,30 +92,4 @@ public class HiloController {
         return "hilo.html";
     }
 
-// crea hilo el usuario-comun en la pagina hilo.html
-    @PostMapping("/crearhiloUser")
-    public String crearhiloUser(ModelMap modelo,
-            @RequestParam String idsala,
-            @RequestParam String idusuario,
-            @RequestParam String nuevohilo,
-            @RequestParam String nuevadescripcion,
-            HttpSession session) {
-        Sala sala = salaRepositorio.getOne(idsala);
-        List<Hilo> hilos = null;
-        try {
-            Hilo hilo = hiloServicio.crearHilo(idsala, nuevohilo, nuevadescripcion, idusuario);
-            hilos = hiloServicio.listarHiloXSala(idsala);
-            modelo.put("hilos", hilos);
-        } catch (ErrorServicio ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nuevohilo", nuevohilo);
-            modelo.put("nuevadescripcion", nuevadescripcion);
-            modelo.put("hilos", hilos);
-        }
-        modelo.put("sala", sala);
-        modelo.put("mostrarSala", "notNull");
-        
-        return "hilo.html";
-    }
-
-}
+   }

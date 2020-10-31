@@ -48,7 +48,8 @@
         <div class="container">
             <div class="row">
                 <div class="title col-12">
-                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large; text-align: center;">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
+                        style="font-size: xx-large; text-align: center;">
                         Creacion de nueva Sala Principal</h5>
                 </div>
             </div>
@@ -56,6 +57,7 @@
 
         <div class="container">
             <div class="row justify-content-center mt-4">
+
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
                     <form th:action="@{/crearsalaAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
@@ -87,7 +89,8 @@
         <div class="container">
             <div class="row">
                 <div class="title col-12">
-                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
+                        style="font-size: xx-large; text-align: center;">
                         Creacion de subsala</h5>
                 </div>
             </div>
@@ -98,9 +101,9 @@
                     <form th:action="@{/crearhiloAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color: red" class="lead"></p>
 
-                        <p th:if="${exito != null}" th:text="${exito}" style="color: red" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" class="lead"></p>
 
                         <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
 
@@ -115,11 +118,13 @@
 
                             <div class="col-md col-sm-12 form-group" data-for="apellido">
                                 <input type="text" name="nuevohilo" placeholder="Titulo Subsala"
-                                    data-form-field="apellido" class="form-control" value="" id="name-form5-i">
+                                    data-form-field="apellido" class="form-control" th:value="${nuevohilo}"
+                                    id="name-form5-i">
                             </div>
                             <div class="col-12 form-group" data-for="email">
                                 <input type="textarea" name="nuevadescripcion" placeholder="Descripcion de subsala"
-                                    data-form-field="comentario" class="form-control" id="email-form2-p">
+                                    th:value="${nuevadescripcion}" data-form-field="comentario" class="form-control"
+                                    id="email-form2-p">
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
                                     type="submit" class="btn btn-secondary display-4"> Guardar</button>
@@ -253,7 +258,7 @@
                                         th:field="*{pais}" th:text="${usuario.pais}"></p><br>
                                     <!--Editar-->
                                     <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
-                                        <a class="btn btn-secondary display-4" th:href="@{/bloquearusuario/__${id}__}">
+                                        <a class="btn btn-secondary display-4" th:href="@{/bloquear/__${usuario.id}__}">
                                             <i class="fas fa-ban"></i>
                                         </a>
 
@@ -265,40 +270,6 @@
                 </div>
             </div>
         </section>
-    </section>
-
-    <section class="form2 cid-sdrmQWbXCd" id="bloquearprofesional" th:if="${habilitarprof != null}">
-        <div class="align-center container">
-            <div class="row">
-                <div class="title col-12">
-                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
-                        Habilitar profesional</h5>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-
-                    <form th:action=" @{/buscarprofesionalNoActivos}" method="POST" class="mbr-form form-with-styler"
-                        data-form-title="Form Name">
-                        <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                        <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
-
-                        <div class="dragArea row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1"> Ingrese Apellido del Profesional</label>
-                                    <input type="text" class="form-control" placeholder="Apellido" name="apellido">
-                                </div>
-
-                                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                    <button type="submit" class="btn btn-secondary display-4">Buscar
-                                        Profesional</button>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <section class="form2 cid-sdrmQWbXCd" id="mostrarprofesional" th:if="${mostrarprofe != null}">
@@ -339,8 +310,7 @@
                             <!--habilitar-->
                             <a class="btn btn-secondary display-4"
                                 th:href="@{/habilitar-profesional/__${profesional.id}__}">
-                                <i class="fas fa-trash-alt"></i>
-                            </a> -->
+                                Volver a Habilitar </a>
                         </div>
                     </div>
                 </div>
@@ -348,6 +318,62 @@
         </section>
 
     </section>
+
+    <section class="form2 cid-sdrmQWbXCd" th:if="${mostrarUsuariosDeshabilitados != null}">
+        <section class="features9 cid-sdrmI61p5q" id="features10-t">
+
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong> Usuarios
+                            Deshabilitados</strong></h3>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                </div>
+                <div class="row mt-4" th:each="usuario:${usuarios}">
+                    <div class="card col-12">
+                        <div class="card-wrapper">
+                            <div class="top-line row">
+                                <div class="col">
+                                    <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/__${usuario.foto.id}__}"
+                                        id="img" style="width: 100px;" />
+                                </div>
+
+                                <div class="col">
+                                    <h4 class="card-title mbr-fonts-style display-5">
+                                        <strong th:field="*{nombre}" th:text="${usuario.nombre}"> </strong>
+                                        <br>
+                                        <strong th:field="*{apellido}" th:text="${usuario.apellido}"></strong></h4>
+
+                                    <div class="bottom-line">
+                                        <p class="mbr-text mbr-fonts-style display-7"><br></p>
+
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:field="*{nickname}" th:text="${usuario.nickname}"></p>
+                                    <p class="price mbr-fonts-style display-4" style="text-align: end;"
+                                        th:field="*{pais}" th:text="${usuario.pais}"></p><br>
+                                    <!--Volver a Habilitar-->
+                                    <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
+                                        <a class="btn btn-secondary display-4"
+                                            th:href="@{/habilitar-usuario/__${usuario.id}__}">
+                                            Volver a Habilitar </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </section>
+
 
     <footer th:replace="layout::footer"></footer>
 

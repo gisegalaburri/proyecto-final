@@ -167,10 +167,8 @@ public class UsuarioServicio implements UserDetailsService {
 
         if (opt.isPresent()) {
             Usuario usuario = opt.get();
-
             usuario.setFechaModificacion(new Date());
             usuario.setActivo(false);
-
             usuarioRepositorio.save(usuario);
         } else {
             throw new ErrorServicio("No se encontró el usuario solicitado.");
@@ -211,6 +209,13 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.buscarActivos();
     }
 
+    public List<Usuario> listarNoActivos() {
+        return usuarioRepositorio.listarNoActivos();
+    }
+
+    
+    
+    
     public Usuario buscarUno(String id) {
         Optional<Usuario> opt = usuarioRepositorio.findById(id);
 
@@ -316,7 +321,8 @@ public class UsuarioServicio implements UserDetailsService {
             HttpSession session = attr.getRequest().getSession(true);
             session.setAttribute("usuariosession", usuario);
 
-            return new User(usuario.getNickname(), usuario.getClave1(), permisos);
+            return new User(usuario.getNickname(), usuario.getClave1(),usuario.isActivo(),true, true, true, permisos);
+            //return new User(usuario.getNickname(), usuario.getClave1(), permisos);
         } else {
             return null;
         }
