@@ -53,7 +53,7 @@ public class PortalController {
             ModelMap modelMap) {
         
         if (error != null) {
-            modelMap.put("error", "Usuario o clave incorrectos.");
+            modelMap.put("error", "Usuario o clave incorrectos - O cuenta bloqueada");
             return "login.html";
         } 
 

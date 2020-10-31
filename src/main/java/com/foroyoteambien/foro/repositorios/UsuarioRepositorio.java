@@ -30,4 +30,8 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT u.pais, COUNT(u) FROM Usuario u WHERE u.activo IS TRUE GROUP BY u.pais ORDER BY COUNT(u) DESC")
     public List<String> rankingPaises();
+    
+    @Query("SELECT u FROM Usuario u WHERE u.activo IS FALSE")
+    public List<Usuario> listarNoActivos();
+
 }

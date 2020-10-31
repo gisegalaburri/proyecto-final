@@ -34,7 +34,7 @@ public class HiloServicio {
     
     //Hilo : Listar comentario , que reciba el id del hilo , busque el hilo, que devuelva la lista de comentario
     
-    public List<Hilo> listarHiloXSala(String idSala) throws ErrorServicio {
+    public List<Hilo> listarHiloXSala(String idSala) {
         List<Hilo> listaActivos = hiloRepositorio.hilosActivosPorSala(idSala);
         return listaActivos;}
     
@@ -61,8 +61,8 @@ public class HiloServicio {
                 
                 Optional<Sala> respuestaSala = salaRepositorio.findById(idsala);
                 
-                Sala sala = respuestaSala.get(); 
                 if(respuestaSala.isPresent()){
+                    Sala sala = respuestaSala.get(); 
                     List<Hilo> listaHilos= sala.getListaHilos();
                     listaHilos.add(hilo); 
                     sala.setListaHilos(listaHilos);
