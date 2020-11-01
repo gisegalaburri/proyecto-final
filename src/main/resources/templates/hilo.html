@@ -27,8 +27,9 @@
 
 <body>
     <section th:replace="layout::nav-menu"></section>
+
     <section th:if="${mostrarSala != null}">
-        <section class="header18 cid-sdrifIIMqV" id="header18-l" th:if="${mostrarSala != null}">
+        <section class="header18 cid-sdqSmtoSck" id="header18-l" th:if="${mostrarSala != null}">
             <div class="align-center container" th:object="${sala}">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-12">
@@ -42,21 +43,21 @@
         </section>
 
         <section class="form2 cid-sdrmQWbXCd" id="crearhiloUser">
-            <div class="align-center container">
+            <div class="container" >
                 <div class="row justify-content-center">
                     <h3 class="mbr-section-title mb-4 display-2">
-                        ¿Quieres Sugerir nuevo tema para esta Sala? </h3>
+                        ¿Quieres sugerir nuevo tema para esta Sala? </h3>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                    <a th:href="@{/crearhilo}" class="btn btn-secondary display-4"> SI </a>
 
+                <div class="mbr-section-btn col-md-auto col row justify-content-center">
+                       <a th:href="@{/crearhilo}" class="btn btn-primary btn-lg" style="max-width: 20%;"> ¡Sí! </a>
                 </div>
             </div>
         </section>
 
 
 
-        <section class="features22 cid-sdrj2CMyZY" id="features23-m">
+        <section class="features22 cid-sdrj2CMyZY" id="features23-m" style="padding-top: 10px; background-color: #bed3f9">
             <div class="container">
                 <!-- col-12 col-md-6 col-lg-4 -->
                 <div class="row justify-content-center content-row mt-4">
@@ -77,14 +78,26 @@
         </section>
     </section>
 
-
+  <section class="header18 cid-sdrCCM1paK" id="tituloprincipal" sec:authorize="hasRole('MODERADOR')" th:if="${crearhilo != null}">
+        <div class="align-center container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"
+                        style="font-size: xx-large"> Portal Moderador </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+        
     <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${crearhilo != null}">
+        
+  
         <div class="container">
             <div class="row">
                 <div class="title col-12">
                     <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
                         style="font-size: xx-large; text-align: center;">
-                        Creacion de hilo</h5>
+                        Crear hilo</h5>
                 </div>
             </div>
         </div>
@@ -94,15 +107,15 @@
                     <form th:action="@{/crearhilo}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color: red" class="lead"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color: red; text-align: center" class="lead"></p>
 
-                        <p th:if="${exito != null}" th:text="${exito}" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" style="text-align: center" class="lead"></p>
 
                         <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
 
                         <div class="dragArea row">
                             <div class="col-12 form-group" data-for="name">
-                                <h4> Seleccione sala principal </h4>
+                                <label> Selecciona la sala </label>
                                 <select class="form-control" name="idsala">
                                     <option th:each="sala : ${salas}" th:value="${sala.id}" th:text="${sala.titulo}">
                                     </option>
@@ -110,13 +123,15 @@
                             </div>
 
                             <div class="col-md col-sm-12 form-group" data-for="apellido">
-                                <input type="text" name="nuevohilo" placeholder="Titulo Hilo" data-form-field="apellido"
+                                <label>Título</label>
+                                <input type="text" name="nuevohilo" placeholder="Ej: Relaciones familiares..." data-form-field="apellido"
                                     class="form-control" th:value="${nuevohilo}" id="name-form5-i">
                             </div>
                             <div class="col-12 form-group" data-for="email">
-                                <input type="textarea" name="nuevadescripcion" placeholder="Descripcion de hilo"
+                                <label>Descripción</label>
+                                <textarea  name="nuevadescripcion" placeholder="Desarrolla el tema..."
                                     th:value="${nuevadescripcion}" data-form-field="comentario" class="form-control"
-                                    id="email-form2-p">
+                                    id="email-form2-p"></textarea>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
                                     type="submit" class="btn btn-secondary display-4"> Guardar</button>
@@ -129,19 +144,26 @@
     </section>
 
 
-    <section class="features19 cid-sdrjqf27yk" id="features20-n" th:if="${mostrar != null}">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-9">
-                    <div class="card-wrapper pb-4">
-                        <div class="card-box align-center">
-                            <h4 class="card-title mbr-fonts-style mb-4 display-2" th:text="${titulohilo}"> </h4>
-                            <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
-                            <p th:if="${exito != null}" th:text="${exito}" class="lead"></p>
-                        </div>
+    <section id="features20-n" th:if="${mostrar != null}">
+        
+        
+        <section class="header18 cid-sdqSmtoSck" id="header18-e">
+            <div class="align-center container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-12">
+                       <h4 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1" th:text="${titulohilo}"> </h4>
+                        <p class="mbr-text mbr-fonts-style mbr-white display-7" th:text="${descripcionhilo}"> </p>
+                        
+
                     </div>
                 </div>
-
+            </div>
+        </section>
+        
+        
+        <div class="container">
+            <div class="row justify-content-center">
+              
                 <div class="col-12 col-md-8" th:if="${tablallena != null}">
                     <table class="table table-striped table table-bordered">
                         <thead>
@@ -189,9 +211,12 @@
                             </tr>
                         </tbody>
                     </table>
+                                   
+                   <p th:if="${exitom != null}" th:text="${exitom}" class="lead" style="text-align: center;"></p>
                 </div>
 
-                <div class="col-12 col-md-8" th:if="${tablavacia != null}">
+
+                <div class="col-12 col-md-8" th:if="${tablavacia != null}" >
 
                     <table class="table table-striped table table-bordered">
                         <thead>
@@ -210,16 +235,18 @@
                             </tr>
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
 
         </div>
+        <section class="features9 cid-sdrmI61p5q" id="features10-t" th:if="${editar != null}" style="padding-top: 10px; padding-bottom: 0;">
 
-        <section class="form2 cid-sdrlgE5nDg" id="form2-p" th:if="${editar != null}">
-            <div class="align-center container">
-                <!-- solo aparece cuando presiona boton editar -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <div class="container">
+            <div class="row mt-4">
+               <div class="card col-12">
+                  <div class="card-wrapper">
+                       <div class="top-line row" style="justify-content: center; margin: 0; padding: 0;">
                         <form th:action="@{/editarcomentario}" method="POST" class="mbr-form form-with-styler"
                             data-form-title="Form Name">
 
@@ -230,32 +257,33 @@
                             </div>
                             <div class="dragArea row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <h1 class="mbr-section-title mb-4 display-2">Modifica tu
+                                    <h1 class="mbr-section-title mb-4 display-5">Modifica tu
                                         comentario</h1>
-                                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                                    <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
+                                    <p th:if="${errorm != null}" th:text="${errorm}" style="color:red"></p>
                                 </div>
                                 <!--th:text="${comentario.descripcion}"-->
                                 <div class="col-lg col-md col-12 form-group" data-for="email">
-                                    <input type="textarea" name="descripcion" th:value="${descripcion}"
-                                        data-form-field="descripcion" class="form-control" id="email-form2-p">
+                                   
+                                    <textarea  name="descripcion" th:value="${descripcion}"
+                                               data-form-field="descripcion" class="form-control" id="email-form2-p"></textarea>
                                 </div>
                                 <div class="mbr-section-btn col-md-auto col">
-                                    <button type="submit" class="btn btn-secondary display-4"> Guardar
-                                        Modificacion</button>
+                                    <button type="submit" class="btn btn-secondary display-4"> Guardar </button>
                                 </div>
                             </div>
                         </form>
+                       </div>
                     </div>
                 </div>
             </div>
+          </div>
         </section>
 
 
         <section class="form5 cid-sdrr9yCSL8" id="form5-y">
             <div class="container">
                 <div class="mbr-section-head">
-                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Agrega aqui tu
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Agrega aquí tu
                             comentario</strong>
                     </h3>
                 </div>
@@ -265,8 +293,8 @@
                         <form th:action="@{/guardarcomentario}" method="POST" class="mbr-form form-with-styler"
                             data-form-title="Form Name">
 
-                            <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                            <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
+                            <p th:if="${error != null}" th:text="${error}" style="color: red; text-align: center;"></p>
+                            <p th:if="${exito != null}" th:text="${exito}" style="text-align: center"></p>
 
                             <div id="datosviajanocultos">
                                 <!-- <input name="idsala" th:value="${sala.id}" style="display: none"> -->
@@ -275,9 +303,9 @@
                             </div>
 
                             <div class="col-lg col-md col-12 form-group" data-for="email">
-                                <input type="textarea" name="comentario" th:value="${comentario}"
+                                <textarea name="comentario" th:value="${comentario}"
                                     placeholder="Ingresa tu comentario" data-form-field="descripcion"
-                                    class="form-control" id="email-form2-p">
+                                    class="form-control" id="email-form2-p"></textarea>
                             </div>
                             <div class="mbr-section-btn col-md-auto col">
                                 <button type="submit" class="btn btn-secondary display-4">Guardar</button>

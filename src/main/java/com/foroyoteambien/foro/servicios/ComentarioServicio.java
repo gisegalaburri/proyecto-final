@@ -114,11 +114,11 @@ public class ComentarioServicio {
             throw new ErrorServicio("Debe agregar cuerpo al comentario");
         }
         if (descripcion.length() < 10) {
-            throw new ErrorServicio("El comentario no cumple con el minimo de caracteres");
+            throw new ErrorServicio("El comentario debe tener al menos 10 caracteres");
 
         }
         if (descripcion.length() > 250) {
-            throw new ErrorServicio("El comentario excede el máximo permitido de caracteres");
+            throw new ErrorServicio("El comentario excede el máximo de 250 caracteres ");
         }
         if (idUsuario == null || idUsuario.isEmpty()) {
             throw new ErrorServicio("El id de usuario no puede ser nulo");
