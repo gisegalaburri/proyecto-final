@@ -29,28 +29,6 @@ public class ProfesionalController {
     @Autowired
     ProfesionalRepositorio profesionalRepositorio;
 
-    @GetMapping("/profesionales")
-    public String profesional(ModelMap modelMap, HttpSession session) {
-        List<Profesional> profesionales = profesionalServicio.listarActivos();
-        modelMap.put("profesionales", profesionales);
-        modelMap.put("mostrar", "notNull");
-
-        return "profesional.html";
-    }
-
-    @GetMapping("/buscar-profesional")
-    public String buscarProfesional(Pais pais,
-            Profesion profesion,
-            ModelMap modelMap,
-            HttpSession session) {
-
-        List<Profesional> profesionales = profesionalServicio.listarPorPais(pais, profesion);
-        modelMap.put("profesionales", profesionales);
-        modelMap.put("mostrar", "notNull");
-
-        return "profesional.html";
-    }
-
     @GetMapping("/registro-profesional")
     public String registrarProfesional() {
         return "registroprofesional.html";
@@ -86,6 +64,30 @@ public class ProfesionalController {
         modelMap.put("exito", "Gracias por registrarte en nuestra base de datos de "
                 + "Profesionales.");
         return "registroprofesional.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR') || hasRole('ROLE_USUARIO')")
+    @GetMapping("/profesionales")
+    public String profesional(ModelMap modelMap, HttpSession session) {
+        List<Profesional> profesionales = profesionalServicio.listarActivos();
+        modelMap.put("profesionales", profesionales);
+        modelMap.put("mostrar", "notNull");
+
+        return "profesional.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR') || hasRole('ROLE_USUARIO')")
+    @GetMapping("/buscar-profesional")
+    public String buscarProfesional(Pais pais,
+            Profesion profesion,
+            ModelMap modelMap,
+            HttpSession session) {
+
+        List<Profesional> profesionales = profesionalServicio.listarPorPais(pais, profesion);
+        modelMap.put("profesionales", profesionales);
+        modelMap.put("mostrar", "notNull");
+
+        return "profesional.html";
     }
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
@@ -150,29 +152,30 @@ public class ProfesionalController {
         return "profesional.html";
     }
 
-
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/habilitar-profesional")
     public String buscarProfesionalNoActivo(ModelMap modelo,
             HttpSession session) {
-        List<Profesional> profesionales= profesionalServicio.listarNoActivos();
-        modelo.put("profesionales", profesionales); 
+        List<Profesional> profesionales = profesionalServicio.listarNoActivos();
+        modelo.put("profesionales", profesionales);
         modelo.put("mostrarprofe", "notnull");
-        return "menuadministrador.html"; 
+        return "menuadministrador.html";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/habilitar-profesional/{id}")
     public String habilitarPro(@PathVariable String id, ModelMap modelo,
-            HttpSession session){
+            HttpSession session) {
         try {
-          profesionalServicio.volverAHabilitar(id);
-          modelo.put("exito", "Se activo correctamente el Profesional seleccionado"); 
-        } catch (ErrorServicio e ) {
-          modelo.put("error", e.getMessage());
+            profesionalServicio.volverAHabilitar(id);
+            modelo.put("exito", "Se activo correctamente el Profesional seleccionado");
+        } catch (ErrorServicio e) {
+            modelo.put("error", e.getMessage());
 
         }
-        List<Profesional> profesionales= profesionalServicio.listarNoActivos();
-        modelo.put("profesionales", profesionales); 
+        List<Profesional> profesionales = profesionalServicio.listarNoActivos();
+        modelo.put("profesionales", profesionales);
         modelo.put("mostrarprofe", "notnull");
-                return "menuadministrador.html";
+        return "menuadministrador.html";
     }
 }

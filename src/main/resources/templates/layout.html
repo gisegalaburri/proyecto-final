@@ -65,7 +65,7 @@
               <a class="nav-link link text-black display-4" 
               th:if="${session.usuariosession == null}" href="#gallery3-4">Salas</a>
               <a class="nav-link link text-black display-4" 
-              th:if="${session.usuariosession != null}" th:href="@{/loginsuccess}">Salas</a>
+              th:if="${session.usuariosession != null}" th:href="@{/bienvenida}">Salas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link text-black display-4" th:if="${session.usuariosession != null}"
@@ -82,7 +82,7 @@
                 <a class="dropdown-item" th:href="@{/vermensajes}">Ver Mensajes</a>
                 <a class="dropdown-item" th:href="@{/bloquearUsuario}">Bloquear Usuario</a>
                 <a class="dropdown-item" th:href="@{/habilitar-usuario}">Habilitar Usuario</a>
-                <a class="dropdown-item" th:href="@{/profesionales}">Bloquear Profesional</a>
+                <a class="dropdown-item" th:href="@{/profesionales}">Editar/Bloquear Profesional</a>
                 <a class="dropdown-item" th:href="@{/habilitar-profesional}">Habilitar Profesional</a>
               </div>
             </li>
@@ -147,7 +147,7 @@
           </div>
           <div class="row row-copirayt">
             <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-              © Copyright 2025 Foro Yo TEAmbien. All Rights Reserved.
+              © Copyright 2020 Foro Yo TEAmbien. All Rights Reserved.
             </p>
           </div>
         </div>

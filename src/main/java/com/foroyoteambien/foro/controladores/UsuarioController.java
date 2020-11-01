@@ -8,7 +8,6 @@ import com.foroyoteambien.foro.repositorios.UsuarioRepositorio;
 import com.foroyoteambien.foro.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
@@ -66,18 +65,18 @@ public class UsuarioController {
             MultipartFile archivo,
             HttpSession session) {
 
-        System.out.println(id);
         Usuario usuario = usuarioServicio.buscarUno(id);
         try {
             Date fechaNac = usuarioServicio.convertirDate(fechaNacimiento);
             usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, nickname, email, clave1, clave2, descripcion, pais, fechaNac, diagnostico, archivo);
 
+            modelMap.put("exito", "Se actualizaron correctamente los datos.");
         } catch (ErrorServicio e) {
             modelMap.put("error", e.getMessage());
         }
 
         modelMap.put("usuario", usuario);
-        modelMap.put("exito", "Se actualizaron correctamente los datos.");
+
         return "perfil.html";
     }
 
@@ -89,77 +88,70 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ROLE_MODERADOR')")
-    @GetMapping("/menuAdmin")
-    public String menuAdmin(HttpSession session) {
-        return "menuadministrador.html";
-
-    }
-
     @GetMapping("/bloquearUsuario")
     public String bloquearUsuario(ModelMap modelo, HttpSession session) {
         modelo.put("bloquearUser", "notnull");
         return "menuadministrador.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @PostMapping("/buscarUnUsuario")
     public String buscarUnUsuario(ModelMap modelo,
             @RequestParam String nickname,
             HttpSession session) {
-       
+
         try {
             Usuario usuario = usuarioServicio.buscarPorNickname(nickname);
             modelo.put("usuario", usuario);
-            
+
         } catch (ErrorServicio ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-             modelo.put("error", ex.getMessage());
+            modelo.put("error", ex.getMessage());
         }
         modelo.put("mostraruser", "notnull");
-        return "menuadministrador.html"; 
+        return "menuadministrador.html";
     }
 
-      
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/bloquear/{id}")
     public String bloquear(@PathVariable String id,
-            ModelMap modelo,  
-            HttpSession session){
+            ModelMap modelo,
+            HttpSession session) {
         try {
-          usuarioServicio.deshabilitar(id);
-          modelo.put("exito", "Usuario bloqueado correctamente"); 
+            usuarioServicio.deshabilitar(id);
+            modelo.put("exito", "Usuario bloqueado correctamente");
         } catch (ErrorServicio e) {
-            modelo.put("error", "No andaaaaaaaaaaaaaaaaaaaa"); 
-         }
+            modelo.put("error", "No andaaaaaaaaaaaaaaaaaaaa");
+        }
         modelo.put("bloquearUser", "notnull");
-        return "menuadministrador.html"; 
-        
+        return "menuadministrador.html";
+
     }
-    
-    
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/habilitar-usuario")
     public String buscarUsuarioNoActivo(ModelMap modelo,
             HttpSession session) {
-        List<Usuario> usuarios= usuarioServicio.listarNoActivos(); 
-        modelo.put("usuarios", usuarios); 
+        List<Usuario> usuarios = usuarioServicio.listarNoActivos();
+        modelo.put("usuarios", usuarios);
         modelo.put("mostrarUsuariosDeshabilitados", "notnull");
-        return "menuadministrador.html"; 
+        return "menuadministrador.html";
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_MODERADOR')")
     @GetMapping("/habilitar-usuario/{id}")
     public String habilitarUsuario(@PathVariable String id, ModelMap modelo,
-            HttpSession session){
+            HttpSession session) {
         try {
-          usuarioServicio.volverAHabilitar(id);
-          modelo.put("exito", "Se activo correctamente el Usuario seleccionado"); 
-        } catch (ErrorServicio e ) {
-          modelo.put("error", e.getMessage());
+            usuarioServicio.volverAHabilitar(id);
+            modelo.put("exito", "Se activo correctamente el Usuario seleccionado");
+        } catch (ErrorServicio e) {
+            modelo.put("error", e.getMessage());
 
         }
-        List<Usuario> usuarios =usuarioServicio.listarNoActivos(); 
-        modelo.put("usuarios", usuarios); 
+        List<Usuario> usuarios = usuarioServicio.listarNoActivos();
+        modelo.put("usuarios", usuarios);
         modelo.put("mostrarUsuariosDeshabilitados", "notnull");
-                return "menuadministrador.html";
+        return "menuadministrador.html";
     }
 }
-
-    
-    

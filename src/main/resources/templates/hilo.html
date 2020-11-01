@@ -61,10 +61,11 @@
             <div class="container">
                 <!-- col-12 col-md-6 col-lg-4 -->
                 <div class="row justify-content-center content-row mt-4">
-                    <div class="card p-4 p-md-3 col-md-6 col-lg-4" th:each="hilo:${hilos}">
+                    <div class="card p-4 p-md-3 col-md-6 col-lg-4" th:each="hilo:${hilos}" style="background-color: #ffffff">
                         <div class="card-box">
                             <h1 class="card-title mbr-fonts-style display-5" style="font-size: xx-large"
                                 th:text="${hilo.titulo}"> </h1>
+                            <small id="emailHelp" class="form-text text-muted">By: <span th:text="${hilo.usuario.nickname}"></span></small>
                             <p class="mbr-text card-text mbr-fonts-style display-7" style="font-size: x-large"
                                 th:text="${hilo.descripcion}"> </p>
                             <div class="mbr-section-btn col-md-auto col">
@@ -161,7 +162,7 @@
         </section>
         
         
-        <div class="container">
+        <div class="container" style="max-width: inherit;">
             <div class="row justify-content-center">
               
                 <div class="col-12 col-md-8" th:if="${tablallena != null}">
@@ -264,8 +265,8 @@
                                 <!--th:text="${comentario.descripcion}"-->
                                 <div class="col-lg col-md col-12 form-group" data-for="email">
                                    
-                                    <textarea  name="descripcion" th:value="${descripcion}"
-                                               data-form-field="descripcion" class="form-control" id="email-form2-p"></textarea>
+                                    <textarea name="descripcion" th:text="${descripcion}"
+                                     data-form-field="descripcion" class="form-control" id="email-form2-p"></textarea>
                                 </div>
                                 <div class="mbr-section-btn col-md-auto col">
                                     <button type="submit" class="btn btn-secondary display-4"> Guardar </button>
@@ -308,7 +309,7 @@
                                     class="form-control" id="email-form2-p"></textarea>
                             </div>
                             <div class="mbr-section-btn col-md-auto col">
-                                <button type="submit" class="btn btn-secondary display-4">Guardar</button>
+                                <button type="submit" class="btn btn-secondary display-4">Publicar</button>
                             </div>
                         </form>
                     </div>
