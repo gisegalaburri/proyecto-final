@@ -104,10 +104,10 @@
                                 <tr>
                                     <th scope="col"> Id </th>
                                     <th scope="col"> Asunto</th>
-                                    <th scope="col"> Descripcion </th>
+                                    <th scope="col"> Descripción </th>
                                     <th scope="col"> Fecha  </th>
                                     <th scope="col"> Usuario </th>
-                                    <th scope="col"> Acciones </th>
+                                    <th scope="col"> Solucionado </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,7 +119,8 @@
                                     <td th:text="${mensaje.remitente.nickname}"> </td>
                                     <td>
                                         <a class="btn btn-danger" th:href="@{solucionarmensaje/__${mensaje.id}__}">
-                                            Solucionado </a>
+                                        <i class="far fa-check-circle"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -144,7 +145,7 @@
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
                     <p th:if="${error != null}" th:text="${error}" style="color:red ; text-align: center;"></p>
-                    <p th:if="${exito != null}" th:text="${exito}" style="text-align: center;"></p>
+                    <p th:if="${exito != null}" th:text="${exito}" style="text-align: center; color: orchid"></p>
 
                     <div class="dragArea row">
 
@@ -166,9 +167,8 @@
         </div>
     </section>
 
-    <section class="form2 cid-sdrmQWbXCd" id="mostrarusuario" th:if="${mostraruser != null}">
-
-        <section class="features9 cid-sdrmI61p5q" id="features10-t">
+   
+    <section class="features9 cid-sdrmI61p5q" id="features10-t" th:if="${mostraruser != null}">
 
             <div class="container">
                 <div class="mbr-section-head">
@@ -216,11 +216,10 @@
                     </div>
                 </div>
             </div>
-        </section>
     </section>
 
-    <section class="form2 cid-sdrmQWbXCd" id="mostrarprofesional" th:if="${mostrarprofe != null}">
-        <section class="features9 cid-sdrmI61p5q" id="features10-t">
+    
+    <section class="features9 cid-sdrmI61p5q" id="features10-t" th:if="${mostrarprofe != null}">
 
             <div class="container">
                 <div class="mbr-section-head">
@@ -269,12 +268,11 @@
                     </div>
                 </div>
             </div>
-        </section>
 
     </section>
 
-    <section class="form2 cid-sdrmQWbXCd" th:if="${mostrarUsuariosDeshabilitados != null}">
-        <section class="features9 cid-sdrmI61p5q" id="features10-t">
+    
+    <section class="features9 cid-sdrmI61p5q" id="features10-t" th:if="${mostrarUsuariosDeshabilitados != null}">
 
             <div class="container">
                 <div class="mbr-section-head">
@@ -323,8 +321,6 @@
 
 
             </div>
-
-        </section>
 
     </section>
 
