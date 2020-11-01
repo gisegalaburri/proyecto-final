@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +25,7 @@ public class Profesional {
 
     private String nombre;
     private String apellido;
-    private String mail;
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private Pais pais;
@@ -42,15 +43,18 @@ public class Profesional {
     private Date fechaModificacion;
     
     private boolean activo;
+    
+    @OneToOne
+    private Foto foto;
 
     public Profesional() {
     }
 
-    public Profesional(String id, String nombre, String apellido, String mail, Pais pais, Profesion profesion, String descripcion, Integer telefono, Date fechaAlta, Date fechaModificacion, boolean activo) {
+    public Profesional(String id, String nombre, String apellido, String email, Pais pais, Profesion profesion, String descripcion, Integer telefono, Date fechaAlta, Date fechaModificacion, boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.mail = mail;
+        this.email = email;
         this.pais = pais;
         this.profesion = profesion;
         this.descripcion = descripcion;
@@ -84,12 +88,12 @@ public class Profesional {
         this.apellido = apellido;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Pais getPais() {
@@ -148,9 +152,18 @@ public class Profesional {
         this.activo = activo;
     }
 
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
+    
+
     @Override
     public String toString() {
-        return "Profesional{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", pais=" + pais + ", profesion=" + profesion + ", descripcion=" + descripcion + ", telefono=" + telefono + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + '}';
+        return "Profesional{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", pais=" + pais + ", profesion=" + profesion + ", descripcion=" + descripcion + ", telefono=" + telefono + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + '}';
     }
 
 }

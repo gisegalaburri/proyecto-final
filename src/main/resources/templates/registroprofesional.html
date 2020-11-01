@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+  <meta name="description" content="">
+
+
+  <title>Registro Profesional</title>
+  <link rel="stylesheet" href="/assets/tether/tether.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+  <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+  <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+  <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="/assets/theme/css/style.css">
+  <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+  <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
+</head>
+
+<body>
+  <section th:replace="layout::nav-menu"></section>
+
+  <section class="header18 cid-sdrD5Hxaz3" id="header18-12">
+    <div class="align-center container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1">Regístro de Profesional
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form5 cid-sdqP2xvh8w" id="form5-8">
+    <div class="container">
+      <div class="mbr-section-head">
+        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Ingresa tus
+            datos</strong></h3>
+      </div>
+      <div class="row justify-content-center mt-4">
+        <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+          <form th:action="@{/registro-profesional}" method="POST" class="mbr-form form-with-styler"
+            data-form-title="Form Name" enctype="multipart/form-data">
+            <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
+            <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+            <div class="row">
+              <div class="col">
+                <label for="exampleFormControlSelect1">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" 
+                       name="nombre" th:value="${nombre}" />
+              </div>
+              <div class="col">
+                <label for="exampleFormControlSelect1">Apellido</label>
+                <input type="text" class="form-control" placeholder="Apellido" 
+                       name="apellido" th:value="${apellido}" />
+              </div>
+            </div>
+            <p></p>
+
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Email</label>
+              <input type="email" class="form-control" placeholder="Email" 
+                     name="email" th:value="${email}" />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">País</label>
+              <select class="form-control" name="pais">
+                <option th:each="pais : ${T(com.foroyoteambien.foro.enumeraciones.Pais).values()}" 
+                        th:value="${pais}" th:text="${pais}"></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Profesión</label>
+              <select class="form-control" name="profesion">
+                <option th:each="profesion : ${T(com.foroyoteambien.foro.enumeraciones.Profesion).values()}"
+                  th:value="${profesion}" th:text="${profesion}"></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Descripción(Opcional)</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" 
+                        name="descripcion" th:value="${descripcion}"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Teléfono</label>
+              <input type="number" placeholder="Teléfono" min="0000000" 
+                     name="telefono" th:value="${telefono}" />
+            </div>
+
+            <div class="form-group">
+              <label for="customFileLang">Seleccionar Foto de Perfil(Opcional)</label>
+              <input class="form-control-file" type="file" id="customFileLang" lang="es" 
+                     name="archivo" th:value="${archivo}" />
+            </div>
+            <p></p>
+            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
+              <button type="submit" class="btn btn-secondary display-4">Enviar Formulario</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer th:replace="layout::footer">
+  </footer>
+</body>
+
+</html>

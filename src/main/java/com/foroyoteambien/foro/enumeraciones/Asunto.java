@@ -1,7 +1,7 @@
 package com.foroyoteambien.foro.enumeraciones;
 
 public enum Asunto {
-    REPORTA_RUSUARIO,
+    REPORTAR_USUARIO,
     REPORTAR_COMENTARIO,
     PROPONER_SALA,
     SUGERENCIA,

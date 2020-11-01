@@ -1,285 +1,328 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-  <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="../static/assets/images/logo.png" type="image/x-icon">
-  <meta name="description" content="">
-  
-  
-  <title>Subsalas</title>
-  <link rel="stylesheet" href="../static/assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="../static/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="../static/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="../static/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="../static/assets/theme/css/style.css">
-  <link rel="preload" as="style" href="../static/assets/mobirise/css/mbr-additional.css">
-  <link rel="stylesheet" href="../static/assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  
-  
-  
+    <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.2.0, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
+
+    <title>Hilo - Foro Yo TEAmbién</title>
+    <link rel="stylesheet" href="/assets/tether/tether.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.css">
+    <link rel="stylesheet" href="/assets/formstyler/jquery.formstyler.theme.css">
+    <link rel="stylesheet" href="/assets/datepicker/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
 </head>
+
 <body>
-  
-  <section class="menu menu1 cid-sdqBdypAkZ" once="menu" id="menu1-j">
-    
+    <section th:replace="layout::nav-menu"></section>
 
-    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+    <section th:if="${mostrarSala != null}">
+        <section class="header18 cid-sdqSmtoSck" id="header18-l" th:if="${mostrarSala != null}">
+            <div class="align-center container" th:object="${sala}">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-12">
+                        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1" th:field="*{titulo}"
+                            th:text="${sala.titulo}"></h1>
+                        <p class="mbr-text mbr-fonts-style mbr-white display-7" th:field="*{descripcion}"
+                            th:text="${sala.descripcion}"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="form2 cid-sdrmQWbXCd" id="crearhiloUser">
+            <div class="container" >
+                <div class="row justify-content-center">
+                    <h3 class="mbr-section-title mb-4 display-2">
+                        ¿Quieres sugerir nuevo tema para esta Sala? </h3>
+                </div>
+
+                <div class="mbr-section-btn col-md-auto col row justify-content-center">
+                       <a th:href="@{/crearhilo}" class="btn btn-primary btn-lg" style="max-width: 20%;"> ¡Sí! </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="features22 cid-sdrj2CMyZY" id="features23-m" style="padding-top: 10px; background-color: #bed3f9">
+            <div class="container">
+                <!-- col-12 col-md-6 col-lg-4 -->
+                <div class="row justify-content-center content-row mt-4">
+                    <div class="card p-4 p-md-3 col-md-6 col-lg-4" th:each="hilo:${hilos}" style="background-color: #ffffff">
+                        <div class="card-box">
+                            <h1 class="card-title mbr-fonts-style display-5" style="font-size: xx-large"
+                                th:text="${hilo.titulo}"> </h1>
+                            <small id="emailHelp" class="form-text text-muted">By: <span th:text="${hilo.usuario.nickname}"></span></small>
+                            <p class="mbr-text card-text mbr-fonts-style display-7" style="font-size: x-large"
+                                th:text="${hilo.descripcion}"> </p>
+                            <div class="mbr-section-btn col-md-auto col">
+                                <a class="btn btn-primary btn-lg" th:href="@{/listarcomentarios/__${hilo.id}__}">
+                                    Ingresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+  <section class="header18 cid-sdrCCM1paK" id="tituloprincipal" sec:authorize="hasRole('MODERADOR')" th:if="${crearhilo != null}">
+        <div class="align-center container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"
+                        style="font-size: xx-large"> Portal Moderador </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${crearhilo != null}">
+        
+  
         <div class="container">
-            <div class="navbar-brand">
-                
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7" href="https://mobiri.se">Yo TEAmbién</a></span>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Profesionales</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Mensajes</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Nuestra Comunidad</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Nuestras Salas</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Configura tu perfil</a>
-                    </li><li class="nav-item"><a class="nav-link link text-black display-4" href="https://mobiri.se">Cerrar Sesión</a></li></ul>
-                
-                
-            </div>
-        </div>
-    </nav>
-</section>
-
-<section class="header18 cid-sdrifIIMqV" id="header18-l">
-
-    
-
-    
-
-    <div class="align-center container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Nombre de Sala</strong></h1>
-                
-                <p class="mbr-text mbr-fonts-style mbr-white display-7">Descripción</p>
-                
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="features22 cid-sdrj2CMyZY" id="features23-m">
-
-    
-
-    
-    <div class="container">
-        <div class="card-wrapper">
-            <div class="card-box align-left">
-                
-                
-                
-            </div>
-        </div>
-        <!-- col-12 col-md-6 col-lg-4 -->
-        <div class="row justify-content-center content-row mt-4">
-            <div class="card p-4 p-md-3 col-md-6 col-lg-4">
-                <div class="card-box">
-                    <div class="title">
-                        <span class="num mbr-fonts-style"><strong>01.</strong></span>
-                    </div>
-                    <h4 class="card-title mbr-fonts-style display-5"><strong>Nombre Subsala</strong></h4>
-                    <p class="mbr-text card-text mbr-fonts-style display-7">Descripción Subsala<br><br>*BOTÓN<br><br><br><br><br></p>
+            <div class="row">
+                <div class="title col-12">
+                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
+                        style="font-size: xx-large; text-align: center;">
+                        Crear hilo</h5>
                 </div>
             </div>
-            <div class="card p-4 p-md-3 col-md-6 col-lg-4">
-                <div class="card-box">
-                    <div class="title">
-                        <span class="num mbr-fonts-style"><strong>02.</strong></span>
-                    </div>
-                    <h4 class="card-title mbr-fonts-style display-5"><strong>Nombre Subsala</strong></h4>
-                    <p class="mbr-text card-text mbr-fonts-style display-7">Descripción Subsala</p>
-                </div>
-            </div>
-            <div class="card p-4 p-md-3 col-md-6 col-lg-4">
-                <div class="card-box">
-                    <div class="title">
-                        <span class="num mbr-fonts-style"><strong>03.</strong></span>
-                    </div>
-                    <h4 class="card-title mbr-fonts-style display-5"><strong>Nombre Subsala</strong></h4>
-                    <p class="mbr-text card-text mbr-fonts-style display-7">Descripción Subsala</p>
-                </div>
-            </div>
-            
-            
-            
-            
-            
         </div>
-    </div>
-</section>
+        <div class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form th:action="@{/crearhilo}" method="POST" class="mbr-form form-with-styler"
+                        data-form-title="Form Name">
 
-<section class="features19 cid-sdrjqf27yk" id="features20-n">
+                        <p th:if="${error != null}" th:text="${error}" style="color: red; text-align: center" class="lead"></p>
 
-    
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-9">
-                <div class="card-wrapper pb-4">
-                    <div class="card-box align-center">
-                        <h4 class="card-title mbr-fonts-style mb-4 display-2"><strong>Nombre Subsala</strong></h4>
+                        <p th:if="${exito != null}" th:text="${exito}" style="text-align: center" class="lead"></p>
+
+                        <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
+
+                        <div class="dragArea row">
+                            <div class="col-12 form-group" data-for="name">
+                                <label> Selecciona la sala </label>
+                                <select class="form-control" name="idsala">
+                                    <option th:each="sala : ${salas}" th:value="${sala.id}" th:text="${sala.titulo}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md col-sm-12 form-group" data-for="apellido">
+                                <label>Título</label>
+                                <input type="text" name="nuevohilo" placeholder="Ej: Relaciones familiares..." data-form-field="apellido"
+                                    class="form-control" th:value="${nuevohilo}" id="name-form5-i">
+                            </div>
+                            <div class="col-12 form-group" data-for="email">
+                                <label>Descripción</label>
+                                <textarea  name="nuevadescripcion" placeholder="Desarrolla el tema..."
+                                    th:value="${nuevadescripcion}" data-form-field="comentario" class="form-control"
+                                    id="email-form2-p"></textarea>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
+                                    type="submit" class="btn btn-secondary display-4"> Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="features20-n" th:if="${mostrar != null}">
+        
+        
+        <section class="header18 cid-sdqSmtoSck" id="header18-e">
+            <div class="align-center container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-12">
+                       <h4 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1" th:text="${titulohilo}"> </h4>
+                        <p class="mbr-text mbr-fonts-style mbr-white display-7" th:text="${descripcionhilo}"> </p>
                         
-                        
+
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-8">
-                <div class="item mbr-flex">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">1</span>
-                    </div>
+        </section>
+        
+        
+        <div class="container" style="max-width: inherit;">
+            <div class="row justify-content-center">
+              
+                <div class="col-12 col-md-8" th:if="${tablallena != null}">
+                    <table class="table table-striped table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col"> Nickname</th>
+                                <th scope="col"> Fecha </th>
+                                <th scope="col"> Comentario</th>
+                                <th scope="col"> Editar</th>
+                                <th scope="col"> Eliminar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="comentario : ${listacomentarios}">
+                                <td th:text="${comentario.usuario.nickname}"> </td>
+                                <td th:text="${comentario.fechaAlta}"> </td>
+                                <td th:text="${comentario.descripcion}">
+
+                                </td>
+
+                                <!--th:if="${session.usuariosession.id == comentario.usuario.id}"-->
+
+                                <td>
+                                    <form method="GET" th:action="@{/editarcomentario}">
+                                        <input name="idhilo" th:value="${idhilo}" style="display: none">
+                                        <input name="iduser" th:value="${session.usuariosession.id}"
+                                            style="display: none">
+                                        <input name="idcomentario" th:value="${comentario.id}" style="display: none">
+                                        <button class="btn btn-danger" type="submit"
+                                            th:style="${session.usuariosession.id != comentario.usuario.id} ? 'display:none' : 'display:block'">
+                                            <i class="fas fa-edit"></i> </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="GET" th:action="@{/desactivarcomentario}">
+                                        <input name="idhilo" th:value="${idhilo}" style="display: none">
+                                        <input name="iduser" th:value="${session.usuariosession.id}"
+                                            style="display: none">
+                                        <input name="idcomentario" th:value="${comentario.id}" style="display: none">
+                                        <button class="btn btn-danger" type="submit"
+                                            th:style="${session.usuariosession.id != comentario.usuario.id} ? 'display:none' : 'display:block'">
+                                            <i class="fas fa-trash-alt"></i> </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                                   
+                   <p th:if="${exitom != null}" th:text="${exitom}" class="lead" style="text-align: center;"></p>
+                </div>
+
+
+                <div class="col-12 col-md-8" th:if="${tablavacia != null}" >
+
+                    <table class="table table-striped table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col"> Nickname</th>
+                                <th scope="col"> Fecha </th>
+                                <th scope="col"> Comentario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <!--th:if="${session.usuariosession.id == comentario.usuario.id}"-->
+                            </tr>
+                        </tbody>
+                    </table>
                     
                 </div>
-                <div class="item mbr-flex">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">2</span>
-                    </div>
-                    
-                </div>
-                <div class="item mbr-flex last">
-                    <div class="icon-box">
-                        <span class="step-number mbr-fonts-style display-5">3</span>
-                    </div>
-                    
-                </div>
-                
-                
-                
-                
-                
-                
-                
             </div>
+
         </div>
-    </div>
-</section>
+        <section class="features9 cid-sdrmI61p5q" id="features10-t" th:if="${editar != null}" style="padding-top: 10px; padding-bottom: 0;">
 
-<section class="form2 cid-sdrlgE5nDg" id="form2-p">
+          <div class="container">
+            <div class="row mt-4">
+               <div class="card col-12">
+                  <div class="card-wrapper">
+                       <div class="top-line row" style="justify-content: center; margin: 0; padding: 0;">
+                        <form th:action="@{/editarcomentario}" method="POST" class="mbr-form form-with-styler"
+                            data-form-title="Form Name">
 
-    
-
-    
-    <div class="align-center container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="ODvk/RJw1s59p+Iue1w8yI0xt/6Ddf35tcvIHaA8w1ntQX11EfRD3evrdUC8SS2qx12BiIchHVperU+i1e3wbqMI3ZYDEPMA9xPpyHkc0KVJBef5nRJFCOt3QpZVAIue">
-                    <div class="">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for filling
-                            out the form!</div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some
-                            problem!</div>
+                            <div id="datosviajanocultos">
+                                <input name="iduser" th:value="${session.usuariosession.id}" style="display:none">
+                                <input name="idcomentario" th:value="${idcomentario}" style="display: none">
+                                <input name="idhilo" th:value="${idhilo}" style="display: none">
+                            </div>
+                            <div class="dragArea row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <h1 class="mbr-section-title mb-4 display-5">Modifica tu
+                                        comentario</h1>
+                                    <p th:if="${errorm != null}" th:text="${errorm}" style="color:red"></p>
+                                </div>
+                                <!--th:text="${comentario.descripcion}"-->
+                                <div class="col-lg col-md col-12 form-group" data-for="email">
+                                   
+                                    <textarea name="descripcion" th:text="${descripcion}"
+                                     data-form-field="descripcion" class="form-control" id="email-form2-p"></textarea>
+                                </div>
+                                <div class="mbr-section-btn col-md-auto col">
+                                    <button type="submit" class="btn btn-secondary display-4"> Guardar </button>
+                                </div>
+                            </div>
+                        </form>
+                       </div>
                     </div>
-                    <div class="dragArea row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h1 class="mbr-section-title mb-4 display-2">Agrega un comentario</h1>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <p class="mbr-text mbr-fonts-style mb-5 display-7"></p>
-                        </div>
-                        <div class="col-lg col-md col-12 form-group" data-for="email">
-                            <input type="text" name="name" placeholder="Name" data-form-field="name" class="form-control" id="name-form2-p">
-                        </div>
-                        <div class="col-lg col-md col-12 form-group" data-for="email">
-                            <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" id="email-form2-p">
-                        </div>
-                        <div class="mbr-section-btn col-md-auto col"><button type="submit" class="btn btn-secondary display-4">Start Now!</button></div>
+                </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="form5 cid-sdrr9yCSL8" id="form5-y">
+            <div class="container">
+                <div class="mbr-section-head">
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Agrega aquí tu
+                            comentario</strong>
+                    </h3>
+                </div>
+
+                <div class="row justify-content-center mt-4">
+                    <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                        <form th:action="@{/guardarcomentario}" method="POST" class="mbr-form form-with-styler"
+                            data-form-title="Form Name">
+
+                            <p th:if="${error != null}" th:text="${error}" style="color: red; text-align: center;"></p>
+                            <p th:if="${exito != null}" th:text="${exito}" style="text-align: center"></p>
+
+                            <div id="datosviajanocultos">
+                                <!-- <input name="idsala" th:value="${sala.id}" style="display: none"> -->
+                                <input name="idhilo" th:value="${idhilo}" style="display: none">
+                                <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
+                            </div>
+
+                            <div class="col-lg col-md col-12 form-group" data-for="email">
+                                <textarea name="comentario" th:value="${comentario}"
+                                    placeholder="Ingresa tu comentario" data-form-field="descripcion"
+                                    class="form-control" id="email-form2-p"></textarea>
+                            </div>
+                            <div class="mbr-section-btn col-md-auto col">
+                                <button type="submit" class="btn btn-secondary display-4">Publicar</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<section class="footer3 cid-sdqD8MCWrC" once="footers" id="footer3-k">
+        </section>
+    </section>
 
-    
 
-    
 
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="row row-links">
-                <ul class="foot-menu">
-                    
-                    
-                    
-                    
-                    
-                <li class="foot-menu-item mbr-fonts-style display-7">Sobre Nosotras</li><li class="foot-menu-item mbr-fonts-style display-7">Nuestras Salas</li><li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">Contact</a>áctanos</li><li class="foot-menu-item mbr-fonts-style display-7"></li><li class="foot-menu-item mbr-fonts-style display-7"></li></ul>
-            </div>
-            <div class="row social-row">
-                <div class="social-list align-right pb-2">
-                    
-                    
-                    
-                    
-                    
-                    
-                <div class="soc-item">
-                        <a href="https://twitter.com/mobirise" target="_blank">
-                            <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.facebook.com/pages/Mobirise/1616226671953247" target="_blank">
-                            <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.youtube.com/c/mobirise" target="_blank">
-                            <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://instagram.com/mobirise" target="_blank">
-                            <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
-                            <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.behance.net/Mobirise" target="_blank">
-                            <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div></div>
-            </div>
-            <div class="row row-copirayt">
-                <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-                    © Copyright 2025 Mobirise. All Rights Reserved.
-                </p>
-            </div>
-        </div>
-    </div>
-</section><section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
-    <a href="https://mobirise.site/y" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Created with <a href="https://mobirise.site/a" style="color:#aaa;">Mobirise</a>
-    </p></section><script src="../static/assets/web/assets/jquery/jquery.min.js"></script> 
-    <script src="../static/assets/popper/popper.min.js"></script>  
-    <script src="../static/assets/tether/tether.min.js"></script> 
-    <script src="../static/assets/bootstrap/js/bootstrap.min.js"></script>  
-    <script src="../static/assets/smoothscroll/smooth-scroll.js"></script>  
-    <script src="../static/assets/dropdown/js/nav-dropdown.js"></script>  
-    <script src="../static/assets/dropdown/js/navbar-dropdown.js"></script>  
-    <script src="../static/assets/touchswipe/jquery.touch-swipe.min.js"></script> 
-    <script src="../static/assets/theme/js/script.js"></script> 
-<script src="../static/assets/formoid/formoid.min.js"></script>  
-  
-  
+    <footer th:replace="layout::footer"></footer>
+
 </body>
+
 </html>

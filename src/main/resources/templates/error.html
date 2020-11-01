@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Nuestra Comunidad - Foro Yo TEAmbién</title>
+  <title>Error - Foro Yo TEAmbién</title>
   <link rel="stylesheet" href="/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -20,45 +20,29 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
-
 </head>
 
 <body>
+
   <section th:replace="layout::nav-menu"></section>
 
-  <section class="header18 cid-sdwjRM8U1y" id="header18-15">
+  <section class="header18 cid-sdqBBneEYR mbr-fullscreen" id="header18-1">
     <div class="align-center container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-10">
-          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1">
-              Nuestra Comunidad
-          </h1>
+          <!--Inicio verificacion error-->
+          <h1 class="display-4" th:if="${codigo != null}" th:text="'Error ' + ${codigo}" 
+          style="color:white"></h1>
+          <!--Fin verificacion error-->
+
+          <p class="lead" th:if="${codigo != null}" th:text="${mensaje == null ? 'Intenta nuevamente' : mensaje}"
+            style="color:orange"></p>
+          <h4 style="color:white">Vuelve atrás en el navegador!</h4>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="features7 cid-sdwoZIeIkK" id="features8-1a">
-    <div class="container">
-      <div class="row">
-        <div class="title col-12">
-          <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"><strong>Comunidad por país
-            </strong></h5>
-        </div>
-        <div class="card col-12 col-md-6" th:each="pais:${paises}">
-          <div class="card-wrapper">
-            <div class="top-line">
-              <h6 class="card-title mbr-fonts-style display-5" th:text="${pais}"><strong></strong></h6>
-              <!---  <p class="mbr-text cost mbr-fonts-style display-7" th:text="${pais.cantidad}"></p>-->
-            </div>
-            <div class="bottom-line">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
   <footer th:replace="layout::footer"></footer>
 
 </body>
