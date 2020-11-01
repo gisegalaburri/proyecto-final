@@ -46,6 +46,7 @@ public class ComentarioController {
             HttpSession session) {
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("descripcionhilo", hilo.getDescripcion());
         modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
 
@@ -84,6 +85,7 @@ public class ComentarioController {
             modelo.put("listacomentarios", listacomentarios);
         }
         modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("descripcionhilo", hilo.getDescripcion());
         modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
         return "hilo.html";
@@ -111,6 +113,7 @@ public class ComentarioController {
             modelo.put("listacomentarios", listacomentarios);
         }
         modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("descripcionhilo", hilo.getDescripcion());
         modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
         return "hilo.html";
@@ -128,15 +131,16 @@ public class ComentarioController {
         try {
             comentarioServicio.modificarComentario(descripcion, iduser, idcomentario);
 
-            modelo.put("mostrar", "notnull");
+            modelo.put("exitom", "Se actualizó correctamente tu comentario");
+            
 
         } catch (ErrorServicio ex) {
             modelo.put("editar", "notnull");
-            modelo.put("error", ex.getMessage());
+            modelo.put("errorm", ex.getMessage());
             modelo.put("iduser", iduser);
             modelo.put("idcomentario", idcomentario);
             modelo.put("descripcion", descripcion);
-            return "hilo.html";
+            
         }
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
@@ -147,6 +151,7 @@ public class ComentarioController {
             modelo.put("listacomentarios", listacomentarios);
         }
         modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("descripcionhilo", hilo.getDescripcion());
         modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
         return "hilo.html";
@@ -169,6 +174,7 @@ public class ComentarioController {
         modelo.put("tablallena", "notnull");
         modelo.put("listacomentarios", listacomentarios);
         modelo.put("titulohilo", hilo.getTitulo());
+        modelo.put("descripcionhilo", hilo.getDescripcion());
         modelo.put("idhilo", hilo.getId());
         modelo.put("mostrar", "notnull");
             

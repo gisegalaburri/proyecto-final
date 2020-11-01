@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-</html>
-
 <head>
     <!-- Site made with Mobirise Website Builder v5.2.0, https://mobirise.com -->
     <meta charset="UTF-8">
@@ -13,7 +11,7 @@
     <meta name="description" content="">
 
 
-    <title>Portal Administrador - Foro Yo TEAmbién</title>
+    <title>Portal Moderador - Foro Yo TEAmbién</title>
     <link rel="stylesheet" href="/assets/tether/tether.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -31,18 +29,17 @@
 
 <body>
     <section th:replace="layout::nav-menu"></section>
-
-    <section class="header18 cid-sdrzCCdQR1" id="tituloprincipal">
+    
+    <section class="header18 cid-sdrCCM1paK" id="tituloprincipal">
         <div class="align-center container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
-                    <span class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"
-                        style="font-size: xx-large"> Menu Administrador </span>
+                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"
+                        style="font-size: xx-large"> Portal Moderador </h1>
                 </div>
             </div>
         </div>
     </section>
-
 
     <section class="form5 cid-sdqZqPhEBB" id="crearsala" th:if="${crearsala != null}">
         <div class="container">
@@ -50,7 +47,7 @@
                 <div class="title col-12">
                     <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
                         style="font-size: xx-large; text-align: center;">
-                        Creacion de nueva Sala Principal</h5>
+                        Crea una sala</h5>
                 </div>
             </div>
         </div>
@@ -62,18 +59,20 @@
                     <form th:action="@{/crearsalaAdmin}" method="POST" class="mbr-form form-with-styler"
                         data-form-title="Form Name">
 
-                        <p th:if="${error != null}" th:text="${error}" style="color:red" class="lead"></p>
-                        <p th:if="${exito != null}" th:text="${exito}" class="lead"></p>
+                        <p th:if="${error != null}" th:text="${error}" style="color:red; text-align: center;" class="lead"></p>
+                        <p th:if="${exito != null}" th:text="${exito}" class="lead"  style="text-align: center;"></p>
 
 
                         <div class="dragArea row">
                             <div class="col-md col-sm-12 form-group" data-for="name">
-                                <input type="text" name="titulosala" placeholder="Titulo" data-form-field="titulo"
+                                <label>Título</label>
+                                <input type="text" name="titulosala" placeholder="Título" data-form-field="titulo"
                                     class="form-control" value="" id="name-form5-i">
                             </div>
                             <div class="col-12 form-group" data-for="name">
-                                <input type="textarea" name="descripcionsala" placeholder="Descripcion de sala"
-                                    data-form-field="descripcion" class="form-control" id="name-form5-i">
+                                <label>Descripción</label>
+                                <textarea name="descripcionsala" placeholder="Descripción"
+                                          data-form-field="descripcion" class="form-control" id="name-form5-i"></textarea>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button type="submit" class="btn btn-secondary display-4"> Guardar </button>
@@ -85,71 +84,19 @@
         </div>
     </section>
 
-    <section class="form5 cid-sdqZqPhEBB" id="crearhilo" th:if="${crearhilo != null}">
-        <div class="container">
-            <div class="row">
-                <div class="title col-12">
-                    <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2"
-                        style="font-size: xx-large; text-align: center;">
-                        Creacion de subsala</h5>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form th:action="@{/crearhiloAdmin}" method="POST" class="mbr-form form-with-styler"
-                        data-form-title="Form Name">
-
-                        <p th:if="${error != null}" th:text="${error}" style="color: red" class="lead"></p>
-
-                        <p th:if="${exito != null}" th:text="${exito}" class="lead"></p>
-
-                        <input name="iduser" th:value="${session.usuariosession.id}" style="display: none">
-
-                        <div class="dragArea row">
-                            <div class="col-12 form-group" data-for="name">
-                                <h4> Seleccione sala principal </h4>
-                                <select class="form-control" name="idsala">
-                                    <option th:each="sala : ${salas}" th:value="${sala.id}" th:text="${sala.titulo}">
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="col-md col-sm-12 form-group" data-for="apellido">
-                                <input type="text" name="nuevohilo" placeholder="Titulo Subsala"
-                                    data-form-field="apellido" class="form-control" th:value="${nuevohilo}"
-                                    id="name-form5-i">
-                            </div>
-                            <div class="col-12 form-group" data-for="email">
-                                <input type="textarea" name="nuevadescripcion" placeholder="Descripcion de subsala"
-                                    th:value="${nuevadescripcion}" data-form-field="comentario" class="form-control"
-                                    id="email-form2-p">
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button
-                                    type="submit" class="btn btn-secondary display-4"> Guardar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <section class="form2 cid-sdrmQWbXCd" id="vermensajes" th:if="${vermensajes != null}">
         <div class="align-center container">
             <div class="row">
                 <div class="title col-12">
                     <h5 class="mbr-section-title mbr-fonts-style mb-3 display-2" style="font-size: xx-large">
-                        Revisar Mensajes de Usuarios</h5>
+                        Mensajes de Usuarios</h5>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
-                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                    <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
+                    <p th:if="${error != null}" th:text="${error}" style="color:red; text-align: center;"></p>
+                    <p th:if="${exito != null}" th:text="${exito}" style="text-align: center;"></p>
                     <div class="dragArea row">
 
                         <table class="table table-striped table table-bordered">
@@ -158,9 +105,9 @@
                                     <th scope="col"> Id </th>
                                     <th scope="col"> Asunto</th>
                                     <th scope="col"> Descripcion </th>
-                                    <th scope="col"> Fecha Alta </th>
+                                    <th scope="col"> Fecha  </th>
                                     <th scope="col"> Usuario </th>
-                                    <th scope="col"> Solucionado </th>
+                                    <th scope="col"> Acciones </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -172,7 +119,7 @@
                                     <td th:text="${mensaje.remitente.nickname}"> </td>
                                     <td>
                                         <a class="btn btn-danger" th:href="@{solucionarmensaje/__${mensaje.id}__}">
-                                            Marcar como Solucionado </a>
+                                            Solucionado </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -196,8 +143,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
 
-                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                    <p th:if="${exito != null}" th:text="${exito}" style="color:red"></p>
+                    <p th:if="${error != null}" th:text="${error}" style="color:red ; text-align: center;"></p>
+                    <p th:if="${exito != null}" th:text="${exito}" style="text-align: center;"></p>
 
                     <div class="dragArea row">
 
@@ -225,10 +172,10 @@
 
             <div class="container">
                 <div class="mbr-section-head">
-                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2">
-                        <strong> Datos de usuario a bloquear </strong></h3>
-                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
-                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                    <h5 class="mbr-section-title mbr-fonts-style mb-0 display-2">
+                       Usuario a bloquear </h5>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color: red; text-align: center;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" style="text-align: center;" class="lead"></p>
                 </div>
 
                 <div class="row mt-4" th:object="${usuario}">
@@ -277,14 +224,18 @@
 
             <div class="container">
                 <div class="mbr-section-head">
-                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
-                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
-                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                    <h5 class="mbr-section-title mbr-fonts-style mb-0 display-2">Profesionales Deshabilitados</h5>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color: red;  text-align: center;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" style=" text-align: center;" class="lead"></p>
                 </div>
                 <div class="row mt-4" th:each="profesional:${profesionales}">
                     <div class="card col-12">
                         <div class="card-wrapper">
                             <div class="top-line row">
+                                <div class="col">
+                                    <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/__${profesional.foto.id}__}"
+                                        id="img" style="width: 100px;" />
+                                </div>
                                 <div class="col">
                                     <h4 class="card-title mbr-fonts-style display-5"><strong
                                             th:text="${profesional.nombre}">
@@ -304,13 +255,16 @@
                                         th:text="${profesional.email}"></p>
                                     <p class="price mbr-fonts-style display-4" style="text-align: end;"
                                         th:text="${profesional.pais}"><br></p>
+                                    <!--habilitar-->
+                                    <div class="mbr-section-btn col-md-auto col" sec:authorize="hasRole('MODERADOR')">
+
+                                        <a class="btn btn-secondary display-4"
+                                            th:href="@{/habilitar-profesional/__${profesional.id}__}">
+                                             Volver a Habilitar </a>
+                                    </div>
                                 </div>
                             </div>
-
-                            <!--habilitar-->
-                            <a class="btn btn-secondary display-4"
-                                th:href="@{/habilitar-profesional/__${profesional.id}__}">
-                                Volver a Habilitar </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -324,10 +278,10 @@
 
             <div class="container">
                 <div class="mbr-section-head">
-                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong> Usuarios
-                            Deshabilitados</strong></h3>
-                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
-                    <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                    <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2">Usuarios
+                            Deshabilitados</h3>
+                    <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red; text-align: center;" class="lead"></p>
+                    <p th:if="${exito!=null}" th:text="${exito}" class="lead" style="text-align: center;"></p>
                 </div>
                 <div class="row mt-4" th:each="usuario:${usuarios}">
                     <div class="card col-12">
