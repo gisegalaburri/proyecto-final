@@ -136,8 +136,7 @@ public class ComentarioController {
             modelo.put("iduser", iduser);
             modelo.put("idcomentario", idcomentario);
             modelo.put("descripcion", descripcion);
-            return "hilo.html";
-        }
+                    }
         Hilo hilo = hiloRepositorio.getOne(idhilo);
         List<Comentario> listacomentarios = comentarioServicio.listarActivos(idhilo);
         if (listacomentarios.isEmpty()) {
