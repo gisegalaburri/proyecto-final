@@ -80,7 +80,7 @@ public class UsuarioServicio implements UserDetailsService {
                 usuario.setPais(pais);
                 usuario.setFechaNacimiento(fechaNacimiento);
                 usuario.setDiagnostico(diagnostico);
-                usuario.setRol(Rol.MODERADOR);
+                usuario.setRol(Rol.USUARIO);
                 usuario.setFechaAlta(new Date());
                 usuario.setActivo(true);
 
