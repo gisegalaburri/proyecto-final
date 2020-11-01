@@ -32,8 +32,8 @@
                 <div class="align-center container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-10">
-                            <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>
-                                    Profesionales</strong>
+                            <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1">
+                                    Profesionales
                             </h1>
                             <p class="mbr-text mbr-fonts-style mbr-white display-7">Seleccione el país y especialidad
                                 para encontrar ayuda</p>
@@ -51,7 +51,7 @@
                                   data-form-title="Form Name">
                                 <div class="dragArea row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <h1 class="mbr-section-title mb-4 display-2"><strong>Búsqueda</strong></h1>
+                                        <h1 class="mbr-section-title mb-4 display-2">Búsqueda</h1>
                                     </div>
 
                                     <div class="col-lg col-md col-12 form-group">
@@ -89,8 +89,8 @@
                 <div class="container">
                     <div class="mbr-section-head">
                         <h3 class="mbr-section-title mbr-fonts-style mb-0 display-2"><strong>Profesionales</strong></h3>
-                        <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
-                        <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                        <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red; text-align: center;" class="lead"></p>
+                        <p th:if="${exito!=null}" th:text="${exito}" class="lead" style="text-align: center;"></p>
                     </div>
                     <div class="row mt-4" th:each="profesional:${profesionales}">
                         <div class="card col-12">
@@ -157,8 +157,8 @@
                         <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
                             <form th:action="@{/profesional/modificar}" method="POST" class="mbr-form form-with-styler"
                                   data-form-title="Form Name" enctype="multipart/form-data" th:object="${profesional}">
-                                <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red;" class="lead"></p>
-                                <p th:if="${exito!=null}" th:text="${exito}" class="lead"></p>
+                                <p th:if="${error!=null}" th:text="${error}" name="error" style="color:red; text-align: center" class="lead"></p>
+                                <p th:if="${exito!=null}" th:text="${exito}" style="text-align: center" class="lead"></p>
                                 <div class="row">
 
                                     <input type="text" th:field="*{id}" style="display: none;" />

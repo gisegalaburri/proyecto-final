@@ -35,8 +35,8 @@
     <div class="align-center container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-10">
-          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Iniciar
-              Sesión</strong></h1>
+          <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1">Iniciar
+              Sesión</h1>
           <p  class="lead" th:if="${login!=null}" th:text="${login}" style="color: white;"></p>
         </div>
       </div>
@@ -58,10 +58,12 @@
 
             <div class="dragArea row">
               <div class="col-md col-sm-12 form-group" data-for="name">
+                  <label>Nickname</label>
                 <input class="form-control" type="text" name="nickname" placeholder="Nickname" 
                 data-form-field="name" id="name-form5-b" th:value="${nickname}">
               </div>
               <div class="col-md col-sm-12 form-group" data-for="name">
+                  <label>Clave</label>
                 <input class="form-control" type="password" name="clave1" placeholder="Clave" 
                 data-form-field="email" id="email-form5-b" th:value="${clave1}">
               </div>
