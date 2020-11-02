@@ -48,6 +48,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     FotoServicio fotoServicio;
 
+    @Transactional
     public void altaUsuario(String nombre, String apellido, String nickname,
             String email, String clave1, String clave2, String descripcion,
             Pais pais, Date fechaNacimiento, Diagnostico diagnostico,
