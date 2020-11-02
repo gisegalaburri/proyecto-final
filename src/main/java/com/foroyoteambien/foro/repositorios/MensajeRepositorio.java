@@ -9,12 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.foroyoteambien.foro.entidades.Mensaje;
 
-
-@Repository 
+@Repository
 public interface MensajeRepositorio extends JpaRepository<Mensaje, String> {
 
-	@Query("SELECT m FROM Mensaje m WHERE m.solucionado IS NOT TRUE")
-	public List<Mensaje> buscarNoResuelto();
-	
+    @Query("SELECT m FROM Mensaje m WHERE m.solucionado IS NOT TRUE")
+    public List<Mensaje> buscarNoResuelto();
 
 }

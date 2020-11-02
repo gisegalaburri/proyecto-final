@@ -275,7 +275,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
         if (fechaNacimiento == null || fechaNacimiento.toString().isEmpty()) {
-            throw new ErrorServicio("Debe indicar su edad.");
+            throw new ErrorServicio("Debe indicar su fecha de nacimiento.");
         }
 
         if (diagnostico.toString().equals("NO")) {

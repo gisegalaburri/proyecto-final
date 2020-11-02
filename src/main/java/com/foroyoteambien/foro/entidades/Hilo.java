@@ -1,6 +1,5 @@
 package com.foroyoteambien.foro.entidades;
 
-
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -27,18 +26,18 @@ public class Hilo {
 
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
-    
+
     private boolean activo;
-    
+
     @OneToMany
     private List<Comentario> listaComentarios;
 
     @ManyToOne
     private Usuario usuario;
-    
+
     public Hilo() {
 
     }
@@ -109,21 +108,19 @@ public class Hilo {
         this.listaComentarios = listaComentarios;
     }
 
-    
     public Usuario getUsuario() {
-		return usuario;
-	}
+        return usuario;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	@Override
-	public String toString() {
-		return "Hilo [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta
-				+ ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + ", listaComentarios="
-				+ listaComentarios + ", usuario=" + usuario + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Hilo [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta
+                + ", fechaModificacion=" + fechaModificacion + ", activo=" + activo + ", listaComentarios="
+                + listaComentarios + ", usuario=" + usuario + "]";
+    }
 
 }

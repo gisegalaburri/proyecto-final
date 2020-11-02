@@ -97,3 +97,4 @@ public class FotoServicio {
         return fotoRepositorio.getOne(id);
     }
 }
+

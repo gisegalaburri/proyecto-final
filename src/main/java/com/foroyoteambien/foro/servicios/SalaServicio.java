@@ -23,7 +23,7 @@ public class SalaServicio {
 
     @Autowired
     SalaRepositorio salaRepositorio;
-    
+
     @Autowired
     HiloRepositorio hiloRepositorio;
 
@@ -38,8 +38,8 @@ public class SalaServicio {
         sala.setDescripcion(descripcion);
         sala.setFechaAlta(new Date());
         sala.setTitulo(titulo);
-        List <Hilo> listaHilos = new ArrayList(); 
-        sala.setListaHilos(listaHilos); 
+        List<Hilo> listaHilos = new ArrayList();
+        sala.setListaHilos(listaHilos);
         salaRepositorio.save(sala);
     }
 
@@ -51,7 +51,7 @@ public class SalaServicio {
             Sala sala = respuesta.get();
             sala.setActiva(false);
             sala.setFechaModificacion(new Date());
-            
+
             salaRepositorio.save(sala);
         } else {
             throw new ErrorServicio("La sala no fue encontrada, no se puede realizar operación.");
@@ -59,7 +59,7 @@ public class SalaServicio {
 
     }
 
-      private List<Hilo> listarHilos(String idSala) throws ErrorServicio {
+    private List<Hilo> listarHilos(String idSala) throws ErrorServicio {
         Optional<Sala> respuesta = salaRepositorio.findById(idSala);
 
         if (respuesta.isPresent()) {
@@ -72,13 +72,12 @@ public class SalaServicio {
             throw new ErrorServicio("No se encontró la sala solicitada.");
         }
     }
-    
+
     public List<Sala> listarSalas() {
         List<Sala> listaSalas = salaRepositorio.findAll();
         return listaSalas;
 
     }
-
 
     private void validar(String titulo, String descripcion) throws ErrorServicio {
 
