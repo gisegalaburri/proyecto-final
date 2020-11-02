@@ -57,23 +57,27 @@
 
 
 
-        <section class="features22 cid-sdrj2CMyZY" id="features23-m" style="padding-top: 10px; background-color: #bed3f9">
-            <div class="container">
-                <!-- col-12 col-md-6 col-lg-4 -->
-                <div class="row justify-content-center content-row mt-4">
-                    <div class="card p-4 p-md-3 col-md-6 col-lg-4" th:each="hilo:${hilos}" style="background-color: #ffffff">
-                        <div class="card-box">
-                            <h1 class="card-title mbr-fonts-style display-5" style="font-size: xx-large"
+        <section class="gallery3 cid-sdqSuUuYX4" id="features23-m" style="padding-top: 10px; background-color: #bed3f9">
+            <div class="content">
+            <div class="container-fluid">
+                <div class="row mt-4">
+                    <div class="item features-image сol-12 col-md-6 col-lg-3" th:each="hilo : ${hilos}">
+                        <div class="item-wrapper">
+
+                            <div class="item-content">
+                                <h1 class="card-title mbr-fonts-style display-5" style="font-size: x-large; font-weight: bold"
                                 th:text="${hilo.titulo}"> </h1>
-                            <small id="emailHelp" class="form-text text-muted">By: <span th:text="${hilo.usuario.nickname}"></span></small>
-                            <p class="mbr-text card-text mbr-fonts-style display-7" style="font-size: x-large"
+                                <small id="emailHelp" class="form-text text-muted">By: <span th:text="${hilo.usuario.nickname}"></span></small>
+                                <p class="mbr-text card-text mbr-fonts-style display-7" style="font-size: large"
                                 th:text="${hilo.descripcion}"> </p>
-                            <div class="mbr-section-btn col-md-auto col">
-                                <a class="btn btn-primary btn-lg" th:href="@{/listarcomentarios/__${hilo.id}__}">
+                                <div class="mbr-section-btn col-md-auto col" style="margin-left: 10px;" >
+                                    <a class="btn btn-primary btn-lg" th:href="@{/listarcomentarios/__${hilo.id}__}">
                                     Ingresar</a>
+                                </div>   
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </section>
