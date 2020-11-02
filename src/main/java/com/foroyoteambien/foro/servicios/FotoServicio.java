@@ -29,7 +29,7 @@ public class FotoServicio {
     public Foto guardarFoto(MultipartFile archivo) throws ErrorServicio {
 
         Foto foto = null;
-        if (archivo.getContentType().equals("image/jpeg")) {
+        if (archivo.getContentType().equals("image/png") || archivo.getContentType().equals("image/jpeg")) {
             try {
                 foto = new Foto();
                 foto.setMime(archivo.getContentType());
@@ -42,22 +42,22 @@ public class FotoServicio {
                 System.out.println(e.getMessage());
             }
         } else {
-            foto = fotoRepositorio.getOne("default_foto");
+            foto = fotoRepositorio.getOne("default");
         }
         return foto;
     }
-    
-     @Transactional
+
+    @Transactional
     public Foto guardarPorDefecto(MultipartFile archivo) throws ErrorServicio {
 
         if (archivo != null) {
             try {
                 Foto foto = new Foto();
-                
+
                 foto.setMime(archivo.getContentType());
                 foto.setNombre(archivo.getOriginalFilename());
                 foto.setContenido(archivo.getBytes());
-                
+
                 return fotoRepositorio.save(foto);
 
             } catch (IOException e) {
@@ -66,24 +66,22 @@ public class FotoServicio {
         }
         return null;
     }
-    
+
     @Transactional
     public Foto actualizar(String idFoto, MultipartFile archivo) throws ErrorServicio {
+        Foto foto = null;
         
-        if (archivo.getContentType().equals("image/jpeg")) {
+        if (archivo.getContentType().equals("image/png") || archivo.getContentType().equals("image/jpeg")) {
             try {
-                Foto foto = new Foto();
-                
-                if (idFoto != null) {
-                    Optional<Foto> opt = fotoRepositorio.findById(idFoto);
-                    if (opt.isPresent()) {
-                        foto = opt.get();
-                    }
+
+                Optional<Foto> opt = fotoRepositorio.findById(idFoto);
+                if (opt.isPresent()) {
+                    foto = opt.get();
+                    foto.setMime(archivo.getContentType());
+                    foto.setNombre(archivo.getOriginalFilename());
+                    foto.setContenido(archivo.getBytes());
                 }
-                
-                foto.setMime(archivo.getContentType());
-                foto.setNombre(archivo.getOriginalFilename());
-                foto.setContenido(archivo.getBytes());
+
                 return fotoRepositorio.save(foto);
 
             } catch (IOException e) {
@@ -91,6 +89,12 @@ public class FotoServicio {
             }
 
         }
-        return null;
+
+        return fotoRepositorio.getOne(idFoto);
+    }
+
+    public Foto buscarPorId(String id) throws ErrorServicio {
+        return fotoRepositorio.getOne(id);
     }
 }
+

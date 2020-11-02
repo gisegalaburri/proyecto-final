@@ -6,6 +6,7 @@
 package com.foroyoteambien.foro.repositorios;
 
 import com.foroyoteambien.foro.entidades.Usuario;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,14 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT u FROM Usuario u WHERE u.email like :email")
     public Usuario buscarPorMail(@Param("email") String email);
+
+    @Query("SELECT u FROM Usuario u WHERE u.activo IS TRUE")
+    public List<Usuario> buscarActivos();
+
+    @Query("SELECT u.pais, COUNT(u) FROM Usuario u WHERE u.activo IS TRUE GROUP BY u.pais ORDER BY COUNT(u) DESC")
+    public List<String> rankingPaises();
+    
+    @Query("SELECT u FROM Usuario u WHERE u.activo IS FALSE")
+    public List<Usuario> listarNoActivos();
+
 }
