@@ -100,15 +100,15 @@ public class UsuarioController {
             @RequestParam String nickname,
             HttpSession session) {
 
-        try {
-            Usuario usuario = usuarioServicio.buscarPorNickname(nickname);
+        Usuario usuario = usuarioServicio.buscarPorNickname(nickname);
+        if (usuario == null) {
+            modelo.put("bloquearUser", "notnull");
+            modelo.put("error", "No se encontró el usuario, verifique el nickname");
+        }else{
+            modelo.put("mostraruser", "notnull");
             modelo.put("usuario", usuario);
-
-        } catch (ErrorServicio ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-            modelo.put("error", ex.getMessage());
         }
-        modelo.put("mostraruser", "notnull");
+       
         return "menuadministrador.html";
     }
 
@@ -121,7 +121,7 @@ public class UsuarioController {
             usuarioServicio.deshabilitar(id);
             modelo.put("exito", "Usuario bloqueado correctamente");
         } catch (ErrorServicio e) {
-            modelo.put("error", "No andaaaaaaaaaaaaaaaaaaaa");
+            modelo.put("error", e.getMessage());
         }
         modelo.put("bloquearUser", "notnull");
         return "menuadministrador.html";

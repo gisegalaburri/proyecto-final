@@ -227,12 +227,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
-    public Usuario buscarPorNickname(String nickname) throws ErrorServicio {
+    public Usuario buscarPorNickname(String nickname) {
 
         Usuario usuario = usuarioRepositorio.buscarPorNick(nickname);
-        if (usuario == null) {
-        throw new ErrorServicio ("Usuario Nulo"); 
-        }
+       
         return usuario;
     }
 
